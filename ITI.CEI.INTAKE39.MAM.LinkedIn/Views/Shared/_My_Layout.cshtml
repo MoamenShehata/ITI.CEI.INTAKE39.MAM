@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/MyContent/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    <nav class="nav">
+    <div class="container">
+      <div class="navbar">
+        <div class="left_nav">
+          <ul>
+            <li><i class="fab fa-linkedin"></i></li>
+            <li><input type="text" placeholder="Search" class="search"></li>
+          </ul>
+        </div>
+        <div class="right_nav">
+          <ul>
+            <li><i class="fas fa-home"></i>
+              <div>Home</div>
+            </li>
+            <li><i class="fas fa-users"></i>
+              <div>My Network</div>
+            </li>
+            <li><i class="fas fa-briefcase"></i>
+              <div>Jobs</div>
+            </li>
+            <li><i class="fas fa-envelope"></i>
+              <div>Messaging</div>
+            </li>
+            <li><i class="fas fa-bell"></i>
+              <div>Notifiactions</div>
+            </li>
+            <li class="last_item">
+                <a href="~/home/ProfilePage">
+                    <div class="myphoto"></div>
+                    <div>Me <i class="fas fa-caret-down"></i> </div>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+    
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

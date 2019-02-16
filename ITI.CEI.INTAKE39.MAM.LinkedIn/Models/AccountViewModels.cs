@@ -7,7 +7,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
     {
         [Required]
         [Display(Name = "Email")]
-        public string Email { get; set; }
+        public string Email { get; set;}
     }
 
     public class ExternalLoginListViewModel
@@ -17,7 +17,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
 
     public class SendCodeViewModel
     {
-        public string SelectedProvider { get; set; }
+        public string SelectedProvider {get; set;}
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
@@ -64,6 +64,18 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "First Name")]
+        public string Fname {get; set;}
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string Lname {get; set;}
+
+        [Required]
+        [Display(Name = "Age")]
+        public int Age {get; set;}
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

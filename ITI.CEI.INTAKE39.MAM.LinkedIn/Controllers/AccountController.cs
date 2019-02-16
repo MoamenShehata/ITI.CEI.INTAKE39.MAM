@@ -151,7 +151,9 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {FName=model.Fname,
+                    LName = model.Lname,Age=model.Age,
+                    UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -163,7 +165,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Wall", "Home");
                 }
                 AddErrors(result);
             }

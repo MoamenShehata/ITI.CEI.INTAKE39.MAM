@@ -8,6 +8,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthorizeAttribute());
         }
     }
 }

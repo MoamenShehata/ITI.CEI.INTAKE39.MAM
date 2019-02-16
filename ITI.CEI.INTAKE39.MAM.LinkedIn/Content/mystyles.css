@@ -1,0 +1,267 @@
+*{padding: 0;margin: 0;}
+.nav{
+    background-color: #283E4A !important;
+    padding: 0;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Fira Sans",Ubuntu,Oxygen,"Oxygen Sans",Cantarell,"Droid Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Emoji","Segoe UI Symbol","Lucida Grande",Helvetica,Arial,sans-serif;
+    /*position:fixed;*/
+}
+a{color:rgb(125, 132, 150);text-decoration: none;}
+a:hover{color:#0077B5;}
+
+
+
+.navbar{height:100%;
+    padding:0px;box-sizing: border-box;
+margin: 0;height: 100%;overflow: hidden;
+}
+.container{width:1170px;margin:0 auto;}
+
+.fa-linkedin{
+color: #0077B5;
+margin-top: 5px;
+padding: 0;font-size:40px; 
+}
+
+.left_nav{float: left;padding: 0;margin: 0;}
+
+.right_nav{float: right;padding:0px;margin:0px;
+height: 100%;box-sizing: border-box;
+    }
+
+
+.left_nav ul{list-style-type: none;
+   padding: 0;margin: 0;
+}
+
+
+.left_nav ul li{float: left;margin-right:20px;}
+
+.search {
+    padding: 7px 60px 7px 10px;
+    border-radius: 3px;
+    border: none;
+    margin-top: 7px;
+    font-size:18px;
+    color:#5f5f5f;
+}
+
+
+.right_nav ul{box-sizing: border-box;
+    float: right;padding-top:5px;
+    list-style-type: none;margin: 0;
+height: 100% !important;border-right:1px solid rgb(168, 168, 168);
+padding-right:10px;overflow: hidden;
+}
+
+
+    .right_nav ul li{text-align: center;
+        float: left;padding:0px;
+    color: rgb(206, 206, 206);padding: 0 15px;
+    cursor: pointer;
+    transition:color 0.1s ease-in;
+}
+    .right_nav ul li:hover{box-sizing: border-box;
+        color: white;
+        
+    }
+
+    .right_nav ul li .fas{font-size:20px;
+        padding: 0;
+    }
+
+    .right_nav div{font-size:14px;}
+
+   .myphoto{width:25px;height: 25px;
+            background-color:red;
+/*background: url("Banshee3.jpg");*/
+background-size: cover;
+background-repeat: no-repeat;
+border-radius:50%;
+}
+
+
+.float_left{float: left;}
+
+.last_item:hover{border-bottom:none !important}
+
+
+
+.left_profile{float: left;width:70%;}
+.right_profile{float: left;width:30%;}
+
+
+
+.profile_parent{overflow: hidden;}
+
+.background_image{height:200px;background:blue}
+
+.info{overflow: hidden;}
+
+.padded_section{padding:20px;}
+
+.bordered_section{border:2px solid rgb(168, 168, 168);
+    border-top: none;
+/* box-shadow:2px 2px 6px grey; */
+}
+
+.left_info{float: left;width: 70%;padding-top:100px;}
+
+.right_info{float: right;width: 25%;box-sizing: border-box;
+    padding-top:100px;
+}
+
+.experience_education .fa-edit{position: relative;
+    left: calc(50% - 10px);
+}
+    
+.edit_section{display: inline-block;
+    color: #0077B5;
+    margin-top: -2px;
+    padding: 0;font-size:20px;
+position: relative;top:115px;
+top: 80px;transition:background 0.2s ease-in-out;
+left: 92%;
+border-radius:50%;
+padding: 5px;
+text-align: center;}
+
+.edit_section:hover{background:rgba(66, 115, 248, 0.192);
+}
+.profile_picture{width: 150px;height: 150px;
+border-radius:50%;background:green;
+border:5px solid rgb(212, 212, 212);
+box-shadow:1px 1px 7px grey;
+position: relative;
+top:115px;left:30px;
+}
+
+.left_info_buttons .btn1{padding:10px 20px ;
+background: #006097;border: none;
+color:white;border-radius:2px;font-size:16px;
+}
+.left_info_buttons .btn2{box-sizing:border-box;
+    padding:10px 15px ;font-size:16px;
+    background: white;border: 1px solid rgb(56, 56, 56);
+    color:rgb(128, 128, 128);border-radius:2px;
+}
+
+
+.info h2,h3{color:rgb(32, 32, 32);
+margin-bottom:10px;
+
+}
+
+.info p{color:rgb(94, 94, 94);
+    margin-bottom:10px;
+
+
+}
+.seprator{border-top:1px solid rgb(145, 145, 145);
+
+}
+
+
+
+.experience_education ,.Skills_Endorsements,.Accomplishments
+,.Interests
+{margin: 20px 0px;
+    padding:20px 20px 20px 20px;
+    border:2px solid rgb(168, 168, 168);
+}
+
+.experience_education_heading{overflow: hidden;}
+.experience_education_heading_header{float: left;}
+
+.fa-plus{float: right;color:#006097;}
+
+.experience_education_section{overflow: hidden;
+margin:20px 0px;
+}
+
+.experience_education_section_image{width: 10%;float: left;
+height:77.5px;background:red;
+margin-right:15px;
+}
+.experience_education_section_content{width: 88%;float: left;
+
+    padding-bottom:15px;
+    border-bottom:1px solid rgb(175, 175, 175);
+}
+
+
+.experience_education_section_context{float: left;
+}
+
+
+ .experience_education_section_edit{float: right;
+    color: #006097;
+}
+
+.Skills_Endorsements_icons{float: right;
+    margin-left:15px;color: #006097;
+}
+
+.Skills_Endorsements .skill_heading{margin:5px 0px;}
+
+.Accomplishments{overflow: hidden;}
+.Accomplishments .Accomplishments_label,.Accomplishments_content
+{
+    float: left;
+}
+
+.Accomplishments_section{margin-top:15px;}
+.Accomplishments .Accomplishments_label
+{
+    font-size:30px;margin-right:10px;
+}
+
+.Accomplishments_content p{margin-bottom:10px;}
+
+.Interests{overflow: hidden;}
+.Interests .Interests_left , .Interests_right
+{float: left;width: 50%;}
+
+
+.Interests .interest{overflow: hidden;
+float: left;width: 50%;margin:15px 0px;
+}
+
+
+.Interests .Interests_image
+{float: left;
+    width: 50px;height: 50px;background:red;
+margin-right:15px;
+
+}
+
+
+footer {padding: 30px 10px 30px 50px;
+    border-top:1px solid rgb(141, 141, 141);
+}
+
+
+.footer_label{
+    color: black;font-size:20px;
+font-weight: bold;font-family:Verdana, Geneva, Tahoma, sans-serif;
+margin-bottom:20px;
+}
+
+
+footer span{display:inline-block;
+background:#0077B5;color: white;
+margin-right:5px;border-radius:2px;
+position: relative;left:2px;padding: 1px;
+}
+
+.footer_links{overflow: hidden;}
+
+
+.footer_link{float: left;
+width:30%;font-size:14px;
+margin: 7px 0px;
+}
+
+
+footer .quest{margin:20px 0px;}
+
+.copyrights{color: rgb(125, 132, 150);}

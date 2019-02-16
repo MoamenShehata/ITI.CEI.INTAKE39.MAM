@@ -13,6 +13,18 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult Wall()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ProfilePage()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
