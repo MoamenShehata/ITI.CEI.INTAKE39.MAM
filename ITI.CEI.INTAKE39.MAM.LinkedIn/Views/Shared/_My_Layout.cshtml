@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+@{
+    var currentUserId = User.Identity.GetUserId();
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,44 +18,67 @@
 <body>
 
     <nav class="nav">
-    <div class="container">
-      <div class="navbar">
-        <div class="left_nav">
-          <ul>
-            <li><i class="fab fa-linkedin"></i></li>
-            <li><input type="text" placeholder="Search" class="search"></li>
-          </ul>
+        <div class="container">
+            <div class="navbar">
+                <div class="left_nav">
+                    <ul>
+                        <li><i class="fab fa-linkedin"></i></li>
+                        <li><input type="text" placeholder="Search" class="search"></li>
+                    </ul>
+                </div>
+                <div class="right_nav">
+                    <ul>
+                        <li>
+                            <i class="fas fa-home"></i>
+                            <div>Home</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-users"></i>
+                            <div>My Network</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-briefcase"></i>
+                            <div>Jobs</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <div>Messaging</div>
+                        </li>
+                        <li>
+                            <i class="fas fa-bell"></i>
+                            <div>Notifiactions</div>
+                        </li>
+                        <li class="last_item">
+                            <a href="~/home/ProfilePage">
+                                <div class="myphoto"></div>
+                                <div>Me <i class="fas fa-caret-down"></i> </div>
+                            </a>
+                        </li>
+                        <li>
+                            <i class="fas fa-sign-out-alt"></i>
+                            <div><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="right_nav">
-          <ul>
-            <li><i class="fas fa-home"></i>
-              <div>Home</div>
-            </li>
-            <li><i class="fas fa-users"></i>
-              <div>My Network</div>
-            </li>
-            <li><i class="fas fa-briefcase"></i>
-              <div>Jobs</div>
-            </li>
-            <li><i class="fas fa-envelope"></i>
-              <div>Messaging</div>
-            </li>
-            <li><i class="fas fa-bell"></i>
-              <div>Notifiactions</div>
-            </li>
-            <li class="last_item">
-                <a href="~/home/ProfilePage">
-                    <div class="myphoto"></div>
-                    <div>Me <i class="fas fa-caret-down"></i> </div>
-                </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
 
-  </nav>
-    
+    </nav>
+
+    @using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+            
+        }
+    }
+    else
+    {
+        
+    }
+
     <div class="container body-content">
         @RenderBody()
         <hr />

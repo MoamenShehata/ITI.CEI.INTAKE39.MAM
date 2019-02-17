@@ -18,7 +18,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public ApplicationUser LinkedInUser { get; set; }
 
         [ForeignKey("LinkedInUser")]
-        public int FK_LinkedInUserId { get; set; }
+        public string FK_LinkedInUserId { get; set; }
 
         public List<Comment> Comments { get; set; }
 

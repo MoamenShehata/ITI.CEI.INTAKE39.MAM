@@ -1,45 +1,48 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@model LinkedInUserProfileViewModel
+
 @{
     ViewBag.Title = "Profile Page";
     Layout = "~/Views/Shared/_My_Layout.cshtml";
 }
 
 
-
 <div class="profile_parent container">
 
     <div class="left_profile">
         <div class="profile_section">
-            <div class="background_image bordered_section">
-                <div class="profile_picture">
+            <div id="cover_image" class="background_image bordered_section">
+                <div id="profile_image" class="profile_picture">
 
                 </div>
-                <a href="" class="edit_section"><i class="fas fa-edit"></i></a>
-
+                <a href="" class="edit_section" data-toggle="modal" data-target="#ModalEditInformation"><i class="fas fa-edit"></i></a>
+                
             </div>
 
-            <div class="info bordered_section">
+            @Html.Partial("_PartialEditUserInformation")
+            @Html.Partial("_PartialAddExperience")
+            @Html.Partial("_PartialEditExperience")
+            @Html.Partial("_PartialAddEducation")
+            @Html.Partial("_PartialAddSkill")
+            <div id="user_information" class="info bordered_section">
                 <div class="left_info padded_section">
-                    <h2 id="account_name">Name</h2>
-                    <h3 id="account_position">position</h3>
-                    <p id="account_country">Country</p>
+                    <h2 id="account_name">@Model.User.FName</h2>
+                    <h3 id="account_position">@Model.User.Position</h3>
+                    <p id="account_country">@Model.User.Country</p>
                     <div class="left_info_buttons">
                         <button class="btn1">Add Profile Section</button>
                         <button class="btn2">More...</button>
                     </div>
                 </div>
                 <div class="right_info padded_section">
-                    <h3>school</h3>
-                    <h3>university</h3>
+                    <h3>@Model.User.School</h3>
+                    <h3>@Model.User.University</h3>
                     <h3>See Contact info</h3>
                     <h3>See connections</h3>
                 </div>
                 <div style="clear:both"></div>
                 <div class="padded_section seprator">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt minus ratione quis iste recusandae
-                        quasi, voluptatibus vitae officiis blanditiis reprehenderit sunt accusantium quibusdam. Suscipit ut
-                        recusandae, dolorem a itaque placeat!
+                        @Model.User.Bio
                     </p>
                 </div>
             </div>
@@ -50,39 +53,73 @@
             <div class="exp">
                 <div class="experience_education_heading">
                     <h3 class="experience_education_heading_header">Experience</h3>
-                    <i class="fas fa-plus"></i>
-                </div>
-                <div class="experience_education_section">
-                    <div class="experience_education_section_image"></div>
-                    <div class="experience_education_section_content">
+                    <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
+</div>
+                @{
+                    if (Model.Experiences != null)
+                    {
+                        foreach (var item in Model.Experiences)
+                        {
+                            var interval =Math.Abs( item.EndDate.Month - item.StartDate.Month);
+                            <div class="experience_education_section">
+                                <div class="experience_education_section_image"></div>
+                                <div class="experience_education_section_content">
 
-                        <div class="experience_education_section_context">
-                            <h3>civil engineering inforamtics</h3>
-                            <p>information technology institte</p>
-                            <p>smart village</p>
-                        </div>
-                        <div class="experience_education_section_edit"> <i class="fas fa-edit"></i></div>
-                    </div>
-                </div>
+                                    <div class="experience_education_section_context">
+                                        <h3>@item.Title</h3>
+                                        <p>@item.Company</p>
+                                        <p>@item.Location</p>
+                                        <p>@item.StartDate - @interval months</p>
+                                    </div>
+                                    <div class="experience_education_section_edit">
+                                        <a href="~/home/LoadExperience/@item.Id"><i class="fas fa-edit"></i></a>
+                                        @*data-toggle="modal" data-target="#ModalEditExperience"*@
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                            <p>You Have To Add New Experience</p>
+                    }
+                }
+
+
             </div>
 
             <div class="exp">
                 <div class="experience_education_heading">
                     <h3 class="experience_education_heading_header">Education</h3>
-                    <i class="fas fa-plus"></i>
+                    <a href="" data-toggle="modal" data-target="#ModalAddEducation"><i class="fas fa-plus"></i></a>
                 </div>
-                <div class="experience_education_section">
-                    <div class="experience_education_section_image"></div>
-                    <div class="experience_education_section_content">
+                @{
+                    if (Model.Educations != null)
+                    {
+                        foreach (var item in Model.Educations)
+                        {
+                            <div class="experience_education_section">
+                                <div class="experience_education_section_image"></div>
+                                <div class="experience_education_section_content">
 
-                        <div class="experience_education_section_context">
-                            <h3>civil engineering inforamtics</h3>
-                            <p>information technology institte</p>
-                            <p>smart village</p>
-                        </div>
-                        <div class="experience_education_section_edit"> <i class="fas fa-edit"></i></div>
-                    </div>
-                </div>
+                                    <div class="experience_education_section_context">
+                                        <h3>@item.School</h3>
+                                        <p>@item.Degree</p>
+                                        <p>@item.StartDate.Year - @item.EndDate.Year</p>
+                                    </div>
+                                    <div class="experience_education_section_edit"> <i class="fas fa-edit"></i></div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>You Have To Add New Education</p>
+                    }
+                }
+                
             </div>
         </div>
 
@@ -92,13 +129,22 @@
                 <div class="experience_education_heading">
                     <h3 class="experience_education_heading_header"> Skills & Endorsements </h3>
                     <i class="fas fa-edit Skills_Endorsements_icons"></i>
-                    <i class="fas fa-plus"></i>
+                    <a href="" data-toggle="modal" data-target="#ModalAddSkill"><i class="fas fa-plus"></i></a>
                 </div>
+                @{
+                    if (Model.Skills != null)
+                    {
+                        foreach (var item in Model.Skills)
+                        {
+                            <div>
+                                <h3 class="skill_heading">@item.Name</h3>
+                                <p>endorsements</p>
+                            </div>
+                        }
+                    }
 
-                <div>
-                    <h3 class="skill_heading">Skill 1</h3>
-                    <p>endorsements</p>
-                </div>
+                }
+
 
             </div>
 
@@ -193,3 +239,19 @@
 
 </footer>
 
+<script>
+
+    var _cover_image = document.getElementById("cover_image");
+    var _profile_image = document.getElementById("profile_image");
+
+    onload = function () {
+        _cover_image.style.backgroundSize = "cover";
+        _cover_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_cover.jpg"))");
+
+        _profile_image.style.backgroundSize = "cover";
+        _profile_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_profile.png"))");
+
+
+
+    }
+</script>

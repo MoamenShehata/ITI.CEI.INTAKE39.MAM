@@ -28,6 +28,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn
                       //"~/Content/mystyles.css"
                       ));
             bundles.Add(new StyleBundle("~/MyContent/css").Include(
+                      "~/Content/bootstrap.css",
                       "~/Content/mystyles.css"
                       ));
         }

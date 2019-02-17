@@ -11,17 +11,17 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
     {
         public int Id { get; set; }
 
-        public string Place { get; set; }
+        public string School { get; set; }
 
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
 
-        public EducationDegree Degree { get; set; }
+        public string Degree { get; set; }
 
         public ApplicationUser LinkedInUser { get; set; }
 
         [ForeignKey("LinkedInUser")]
-        public int FK_LinkedInUserId { get; set; }
+        public string FK_LinkedInUserId { get; set; }
     }
 }

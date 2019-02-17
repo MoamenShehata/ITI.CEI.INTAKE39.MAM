@@ -17,7 +17,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private ApplicationDbContext _ctxt = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -58,6 +58,107 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditInformationAjax(ApplicationUser user)
+        {
+            string UserId = User.Identity.GetUserId();
+            
+            ApplicationUser oldUser = _ctxt.Users.Where(u=>u.Id== UserId).FirstOrDefault();
+            
+            if (ModelState.IsValid && oldUser != null)
+            {
+                oldUser.FName = user.FName;
+                oldUser.Position = user.Position;
+                oldUser.Country = user.Country;
+                oldUser.Bio = user.Bio;
+                oldUser.School = user.School;
+                oldUser.University = user.University;
+                _ctxt.SaveChanges();
+                return RedirectToAction("ProfilePage","Home");
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditExperienceAjax(Experience experience)
+        {
+
+            Experience oldExperience = _ctxt.Experiences.Where(e=>e.Id== experience.Id).FirstOrDefault();
+            
+            if (ModelState.IsValid && experience != null)
+            {
+                oldExperience.Title = experience.Title;
+                oldExperience.Company = experience.Company;
+                oldExperience.Location = experience.Location;
+                oldExperience.StartDate = experience.StartDate;
+                oldExperience.EndDate = experience.EndDate;
+                _ctxt.SaveChanges();
+                return RedirectToAction("ProfilePage","Home");
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddExperienceAjax(Experience experience)
+        {
+            //EmployeeViewModel empVM = new EmployeeViewModel()
+            //{
+            //    Departments = ctxt.Departments.ToList(),
+            //    Employees = ctxt.Employees.ToList()
+
+            //};
+            if (ModelState.IsValid && experience != null)
+            {
+                experience.FK_LinkedInUserId = User.Identity.GetUserId();
+                _ctxt.Experiences.Add(experience);
+                _ctxt.SaveChanges();
+                return RedirectToAction("ProfilePage", "Home");
+            }
+            //EmployeeViewModel empVM = new EmployeeViewModel()
+            //{
+            //    Departments = ctxt.Departments.ToList()
+
+            //};
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddEducationAjax(Education education)
+        {
+            
+            if (ModelState.IsValid && education != null)
+            {
+                education.FK_LinkedInUserId = User.Identity.GetUserId();
+                _ctxt.Educations.Add(education);
+                _ctxt.SaveChanges();
+                return RedirectToAction("ProfilePage", "Home");
+            }
+            
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddSkillAjax(Skill skill)
+        {
+
+            if (ModelState.IsValid && skill != null)
+            {
+                skill.FK_LinkedInUserId = User.Identity.GetUserId();
+                _ctxt.Skills.Add(skill);
+                _ctxt.SaveChanges();
+                return RedirectToAction("ProfilePage", "Home");
+            }
+
             return View();
         }
 

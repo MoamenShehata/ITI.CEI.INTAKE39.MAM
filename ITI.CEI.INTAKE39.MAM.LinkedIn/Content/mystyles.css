@@ -110,6 +110,9 @@ border-radius:50%;
     padding-top:100px;
 }
 
+.right_info h3{font-size:18px !important;
+}
+
 .experience_education .fa-edit{position: relative;
     left: calc(50% - 10px);
 }

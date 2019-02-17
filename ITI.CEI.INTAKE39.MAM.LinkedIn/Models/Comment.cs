@@ -18,7 +18,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public Post Post { get; set; }
 
         [ForeignKey("LinkedInUser")]
-        public int FK_LinkedInUserId { get; set; }
+        public string FK_LinkedInUserId { get; set; }
 
         [ForeignKey("Post")]
         public int FK_PostId { get; set; }

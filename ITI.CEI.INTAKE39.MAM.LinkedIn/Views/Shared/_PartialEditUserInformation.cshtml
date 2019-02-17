@@ -1,0 +1,76 @@
+﻿@model LinkedInUserProfileViewModel
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        Confirm = "Do You Want To Add These Data?",
+        HttpMethod = "POST",
+        UpdateTargetId = "user_information",
+        InsertionMode = InsertionMode.Replace,
+
+    };
+}
+
+
+
+
+
+@using (Ajax.BeginForm("EditInformationAjax", "Account", ajaxOptions))
+{
+    <div class="modal fade bs-example-modal-lg" id="ModalEditInformation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.FName)
+                        @Html.TextBoxFor(e => e.User.FName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.FName)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.Position)
+                        @Html.TextBoxFor(e => e.User.Position, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.Position)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.Country)
+                        @Html.TextBoxFor(e => e.User.Country, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.Country)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.School)
+                        @Html.TextBoxFor(e => e.User.School, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.School)
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.University)
+                        @Html.TextBoxFor(e => e.User.University, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.University)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.Bio)
+                        @Html.TextBoxFor(e => e.User.Bio, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.Bio)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}

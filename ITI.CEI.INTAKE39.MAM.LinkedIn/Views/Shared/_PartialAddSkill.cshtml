@@ -1,0 +1,49 @@
+﻿@model LinkedInUserProfileViewModel
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        Confirm = "Do You Want To Add These Data?",
+        HttpMethod = "POST",
+        UpdateTargetId = "user_education",
+        InsertionMode = InsertionMode.Replace,
+
+    };
+}
+
+
+
+
+
+@using (Ajax.BeginForm("AddSkillAjax", "Account", ajaxOptions))
+{
+    <div class="modal fade bs-example-modal-lg" id="ModalAddSkill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add New Education</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.skill.Name)
+                        @Html.TextBoxFor(e => e.skill.Name, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.skill.Name)
+                    </div>
+                    
+
+                    @Html.HiddenFor(e=>e.skill.FK_LinkedInUserId)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Add" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+}

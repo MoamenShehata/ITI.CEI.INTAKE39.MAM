@@ -13,8 +13,13 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public string FName { get; set; }
         public string LName { get; set; }
         public string ImageURL { get; set; }
+        public string CoverURL { get; set; }
         public int Age { get; set; }
-
+        public string Position { get; set; }
+        public string Country { get; set; }
+        public string School { get; set; }
+        public string University { get; set; }
+        public string Bio { get; set; }
 
         //public List<Education> Educations { get; set; }
 
@@ -37,12 +42,12 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //public DbSet<Education> Educations { get; set; }
-        //public DbSet<Experience> Experiences { get; set; }
-        //public DbSet<Skill> Skills { get; set; }
-        //public DbSet<Post> Posts { get; set; }
-        //public DbSet<Comment> Comments { get; set; }
-        //public DbSet<Like> Likes { get; set; }
+        public DbSet<Education> Educations { get; set; }
+        public DbSet<Experience> Experiences { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

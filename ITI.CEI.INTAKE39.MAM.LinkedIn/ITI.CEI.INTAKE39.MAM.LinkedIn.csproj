@@ -187,6 +187,30 @@
     <Compile Include="Migrations\201902160534273_FirstMigration.Designer.cs">
       <DependentUpon>201902160534273_FirstMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902161115543_AddEducationToDatabase.cs" />
+    <Compile Include="Migrations\201902161115543_AddEducationToDatabase.Designer.cs">
+      <DependentUpon>201902161115543_AddEducationToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161117379_AddAllEntitiesToDatabase.cs" />
+    <Compile Include="Migrations\201902161117379_AddAllEntitiesToDatabase.Designer.cs">
+      <DependentUpon>201902161117379_AddAllEntitiesToDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161133542_AddPropertiesToApplicationUser.cs" />
+    <Compile Include="Migrations\201902161133542_AddPropertiesToApplicationUser.Designer.cs">
+      <DependentUpon>201902161133542_AddPropertiesToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161238381_AddCoverURLPropertyToUser.cs" />
+    <Compile Include="Migrations\201902161238381_AddCoverURLPropertyToUser.Designer.cs">
+      <DependentUpon>201902161238381_AddCoverURLPropertyToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161303468_ModifyExperienceEntity.cs" />
+    <Compile Include="Migrations\201902161303468_ModifyExperienceEntity.Designer.cs">
+      <DependentUpon>201902161303468_ModifyExperienceEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161322291_ModifyEducationEntity.cs" />
+    <Compile Include="Migrations\201902161322291_ModifyEducationEntity.Designer.cs">
+      <DependentUpon>201902161322291_ModifyEducationEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -196,6 +220,7 @@
     <Compile Include="Models\Like.cs" />
     <Compile Include="Models\Education.cs" />
     <Compile Include="Models\Experience.cs" />
+    <Compile Include="Models\LinkedInUserProfileViewModel.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -213,6 +238,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Default_cover.jpg" />
+    <Content Include="Images\Default_profile.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -263,6 +290,11 @@
     <Content Include="Views\Shared\_My_Layout.cshtml" />
     <Content Include="Views\Home\Wall.cshtml" />
     <Content Include="Views\Home\ProfilePage.cshtml" />
+    <Content Include="Views\Shared\_PartialAddExperience.cshtml" />
+    <Content Include="Views\Shared\_PartialEditUserInformation.cshtml" />
+    <Content Include="Views\Shared\_PartialAddSkill.cshtml" />
+    <Content Include="Views\Shared\_PartialAddEducation.cshtml" />
+    <Content Include="Views\Shared\_PartialEditExperience.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,6 +318,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902160534273_FirstMigration.resx">
       <DependentUpon>201902160534273_FirstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161115543_AddEducationToDatabase.resx">
+      <DependentUpon>201902161115543_AddEducationToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161117379_AddAllEntitiesToDatabase.resx">
+      <DependentUpon>201902161117379_AddAllEntitiesToDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161133542_AddPropertiesToApplicationUser.resx">
+      <DependentUpon>201902161133542_AddPropertiesToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161238381_AddCoverURLPropertyToUser.resx">
+      <DependentUpon>201902161238381_AddCoverURLPropertyToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161303468_ModifyExperienceEntity.resx">
+      <DependentUpon>201902161303468_ModifyExperienceEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161322291_ModifyEducationEntity.resx">
+      <DependentUpon>201902161322291_ModifyEducationEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
