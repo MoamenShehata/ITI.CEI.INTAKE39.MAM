@@ -1,8 +1,17 @@
 ﻿@model LinkedInUserProfileViewModel
-
+        
 @{
     ViewBag.Title = "Profile Page";
     Layout = "~/Views/Shared/_My_Layout.cshtml";
+
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        Confirm = "Do You Want To Add These Data?",
+        HttpMethod = "POST",
+        UpdateTargetId = "user_experience",
+        InsertionMode = InsertionMode.Replace,
+
+    };
 }
 
 
@@ -54,35 +63,84 @@
                 <div class="experience_education_heading">
                     <h3 class="experience_education_heading_header">Experience</h3>
                     <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
-</div>
+                </div>
                 @{
                     if (Model.Experiences != null)
                     {
                         foreach (var item in Model.Experiences)
                         {
-                            var interval =Math.Abs( item.EndDate.Month - item.StartDate.Month);
-                            <div class="experience_education_section">
-                                <div class="experience_education_section_image"></div>
-                                <div class="experience_education_section_content">
+                            if (Model.experience == null || Model.experience != item)
+                            {
+                                var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
+                                <div class="experience_education_section">
+                                    <div class="experience_education_section_image"></div>
+                                    <div class="experience_education_section_content">
 
-                                    <div class="experience_education_section_context">
-                                        <h3>@item.Title</h3>
-                                        <p>@item.Company</p>
-                                        <p>@item.Location</p>
-                                        <p>@item.StartDate - @interval months</p>
-                                    </div>
-                                    <div class="experience_education_section_edit">
-                                        <a href="~/home/LoadExperience/@item.Id"><i class="fas fa-edit"></i></a>
-                                        @*data-toggle="modal" data-target="#ModalEditExperience"*@
-                                    </div>
+                                        <div class="experience_education_section_context">
+                                            <h3>@item.Title</h3>
+                                            <p>@item.Company</p>
+                                            <p>@item.Location</p>
+                                            <p>@item.StartDate - @interval months</p>
+                                        </div>
+                                        <div class="experience_education_section_edit">
+                                            @*<button onclick="LoadExperience(@item.Id)">Delete</button>*@
+                                            @Html.ActionLink("Edit", "ProfilePage", new { id = @item.Id })
+                                            @*<a href="~/home/ProfilePage/@item.Id" data-toggle="modal" data-target="#ModalEditExperience"><i class="fas fa-edit"></i></a>*@
+                                            @*data-toggle="modal" data-target="#ModalEditExperience"*@
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                using (Ajax.BeginForm("EditExperienceAjax", "Account", ajaxOptions))
+                                {
+                                    <div class="experience_education_section">
+                                        <div class="experience_education_section_image"></div>
+                                        <div class="experience_education_section_content">
+
+                                            <div class="experience_education_section_context">
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(e => Model.experience.Title, new { @class = "form-control" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(e => Model.experience.Company, new { @class = "form-control" })
+
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(e => Model.experience.Location, new { @class = "form-control" })
+
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(e => Model.experience.StartDate, new { @class = "form-control" })
+
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.TextBoxFor(e => Model.experience.EndDate, new { @class = "form-control" })
+
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                                    @Html.ActionLink("Cancel", "ProfilePage",new { id=""},new { @class="btn btn-default"})
+                                                </div>
+                                                
+                                                @Html.HiddenFor(e => Model.experience.Id)
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                }
+
+                            }
+
                         }
                     }
                     else
                     {
-                            <p>You Have To Add New Experience</p>
+                        <p>You Have To Add New Experience</p>
                     }
                 }
 
@@ -245,13 +303,37 @@
     var _profile_image = document.getElementById("profile_image");
 
     onload = function () {
+       
         _cover_image.style.backgroundSize = "cover";
         _cover_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_cover.jpg"))");
 
         _profile_image.style.backgroundSize = "cover";
         _profile_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_profile.png"))");
 
+        
 
+    }
 
+    function LoadExperience(id) {
+
+        //window.location.href = `LoadExperience/${id}`;
+        $.ajax({
+            url: `/home/LoadExperience/${id}`,
+            type: "GET",
+            success: function (data) {
+                $("#ModalEditExperience").modal();
+                console.log(data);
+
+                //if (data) {
+                //    let ele = document.getElementById(`id-${id}`);
+                //    ele.remove();
+                //}
+            },
+
+            error: function (err) {
+                console.log("Error");
+            }
+        });
+        //$("#ModalEditExperience").modal()
     }
 </script>

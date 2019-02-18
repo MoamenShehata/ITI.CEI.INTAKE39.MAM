@@ -23,13 +23,18 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
-        public ActionResult ProfilePage()
+        public ActionResult ProfilePage(int? id)
         {
+            Experience experience = null;
+            if (id!=null)
+            {
+                experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
+            }
             string UserName = User.Identity.Name;
             var user =_ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
             {
-                User = user,
+                User = user, experience = experience,
                 Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
                 Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
                 Skills= _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
