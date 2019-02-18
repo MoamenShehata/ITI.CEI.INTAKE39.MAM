@@ -1,0 +1,202 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewBag.Title = "SearchPage";
+    //Layout = "~/Views/Shared/_My_Layout.cshtml";
+}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    h2{
+        
+      text-align:center;
+           
+    }
+
+    body {
+        background-color: #DFDFDF;
+    }
+
+    .header {
+        height: 52px;
+        background-color: #283e4a;
+        background-image: none;
+        position: relative;
+    }
+
+    .s1 {
+        position: absolute;
+        left: 2cm;
+        top: 10px;
+        color: white;
+        font-size: 130%;
+    }
+
+    /* .s1::after{
+    content: '\f08c';
+    font-family: 'Font Awesome\ 5 Free';
+     font-weight: 900;
+     
+} */
+
+    .s0 {
+        position: absolute;
+        left: 3.9cm;
+        top: 10px;
+        color: #0077B5;
+    }
+
+    .s2 {
+        position: absolute;
+        right: 6cm;
+        top: 15px;
+    }
+
+    .s3 {
+        position: absolute;
+        right: 3cm;
+        top: 15px;
+        border: 1px solid white;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+    .searchbar {
+        height: 100px;
+        width: 70%;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        margin-top: 1cm;
+        margin-bottom: 0.5cm;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        border: 2px solid white;
+        background-color: white;
+    }
+
+    .s4 {
+        position: absolute;
+        left: 10px;
+        font-size: 120%;
+        top: 30px;
+    }
+
+    .icons {
+        position: absolute;
+        right: 10px;
+        top: 30px;
+    }
+
+    .inputs {
+        position: absolute;
+        right: 150px;
+        top: 32px;
+    }
+
+    .big-title {
+        height: 300px;
+        width: 70%;
+        /* display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center; */
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        border: 2px solid white;
+        background-color: white;
+        margin-bottom: 2px;
+    }
+
+    .btn button {
+        background-color: skyblue; /* Green */
+        border: none;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+    }
+
+    .add {
+        margin-top: 20px;
+    }
+
+    .results-container {
+        height: 1000px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        border: 2px solid white;
+        background-color: white;
+    }
+</style>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    
+    <h2>Search for people on LinkedIN</h2>
+
+
+    <div class="searchbar">
+        <span class="s4">Type Name you want to search for</span>
+        <div class="inputs">
+
+            <input type="text" class="FName">
+            <input type="text" class="LName">
+        </div>
+        <div class="icons">
+
+
+            <span><i class="fab fa-linkedin fa-2x"></i></span>
+            <span><i class="fab fa-facebook-square fa-2x"></i></span>
+            <span><i class="fab fa-twitter-square fa-2x"></i></span>
+            <span><i class="fab fa-google-plus fa-2x"></i></span>
+        </div>
+
+    </div>
+
+
+    <div class=big-title>
+        <div class="add">
+
+            <p><i class="fas fa-plus-square fa-4x"></i></p>
+        </div>
+        <div class="text">
+            <h3>Find your connection on LINKEDIN</h3>
+
+            <h6>Join the world's largest professional network</h6>
+        </div>
+        <div class="btn">
+            <span><a href="https://www.google.com/"></a><button>Join Now</button></span>
+            <span><a href="https://www.google.com/"></a><button>Sign In</button></span>
+        </div>
+
+    </div>
+
+    <div class="results-container">
+
+      @foreach (var item in Model)
+      {
+         <div>
+          
+             <h4>@item.FName&nbsp;@item.LName</h4>
+             <h5>age : @item.Age</h5>
+             
+
+             <button class="btn btn-primary">View Full Profile</button>
+             
+         </div>
+      }
+
+
+    </div>
+
+
+
+
+</body>
