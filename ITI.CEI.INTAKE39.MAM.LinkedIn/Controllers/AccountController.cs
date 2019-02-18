@@ -62,6 +62,21 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
+        public ActionResult ProfilePage()
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                User = user,
+                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return View(VM);
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult EditInformationAjax(ApplicationUser user)
         {
@@ -86,6 +101,24 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 return PartialView("_PartialUserBasicInformation", VM);
             }
 
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddExperienceAjax(Experience experience)
+        {
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+
+
+            if (ModelState.IsValid && experience != null)
+            {
+                experience.FK_LinkedInUserId = User.Identity.GetUserId();
+                _ctxt.Experiences.Add(experience);
+                _ctxt.SaveChanges();
+                VM.Experiences = _ctxt.Experiences.ToList();
+                return PartialView("_PartialUserExperience", VM);
+            }
             return View();
         }
 
@@ -117,44 +150,121 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public ActionResult AddExperienceAjax(Experience experience)
+        public ActionResult LoadExperience(int? id)
         {
-            //EmployeeViewModel empVM = new EmployeeViewModel()
-            //{
-            //    Departments = ctxt.Departments.ToList(),
-            //    Employees = ctxt.Employees.ToList()
-
-            //};
-            if (ModelState.IsValid && experience != null)
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Experience experience = null;
+            if (id != null)
             {
-                experience.FK_LinkedInUserId = User.Identity.GetUserId();
-                _ctxt.Experiences.Add(experience);
-                _ctxt.SaveChanges();
-                return RedirectToAction("ProfilePage", "Home");
+                experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
             }
-            //EmployeeViewModel empVM = new EmployeeViewModel()
-            //{
-            //    Departments = ctxt.Departments.ToList()
-
-            //};
-            return View();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                experience = experience,
+                User = user,
+                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return PartialView("_PartialUserExperience", VM);
         }
 
+        [Authorize]
+        public ActionResult LoadEducation(int? id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Education education = null;
+            if (id != null)
+            {
+                education = _ctxt.Educations.Where(e => e.Id == id).FirstOrDefault();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                education = education,
+                User = user,
+                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return PartialView("_PartialUserEducation", VM);
+        }
+
+        [Authorize]
+        public ActionResult DeleteExperience(int id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Experience experience = _ctxt.Experiences.Find(id);
+            if (experience != null)
+            {
+                _ctxt.Experiences.Remove(experience);
+                _ctxt.SaveChanges();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                User = user,
+                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return RedirectToAction("ProfilePage");
+        }
+
+    
         [Authorize]
         [HttpPost]
         public ActionResult AddEducationAjax(Education education)
         {
-            
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+
             if (ModelState.IsValid && education != null)
             {
                 education.FK_LinkedInUserId = User.Identity.GetUserId();
                 _ctxt.Educations.Add(education);
                 _ctxt.SaveChanges();
-                return RedirectToAction("ProfilePage", "Home");
+                VM.Educations = _ctxt.Educations.ToList();
+                return PartialView("_PartialUserEducation", VM);
             }
             
             return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditEducationAjax(Education education)
+        {
+
+            Education oldEducation = _ctxt.Educations.Where(e => e.Id == education.Id).FirstOrDefault();
+            string UserId = User.Identity.GetUserId();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+
+            if (ModelState.IsValid && education != null)
+            {
+                oldEducation.School = education.School;
+                oldEducation.Degree = education.Degree;
+                oldEducation.StartDate = education.StartDate;
+                oldEducation.EndDate = education.EndDate;
+                _ctxt.SaveChanges();
+                VM.Educations = _ctxt.Educations.Where(ex => ex.FK_LinkedInUserId == UserId).ToList();
+                return PartialView("_PartialUserEducation", VM);
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult DeleteEducation(int id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Education education = _ctxt.Educations.Find(id);
+            if (education != null)
+            {
+                _ctxt.Educations.Remove(education);
+                _ctxt.SaveChanges();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                User = user,
+                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return RedirectToAction("ProfilePage");
         }
 
         [Authorize]
