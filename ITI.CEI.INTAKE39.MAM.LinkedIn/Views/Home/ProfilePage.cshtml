@@ -1,5 +1,5 @@
 ﻿@model LinkedInUserProfileViewModel
-        
+
 @{
     ViewBag.Title = "Profile Page";
     Layout = "~/Views/Shared/_My_Layout.cshtml";
@@ -14,6 +14,13 @@
     };
 }
 
+<!-- #region Modals Rendering Section -->
+@Html.Partial("_PartialEditUserInformation")
+@Html.Partial("_PartialAddExperience")
+@Html.Partial("_PartialEditExperience")
+@Html.Partial("_PartialAddEducation")
+@Html.Partial("_PartialAddSkill")
+<!-- #endregion -->
 
 <div class="profile_parent container">
 
@@ -24,128 +31,17 @@
 
                 </div>
                 <a href="" class="edit_section" data-toggle="modal" data-target="#ModalEditInformation"><i class="fas fa-edit"></i></a>
-                
+
             </div>
 
-            @Html.Partial("_PartialEditUserInformation")
-            @Html.Partial("_PartialAddExperience")
-            @Html.Partial("_PartialEditExperience")
-            @Html.Partial("_PartialAddEducation")
-            @Html.Partial("_PartialAddSkill")
-            <div id="user_information" class="info bordered_section">
-                <div class="left_info padded_section">
-                    <h2 id="account_name">@Model.User.FName</h2>
-                    <h3 id="account_position">@Model.User.Position</h3>
-                    <p id="account_country">@Model.User.Country</p>
-                    <div class="left_info_buttons">
-                        <button class="btn1">Add Profile Section</button>
-                        <button class="btn2">More...</button>
-                    </div>
-                </div>
-                <div class="right_info padded_section">
-                    <h3>@Model.User.School</h3>
-                    <h3>@Model.User.University</h3>
-                    <h3>See Contact info</h3>
-                    <h3>See connections</h3>
-                </div>
-                <div style="clear:both"></div>
-                <div class="padded_section seprator">
-                    <p>
-                        @Model.User.Bio
-                    </p>
-                </div>
-            </div>
+            @Html.Partial("_PartialUserBasicInformation", Model)
 
         </div>
 
         <div class="experience_education">
-            <div class="exp">
-                <div class="experience_education_heading">
-                    <h3 class="experience_education_heading_header">Experience</h3>
-                    <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
-                </div>
-                @{
-                    if (Model.Experiences != null)
-                    {
-                        foreach (var item in Model.Experiences)
-                        {
-                            if (Model.experience == null || Model.experience != item)
-                            {
-                                var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
-                                <div class="experience_education_section">
-                                    <div class="experience_education_section_image"></div>
-                                    <div class="experience_education_section_content">
 
-                                        <div class="experience_education_section_context">
-                                            <h3>@item.Title</h3>
-                                            <p>@item.Company</p>
-                                            <p>@item.Location</p>
-                                            <p>@item.StartDate - @interval months</p>
-                                        </div>
-                                        <div class="experience_education_section_edit">
-                                            @*<button onclick="LoadExperience(@item.Id)">Delete</button>*@
-                                            @Html.ActionLink("Edit", "ProfilePage", new { id = @item.Id })
-                                            @*<a href="~/home/ProfilePage/@item.Id" data-toggle="modal" data-target="#ModalEditExperience"><i class="fas fa-edit"></i></a>*@
-                                            @*data-toggle="modal" data-target="#ModalEditExperience"*@
-                                        </div>
+            @Html.Partial("_PartialUserExperience", Model)
 
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                using (Ajax.BeginForm("EditExperienceAjax", "Account", ajaxOptions))
-                                {
-                                    <div class="experience_education_section">
-                                        <div class="experience_education_section_image"></div>
-                                        <div class="experience_education_section_content">
-
-                                            <div class="experience_education_section_context">
-                                                <div class="form-group">
-                                                    @Html.TextBoxFor(e => Model.experience.Title, new { @class = "form-control" })
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.TextBoxFor(e => Model.experience.Company, new { @class = "form-control" })
-
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.TextBoxFor(e => Model.experience.Location, new { @class = "form-control" })
-
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.TextBoxFor(e => Model.experience.StartDate, new { @class = "form-control" })
-
-                                                </div>
-                                                <div class="form-group">
-                                                    @Html.TextBoxFor(e => Model.experience.EndDate, new { @class = "form-control" })
-
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <input type="submit" value="Save" class="btn btn-primary" />
-                                                    @Html.ActionLink("Cancel", "ProfilePage",new { id=""},new { @class="btn btn-default"})
-                                                </div>
-                                                
-                                                @Html.HiddenFor(e => Model.experience.Id)
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                }
-
-                            }
-
-                        }
-                    }
-                    else
-                    {
-                        <p>You Have To Add New Experience</p>
-                    }
-                }
-
-
-            </div>
 
             <div class="exp">
                 <div class="experience_education_heading">
@@ -177,7 +73,7 @@
                         <p>You Have To Add New Education</p>
                     }
                 }
-                
+
             </div>
         </div>
 
@@ -303,14 +199,14 @@
     var _profile_image = document.getElementById("profile_image");
 
     onload = function () {
-       
+
         _cover_image.style.backgroundSize = "cover";
         _cover_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_cover.jpg"))");
 
         _profile_image.style.backgroundSize = "cover";
         _profile_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_profile.png"))");
 
-        
+
 
     }
 
