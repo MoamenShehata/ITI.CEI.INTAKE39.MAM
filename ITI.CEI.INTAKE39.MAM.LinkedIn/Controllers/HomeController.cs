@@ -23,18 +23,18 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
-        public ActionResult ProfilePage(int? id)
+        public ActionResult ProfilePage()
         {
-            Experience experience = null;
-            if (id!=null)
-            {
-                experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
-            }
+            //Experience experience = null;
+            //if (id!=null)
+            //{
+            //    experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
+            //}
             string UserName = User.Identity.Name;
             var user =_ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
             {
-                User = user, experience = experience,
+                User = user,
                 Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
                 Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
                 Skills= _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
@@ -43,11 +43,15 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
-        public ActionResult LoadExperience(int id)
+        public ActionResult LoadExperience(int? id)
         {
             string UserName = User.Identity.Name;
             var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            var experience = _ctxt.Experiences.Find(id);
+            Experience experience = null;
+            if (id!=null)
+            {
+                experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
+            }
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
             {
                 experience = experience,
@@ -56,7 +60,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
                 Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
             };
-            return PartialView("_PartialEditExperience", VM);
+            return PartialView("_PartialUserExperience", VM);
         }
 
         public ActionResult About()

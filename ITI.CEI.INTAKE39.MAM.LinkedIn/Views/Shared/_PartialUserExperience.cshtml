@@ -16,32 +16,34 @@
         <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
     </div>
     @{
-        if (Model.Experiences != null)
-        {
-            foreach (var item in Model.Experiences)
+            if (Model.Experiences != null)
             {
-                if (Model.experience == null || Model.experience != item)
+                foreach (var item in Model.Experiences)
                 {
-                    var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
-                    <div class="experience_education_section">
-                        <div class="experience_education_section_image"></div>
-                        <div class="experience_education_section_content">
+                    if (Model.experience == null || Model.experience != item)
+                    {
+                        var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
+                        using (Ajax.BeginForm("LoadExperience", "Home", new { id = item.Id }, ajaxOptions))
+                        {
+                            <div class="experience_education_section">
+                                <div class="experience_education_section_image"></div>
+                                    <div class="experience_education_section_content">
 
-                            <div class="experience_education_section_context">
-                                <h3>@item.Title</h3>
-                                <p>@item.Company</p>
-                                <p>@item.Location</p>
-                                <p>@item.StartDate - @interval months</p>
-                            </div>
-                            <div class="experience_education_section_edit">
-                                @*<button onclick="LoadExperience(@item.Id)">Delete</button>*@
-                                @Html.ActionLink("Edit", "ProfilePage", new { id = @item.Id })
-                                @*<a href="~/home/ProfilePage/@item.Id" data-toggle="modal" data-target="#ModalEditExperience"><i class="fas fa-edit"></i></a>*@
-                                @*data-toggle="modal" data-target="#ModalEditExperience"*@
-                            </div>
+                                        <div class="experience_education_section_context">
+                                            <h3>@item.Title</h3>
+                                            <p>@item.Company</p>
+                                            <p>@item.Location</p>
+                                            <p>@item.StartDate - @interval months</p>
+                                        </div>
+                                        <div class="experience_education_section_edit">
+                                            <input type="submit" value="Edit"  class="btn btn-link"/>
+                                            @*@Html.ActionLink("Edit", "LoadExperience", new { id = @item.Id })*@
+                                        </div>
 
-                        </div>
+                                    </div>
                     </div>
+                    }
+                    
                 }
                 else
                 {
@@ -74,7 +76,12 @@
 
                                     <div class="form-group">
                                         <input type="submit" value="Save" class="btn btn-primary" />
-                                        @Html.ActionLink("Cancel", "ProfilePage", new { id = "" }, new { @class = "btn btn-default" })
+                                        @using (Ajax.BeginForm("LoadExperience", new { id = "" }, ajaxOptions))
+                                        {
+                                            <input type="submit" value="Cancel" class="btn btn-default" />
+
+                                        }
+                                        @*@Html.ActionLink("Cancel", "LoadExperience", new { id = "" }, new { @class = "btn btn-default" })*@
                                     </div>
 
                                     @Html.HiddenFor(e => Model.experience.Id)
