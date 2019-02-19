@@ -1,8 +1,212 @@
-﻿
+﻿@model LinkedUserHomePageViewModel
 @{
     ViewBag.Title = "Wall";
     Layout = "~/Views/Shared/_My_Layout.cshtml";
 }
 
-<h2>Wall</h2>
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .body {
+        background-color: #DFDFDF;
+    }
+
+    .header {
+        height: 52px;
+        background-color: #283e4a;
+        background-image: none;
+        position: relative;
+    }
+
+    .s1 {
+        position: absolute;
+        left: 2cm;
+        top: 10px;
+        color: white;
+        font-size: 130%;
+    }
+
+    /* .s1::after{
+    content: '\f08c';
+    font-family: 'Font Awesome\ 5 Free';
+     font-weight: 900;
+     
+} */
+
+    .s0 {
+        position: absolute;
+        left: 3.9cm;
+        top: 10px;
+        color: #0077B5;
+    }
+
+    .s2 {
+        position: absolute;
+        right: 6cm;
+        top: 15px;
+    }
+
+    .s3 {
+        position: absolute;
+        right: 3cm;
+        top: 15px;
+        border: 1px solid white;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+
+
+    .s4 {
+        position: absolute;
+        left: 10px;
+        font-size: 120%;
+        top: 30px;
+    }
+
+    .container {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .Leftdiv {
+        height: 250px;
+        width: 25%;
+        /* display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center; */
+        margin-left: 5px;
+        margin-right: auto;
+        text-align: center;
+        border: 2px solid white;
+        background-color: white;
+        margin-top: 20px;
+        margin-bottom: 2px;
+    }
+
+    .Rightdiv {
+        height: 250px;
+        width: 25%;
+        /* display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center; */
+        margin-left: auto;
+        margin-right: 20px;
+        text-align: center;
+        border: 2px solid white;
+        background-color: white;
+        margin-top: 20px;
+        margin-bottom: 2px;
+    }
+
+    .MidDiv {
+        height: 600px;
+        width: 45%;
+        /* display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center; */
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        border: 2px solid white;
+        /* background-color: white; */
+        margin-top: 20px;
+        margin-bottom: 2px;
+        align-items: center;
+    }
+
+
+    .writeapost {
+        background-color: white;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+    .posts {
+        background-color: white;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+
+
+
+
+</style>
+
+
+<body class="body">
+    @*<div class="header">
+        <span class="s1">LINKED</span>
+        <span class="s0"><i class="fab fa-linkedin fa-2x"></i></span>
+        <span class="s2"><a href="">Sign In</a></span>
+        <span class="s3"><a href="">Join Now</a></span>
+
+    </div>*@
+    <div class="container">
+
+
+        <div class="Leftdiv">
+            <img src="PP.JPG" alt="profile-photo" style="width:80px;height:80px;">
+            <h4>@Model.UserAtHome.FName&nbsp;@Model.UserAtHome.LName</h4>
+            <h6>@Model.UserAtHome.Position</h6>
+            <h6>Who has viewed your profile</h6>
+            <h6>Connections</h6>
+
+
+        </div>
+
+
+
+        <div class="MidDiv">
+            <div class="writeapost">
+                <h4>Write a status</h4>
+                <textarea name="status-area" id="1" cols="78" rows="5"></textarea>
+                <h5><button>Submit</button>  <button>Cancel</button></h5>
+
+            </div>
+            @foreach (var item in Model.PostsAtHome)
+            {
+                
+                    var FNameofPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).FName;
+                    var LNameOfPost= Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).LName;
+                
+            <div class="posts">
+                <h6><img src="PP.JPG" alt="photo-of-user" style="width:70px;height:70px;"><span>@FNameofPost&nbsp;@LNameOfPost </span></h6>
+                <p>@item.Content</p>
+                <button>Like</button>
+                <button>comment</button>
+                <button>share</button>
+
+            </div>
+            }
+
+        </div>
+
+
+
+
+        <div class="Rightdiv">
+            <h4>Add to your feed</h4>
+            <h5>option1 <button>+Follow</button></h5>
+            <h5>option2 <button>+Follow</button></h5>
+            <h5>option3 <button>+Follow</button></h5>
+            <h5>option4 <button>+Follow</button></h5>
+
+        </div>
+
+    </div>
+
+
+
+</body>
 

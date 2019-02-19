@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ITI.CEI.INTAKE39.MAM.LinkedIn.Models;
 using ITI.CEI.INTAKE39.MAM.LinkedIn.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 {
@@ -16,10 +17,23 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        
         [Authorize]
         public ActionResult Wall()
         {
-            return View();
+            var posts = _ctxt.Posts.ToList();
+            var userId = User.Identity.GetUserId();
+            var user = _ctxt.Users.SingleOrDefault(c => c.Id == userId);
+            var userOfPosts = _ctxt.Users.ToList();
+
+            var userViewModel = new LinkedUserHomePageViewModel
+            {
+                UserAtHome = user,
+                PostsAtHome = posts,
+                UsersOfPosts=userOfPosts
+                
+            };
+            return View("Wall",userViewModel);
         }
 
         [AllowAnonymous]
