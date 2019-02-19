@@ -13,24 +13,22 @@
 
 
 
-
-
 @using (Ajax.BeginForm("EditExperienceAjax", "Account", ajaxOptions))
 {
     <div class="modal fade bs-example-modal-lg" id="ModalEditExperience" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Experience</h5>
+                    <h5 class="modal-title" id="ModalEditExperience">Edit Experience</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        @Html.LabelFor(e => e.experience.Title)
-                        @Html.TextBoxFor(e => e.experience.Title, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.experience.Title)
+                        @Html.LabelFor(e => Model.experience.Title)
+                        @Html.TextBoxFor(e => Model.experience.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => Model.experience.Title)
                     </div>
 
                     <div class="form-group">

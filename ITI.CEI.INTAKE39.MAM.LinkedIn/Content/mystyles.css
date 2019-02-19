@@ -163,13 +163,14 @@ margin-bottom:10px;
 
 }
 
+/*.experience_education{height:600px;overflow:;
 
+}*/
 
-.experience_education ,.Skills_Endorsements,.Accomplishments
-,.Interests
-{margin: 20px 0px;
-    padding:20px 20px 20px 20px;
-    border:2px solid rgb(168, 168, 168);
+.experience_education, .Skills_Endorsements, .Accomplishments, .Interests {
+    margin: 20px 0px;
+    padding: 20px 20px 20px 20px;
+    border: 2px solid rgb(168, 168, 168);
 }
 
 .experience_education_heading{overflow: hidden;}

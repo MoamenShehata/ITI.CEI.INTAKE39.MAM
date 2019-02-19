@@ -1,0 +1,26 @@
+﻿@model LinkedInUserProfileViewModel
+
+
+<div id="user_information" class="info bordered_section">
+    <div class="left_info padded_section">
+        <h2 id="account_name">@Model.User.FName</h2>
+        <h3 id="account_position">@Model.User.Position</h3>
+        <p id="account_country">@Model.User.Country</p>
+        <div class="left_info_buttons">
+            <button class="btn1">Add Profile Section</button>
+            <button class="btn2">More...</button>
+        </div>
+    </div>
+    <div class="right_info padded_section">
+        <h3>@Model.User.School</h3>
+        <h3>@Model.User.University</h3>
+        <h3>See Contact info</h3>
+        <h3>See connections</h3>
+    </div>
+    <div style="clear:both"></div>
+    <div class="padded_section seprator">
+        <p>
+            @Model.User.Bio
+        </p>
+    </div>
+</div>

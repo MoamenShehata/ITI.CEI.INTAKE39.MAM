@@ -3,10 +3,10 @@
 @{
     AjaxOptions ajaxOptions = new AjaxOptions()
     {
-        Confirm = "Do You Want To Add These Data?",
         HttpMethod = "POST",
-        UpdateTargetId = "user_education",
+        UpdateTargetId = "user_educations",
         InsertionMode = InsertionMode.Replace,
+        OnSuccess = "$('#ModalAddEducation').modal('hide')"
 
     };
 }

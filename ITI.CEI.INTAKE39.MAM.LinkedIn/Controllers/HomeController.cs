@@ -23,38 +23,6 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult ProfilePage()
-        {
-            string UserName = User.Identity.Name;
-            var user =_ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                User = user,
-                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Skills= _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return View(VM);
-        }
-
-        [Authorize]
-        public ActionResult LoadExperience(int id)
-        {
-            string UserName = User.Identity.Name;
-            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            var experience = _ctxt.Experiences.Find(id);
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                experience = experience,
-                User = user,
-                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return PartialView("_PartialEditExperience", VM);
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

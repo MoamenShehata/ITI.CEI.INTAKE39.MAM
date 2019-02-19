@@ -1,0 +1,102 @@
+﻿@model LinkedInUserProfileViewModel
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "user_experiences",
+        InsertionMode = InsertionMode.Replace,
+
+    };
+}
+
+<div id="user_experiences" class="exp">
+    <div class="experience_education_heading">
+        <h3 class="experience_education_heading_header">Experiences</h3>
+        <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
+    </div>
+    @{
+            if (Model.Experiences.Count != 0)
+            {
+                foreach (var item in Model.Experiences)
+                {
+                    if (Model.experience == null || Model.experience != item)
+                    {
+                        var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
+                        using (Ajax.BeginForm("LoadExperience", "Account", new { id = item.Id }, ajaxOptions))
+                        {
+                            <div class="experience_education_section">
+                                <div class="experience_education_section_image"></div>
+                                    <div class="experience_education_section_content">
+
+                                        <div class="experience_education_section_context">
+                                            <h3>@item.Title</h3>
+                                            <p>@item.Company</p>
+                                            <p>@item.Location</p>
+                                            <p>@item.StartDate - @interval months</p>
+                                        </div>
+                                        <div class="experience_education_section_edit">
+                                            <input type="submit" value="Edit" class="btn btn-link" />
+                                            @Html.ActionLink("Delete", "DeleteExperience",new {id=item.Id})
+                                            
+                                            @*@Html.ActionLink("Edit", "LoadExperience", new { id = @item.Id })*@
+                                        </div>
+
+                                    </div>
+                    </div>
+                    }
+                    
+                }
+                else
+                {
+                    using (Ajax.BeginForm("EditExperienceAjax", "Account", ajaxOptions))
+                    {
+                        <div class="experience_education_section">
+                            <div class="experience_education_section_image"></div>
+                            <div class="experience_education_section_content">
+
+                                <div class="experience_education_section_context">
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(e => Model.experience.Title, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(e => Model.experience.Company, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(e => Model.experience.Location, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(e => Model.experience.StartDate, new { @class = "form-control" })
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(e => Model.experience.EndDate, new { @class = "form-control" })
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                        <input type="submit" value="Cancel" class="btn btn-default" />
+                                    </div>
+
+                                    @Html.HiddenFor(e => Model.experience.Id)
+                                </div>
+
+                            </div>
+                        </div>
+
+                    }
+
+                }
+
+            }
+        }
+        else
+        {
+            <h3>You Have To Add New Experience</h3>
+        }
+    }
+
+</div>
