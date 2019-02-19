@@ -5,14 +5,31 @@
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Fira Sans",Ubuntu,Oxygen,"Oxygen Sans",Cantarell,"Droid Sans","Apple Color Emoji","Segoe UI Emoji","Segoe UI Emoji","Segoe UI Symbol","Lucida Grande",Helvetica,Arial,sans-serif;
     /*position:fixed;*/
 }
-a{color:rgb(125, 132, 150);text-decoration: none;}
-a:hover{color:#0077B5;}
+.navbar a {
+    color: rgb(206, 206, 206);
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    color: white;
+}
+footer a {
+    color: rgb(125, 132, 150);
+    text-decoration: none;
+}
+footer a:hover {
+    color: #0077B5;
+}
 
 
 
-.navbar{height:100%;
-    padding:0px;box-sizing: border-box;
-margin: 0;height: 100%;overflow: hidden;
+.navbar {
+    height: 100%;
+    padding: 0px;
+    box-sizing: border-box;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
 }
 .container{width:1170px;margin:0 auto;}
 
@@ -93,7 +110,13 @@ border-radius:50%;
 
 .profile_parent{overflow: hidden;}
 
-.background_image{height:200px;background:blue}
+.edit_cover {
+    position: absolute !important;
+    top: 0px !important;
+    right: 20px !important;
+}
+
+.background_image{height:200px;background:blue;position:relative}
 
 .info{overflow: hidden;}
 
@@ -201,8 +224,16 @@ margin-right:15px;
     color: #006097;
 }
 
-.Skills_Endorsements_icons{float: right;
-    margin-left:15px;color: #006097;
+.skill_section h3 a {
+    font-size: 14px !important;
+    float: right;
+    /*padding: 6px 12px;*/
+    line-height: 1.42857143;
+}
+.Skills_Endorsements_icons {
+    float: right;
+    margin-left: 15px;
+    color: #006097;
 }
 
 .Skills_Endorsements .skill_heading{margin:5px 0px;}
@@ -269,3 +300,19 @@ margin: 7px 0px;
 footer .quest{margin:20px 0px;}
 
 .copyrights{color: rgb(125, 132, 150);}
+
+
+.cover_upload{position:absolute;top:10px;right:30px;}
+.cover_save{position:absolute;top:10px;right:10px;}
+
+
+.profile_upload {
+    position: absolute;
+    top: 90px;
+    left: 150px;
+}
+.profile_save {
+    position: absolute;
+    top: 90px;
+    left: 180px;
+}

@@ -3,16 +3,13 @@
 @{
     AjaxOptions ajaxOptions = new AjaxOptions()
     {
-        Confirm = "Do You Want To Add These Data?",
         HttpMethod = "POST",
-        UpdateTargetId = "user_education",
+        UpdateTargetId = "user_skills",
         InsertionMode = InsertionMode.Replace,
+        OnSuccess = "$('#ModalAddSkill').modal('hide')"
 
     };
 }
-
-
-
 
 
 @using (Ajax.BeginForm("AddSkillAjax", "Account", ajaxOptions))
@@ -21,7 +18,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Add New Education</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add New Skill</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -32,7 +29,6 @@
                         @Html.TextBoxFor(e => e.skill.Name, new { @class = "form-control" })
                         @Html.ValidationMessageFor(e => e.skill.Name)
                     </div>
-                    
 
                     @Html.HiddenFor(e=>e.skill.FK_LinkedInUserId)
                 </div>

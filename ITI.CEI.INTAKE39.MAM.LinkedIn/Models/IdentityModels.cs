@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -20,14 +22,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public string School { get; set; }
         public string University { get; set; }
         public string Bio { get; set; }
-
-        //public List<Education> Educations { get; set; }
-
-        //public List<Experience> Experiences { get; set; }
-
-        //public List<Skill> Skills { get; set; }
-
-        //public List<Post> Posts { get; set; }
+        //public HttpPostedFileBase CoverFile { get; set; }
+        //public HttpPostedFileBase ProfileFile { get; set; }
 
 
 

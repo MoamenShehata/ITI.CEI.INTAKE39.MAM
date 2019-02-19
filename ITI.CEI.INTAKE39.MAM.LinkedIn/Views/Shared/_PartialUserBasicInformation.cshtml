@@ -1,8 +1,40 @@
 ﻿@model LinkedInUserProfileViewModel
 
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "user_information",
+        InsertionMode = InsertionMode.Replace,
 
+    };
+}
 <div id="user_information" class="info bordered_section">
+    <div id="cover_image" class="background_image bordered_section" style="background-image:url(/Images/@Model.User.CoverURL)">
+        @using (Ajax.BeginForm("CoverUpload", "Account", ajaxOptions,
+                            new { enctype = "multipart/form-data" }))
+        {
+            <label for="file" class="btn btn-link cover_upload"><i class="fas fa-cloud-upload-alt"></i></label>
+            <input type="file" name="file" id="file" style="width: 100%;display:none" />
+            <label for="submit_cover" class="btn btn-link cover_save"><i class="fas fa-save"></i></label>
+
+            <input type="submit" value="" class="submit" style="display:none" id="submit_cover" />
+        }
+            <div id="profile_image" class="profile_picture" style="background-size:cover;background-image:url(/Images/@Model.User.ImageURL)">
+                @using (Ajax.BeginForm("ProfileUpload", "Account", ajaxOptions,
+                                new { enctype = "multipart/form-data" }))
+                {
+                    <label for="file_2" class="btn btn-link profile_upload"><i class="fas fa-cloud-upload-alt"></i></label>
+                    <input type="file" name="file" id="file_2" style="width: 100%;display:none" />
+                    <label for="submit_profile" class="btn btn-link profile_save"><i class="fas fa-save"></i></label>
+
+                    <input type="submit" value="" class="submit" style="display:none" id="submit_profile" />
+                }
+            </div>
+        <a href="" class="edit_section" data-toggle="modal" data-target="#ModalEditInformation"><i class="fas fa-edit"></i></a>
+    </div>
     <div class="left_info padded_section">
+        
         <h2 id="account_name">@Model.User.FName</h2>
         <h3 id="account_position">@Model.User.Position</h3>
         <p id="account_country">@Model.User.Country</p>

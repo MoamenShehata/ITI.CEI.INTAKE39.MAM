@@ -1,0 +1,69 @@
+﻿@model LinkedInUserProfileViewModel
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions()
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "user_skills",
+        InsertionMode = InsertionMode.Replace,
+
+    };
+}
+
+<div id="user_skills" class="exp">
+    <div class="experience_education_heading">
+        <h3 class="experience_education_heading_header"> Skills & Endorsements </h3>
+        <a href="" data-toggle="modal" data-target="#ModalAddSkill"><i class="fas fa-plus"></i></a>
+    </div>
+    @{
+        if (Model.Skills.Count != 0)
+        {
+            foreach (var item in Model.Skills)
+            {
+                if (Model.skill == null || Model.skill != item)
+                {
+                    using (Ajax.BeginForm("LoadSkill", "Account", new { id = item.Id }, ajaxOptions))
+                    {
+
+                        <div class="skill_section">
+                            <h3 class="skill_heading">
+                                @item.Name
+                                @Html.ActionLink("Delete", "DeleteSkill", new { id = item.Id })
+                                <input type="submit" value="Edit" class="btn btn-link" style="float:right;padding:0px;margin-right:10px;" />
+                            </h3>
+                        <p>Endorsements</p>
+
+
+
+                    </div>
+
+                }
+
+            }
+            else
+            {
+                using (Ajax.BeginForm("EditSkillAjax", "Account", ajaxOptions))
+                {
+
+                    <div class="form-group">
+                        @Html.TextBoxFor(e => Model.skill.Name, new { @class = "form-control" })
+                    </div>
+                    @Html.HiddenFor(e => Model.skill.Id)
+
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Cancel" class="btn btn-default" />
+                    </div>
+                }
+
+            }
+
+        }
+    }
+    else
+    {
+        <h3>You Have To Add New Skill</h3>
+    }
+    }
+
+</div>

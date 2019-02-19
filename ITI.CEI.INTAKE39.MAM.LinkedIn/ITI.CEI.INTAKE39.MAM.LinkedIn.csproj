@@ -240,6 +240,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Default_cover.jpg" />
+    <Content Include="Images\Default_cover_1.jpg" />
+    <Content Include="Images\Default_cover_2.jpg" />
     <Content Include="Images\Default_profile.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -303,6 +305,7 @@
     <Content Include="Views\Shared\_PartialUserExperience.cshtml" />
     <Content Include="Views\Shared\_PartialUserEducation.cshtml" />
     <Content Include="Views\Account\ProfilePage.cshtml" />
+    <Content Include="Views\Shared\_PartialUserSkill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

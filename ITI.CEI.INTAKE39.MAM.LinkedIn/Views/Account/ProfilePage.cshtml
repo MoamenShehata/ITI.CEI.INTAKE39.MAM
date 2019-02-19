@@ -27,15 +27,8 @@
     <div class="left_profile">
 
         <div class="profile_section">
-            <div id="cover_image" class="background_image bordered_section">
-                <div id="profile_image" class="profile_picture">
-
-                </div>
-                <a href="" class="edit_section" data-toggle="modal" data-target="#ModalEditInformation"><i class="fas fa-edit"></i></a>
-            </div>
             @Html.Partial("_PartialUserBasicInformation", Model)
         </div>
-
 
         <div class="experience_education">
 
@@ -45,31 +38,9 @@
             
         </div>
 
-
+        
         <div class="Skills_Endorsements">
-            <div class="exp">
-                <div class="experience_education_heading">
-                    <h3 class="experience_education_heading_header"> Skills & Endorsements </h3>
-                    <i class="fas fa-edit Skills_Endorsements_icons"></i>
-                    <a href="" data-toggle="modal" data-target="#ModalAddSkill"><i class="fas fa-plus"></i></a>
-                </div>
-                @{
-                    if (Model.Skills != null)
-                    {
-                        foreach (var item in Model.Skills)
-                        {
-                            <div>
-                                <h3 class="skill_heading">@item.Name</h3>
-                                <p>endorsements</p>
-                            </div>
-                        }
-                    }
-
-                }
-
-
-            </div>
-
+            @Html.Partial("_PartialUserSkill", Model)
         </div>
 
         <div class="Accomplishments">
@@ -87,7 +58,6 @@
                     </div>
 
                 </div>
-
             </div>
 
         </div>
@@ -169,10 +139,10 @@
     onload = function () {
 
         _cover_image.style.backgroundSize = "cover";
-        _cover_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_cover.jpg"))");
+        //_cover_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_cover.jpg"))");
 
         _profile_image.style.backgroundSize = "cover";
-        _profile_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_profile.png"))");
+        //_profile_image.style.backgroundImage = ("url(@Url.Content("~/Images/Default_profile.png"))");
 
 
 

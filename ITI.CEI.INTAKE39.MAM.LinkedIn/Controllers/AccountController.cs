@@ -97,6 +97,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 oldUser.Bio = user.Bio;
                 oldUser.School = user.School;
                 oldUser.University = user.University;
+                oldUser.ImageURL = user.ImageURL;
+                oldUser.CoverURL = user.CoverURL;
                 _ctxt.SaveChanges();
                 return PartialView("_PartialUserBasicInformation", VM);
             }
@@ -188,6 +190,25 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
+        public ActionResult LoadSkill(int? id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Skill skill = null;
+            if (id != null)
+            {
+                skill = _ctxt.Skills.Where(e => e.Id == id).FirstOrDefault();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                skill = skill,
+                User = user,
+                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return PartialView("_PartialUserSkill", VM);
+        }
+
+        [Authorize]
         public ActionResult DeleteExperience(int id)
         {
             string UserName = User.Identity.Name;
@@ -206,7 +227,25 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return RedirectToAction("ProfilePage");
         }
 
-    
+
+        [Authorize]
+        public ActionResult DeleteSkill(int id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Skill skill = _ctxt.Skills.Find(id);
+            if (skill != null)
+            {
+                _ctxt.Skills.Remove(skill);
+                _ctxt.SaveChanges();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                User = user,
+                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return RedirectToAction("ProfilePage");
+        }
         [Authorize]
         [HttpPost]
         public ActionResult AddEducationAjax(Education education)
@@ -249,6 +288,26 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public ActionResult EditSkillAjax(Skill skill)
+        {
+
+            Skill oldSkill = _ctxt.Skills.Where(e => e.Id == skill.Id).FirstOrDefault();
+            string UserId = User.Identity.GetUserId();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+
+            if (ModelState.IsValid && skill != null)
+            {
+                oldSkill.Name = skill.Name;
+                _ctxt.SaveChanges();
+                VM.Skills = _ctxt.Skills.Where(ex => ex.FK_LinkedInUserId == UserId).ToList();
+                return PartialView("_PartialUserSkill", VM);
+            }
+
+            return View();
+        }
+
+        [Authorize]
         public ActionResult DeleteEducation(int id)
         {
             string UserName = User.Identity.Name;
@@ -267,17 +326,19 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return RedirectToAction("ProfilePage");
         }
 
+        
         [Authorize]
         [HttpPost]
         public ActionResult AddSkillAjax(Skill skill)
         {
-
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
             if (ModelState.IsValid && skill != null)
             {
                 skill.FK_LinkedInUserId = User.Identity.GetUserId();
                 _ctxt.Skills.Add(skill);
                 _ctxt.SaveChanges();
-                return RedirectToAction("ProfilePage", "Home");
+                VM.Skills = _ctxt.Skills.ToList();
+                return PartialView("_PartialUserSkill", VM);
             }
 
             return View();
@@ -364,6 +425,59 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        public ActionResult CoverUpload(HttpPostedFileBase file)
+        {
+                LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+            if (file != null)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _ctxt.Users.Where(u => u.Id == userId).FirstOrDefault();
+                
+                string pic = user.FName.Replace(" ","") + "_cover_" + System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Images"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+                /// Images / Default_profile.png
+                // save the image path path to the database or you can send image 
+                // directly to database
+                // in-case if you want to store byte[] ie. for DB
+                
+                user.CoverURL = pic;
+                _ctxt.SaveChanges();
+                VM.User = user;
+
+            }
+            // after successfully uploading redirect the user
+            return PartialView("_PartialUserBasicInformation", VM);
+        }
+
+        public ActionResult ProfileUpload(HttpPostedFileBase file)
+        {
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+            if (file != null)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _ctxt.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+                string pic = user.FName.Replace(" ", "") + "_profile_" + System.IO.Path.GetFileName(file.FileName) ;
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Images"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+                /// Images / Default_profile.png
+                // save the image path path to the database or you can send image 
+                // directly to database
+                // in-case if you want to store byte[] ie. for DB
+
+                user.ImageURL = pic;
+                _ctxt.SaveChanges();
+                VM.User = user;
+
+            }
+            // after successfully uploading redirect the user
+            return PartialView("_PartialUserBasicInformation", VM);
+        }
         //
         // POST: /Account/Register
         [HttpPost]
@@ -375,7 +489,11 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             {
                 var user = new ApplicationUser {FName=model.Fname,
                     LName = model.Lname,Age=model.Age,
-                    UserName = model.Email, Email = model.Email };
+                    UserName = model.Email, Email = model.Email,
+                    CoverURL= "/Images/Default_cover_2.jpg",
+                    ImageURL= "/Images/Default_profile.png",
+                    //"url(@Url.Content("~/ Images / Default_cover.jpg"))"
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
