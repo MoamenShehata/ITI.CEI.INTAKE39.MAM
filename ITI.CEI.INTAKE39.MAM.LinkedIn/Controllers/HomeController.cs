@@ -32,7 +32,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         [AllowAnonymous]
         public ActionResult SearchPage(SearchUserViewModel users)
         {
-            var persons = _ctxt.Users.Where(c => c.FName.Contains(users.FName)).ToList();
+            var persons = _ctxt.Users.Where(c => c.FName.Contains(users.FName) && c.LName.Contains(users.Lname)).ToList();
             if (persons.Count==0)
             {
                 return HttpNotFound();
