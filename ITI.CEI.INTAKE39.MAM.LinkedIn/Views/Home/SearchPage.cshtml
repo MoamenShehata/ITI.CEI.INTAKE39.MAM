@@ -1,7 +1,8 @@
-﻿@model SearchUserViewModel
+﻿@model ITI.CEI.INTAKE39.MAM.LinkedIn.ViewModels.SearchUserViewModel
+
 @{
     ViewBag.Title = "SearchPage";
-    //Layout = "~/Views/Shared/_My_Layout.cshtml";
+    Layout = "~/Views/Shared/_My_Layout.cshtml";
 }
 <style>
         * {
@@ -146,7 +147,6 @@
             @using (Html.BeginForm("SearchPage", "Home", FormMethod.Post))
             {
                 @Html.TextBoxFor(m => m.FName)
-                @Html.TextBoxFor(m => m.FName)
                 @*<input type="text" class="FName">*@
                 @Html.TextBoxFor(m => m.Lname)
                 @*<input type="text" class="LName">*@
@@ -154,6 +154,7 @@
                 <input type="submit" class="btn btn-primary" value="Search" />
 
             }
+         
         </div>
         <div class="icons">
 

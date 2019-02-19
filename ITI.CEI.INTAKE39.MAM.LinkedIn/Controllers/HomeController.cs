@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using ITI.CEI.INTAKE39.MAM.LinkedIn.Models;
 using ITI.CEI.INTAKE39.MAM.LinkedIn.ViewModels;
 
-
 namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 {
     public class HomeController : Controller
@@ -23,47 +22,26 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult ProfilePage()
+        [AllowAnonymous]
+        public ActionResult SearchPage()
         {
-            //Experience experience = null;
-            //if (id!=null)
-            //{
-            //    experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
-            //}
-            string UserName = User.Identity.Name;
-            var user =_ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                User = user,
-                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Skills= _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return View(VM);
+            return View();
         }
 
-        [Authorize]
-        public ActionResult LoadExperience(int? id)
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult SearchPage(SearchUserViewModel users)
         {
-            string UserName = User.Identity.Name;
-            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            Experience experience = null;
-            if (id!=null)
+            var persons = _ctxt.Users.Where(c => c.FName.Contains(users.FName)).ToList();
+            if (persons.Count==0)
             {
-                experience = _ctxt.Experiences.Where(e => e.Id == id).FirstOrDefault();
+                return HttpNotFound();
             }
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            else
             {
-                experience = experience,
-                User = user,
-                Experiences = _ctxt.Experiences.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return PartialView("_PartialUserExperience", VM);
+                return View("SearchPageResults",persons);
+            }
         }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -76,34 +54,6 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        [AllowAnonymous]
-        public ActionResult SearchPage()
-        {
-            //var users = _ctxt.Users.ToList();
-            //List<SearchUser> SUsers = new List<SearchUser> {
-                
-            //}; 
-            return View("SearchPage");
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult SearchPage(SearchUserViewModel users)
-        {
-            var persons = _ctxt.Users.Where(c=>c.FName.Contains(users.FName)).ToList();
-            if (persons.Count==0)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-
-            
-            /*SearchResults = persons*/;
-            return View("SearchPageResults",persons);
-            }
         }
     }
 }

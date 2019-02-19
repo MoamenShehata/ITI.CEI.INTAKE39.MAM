@@ -3,10 +3,10 @@
 @{
     AjaxOptions ajaxOptions = new AjaxOptions()
     {
-        Confirm = "Do You Want To Add These Data?",
         HttpMethod = "POST",
-        UpdateTargetId = "user_education",
+        UpdateTargetId = "user_educations",
         InsertionMode = InsertionMode.Replace,
+        OnSuccess = "$('#ModalAddEducation').modal('hide')"
 
     };
 }
@@ -45,14 +45,14 @@
                         @Html.TextBoxFor(e => e.education.StartDate, new { @class = "form-control" })
                         @Html.ValidationMessageFor(e => e.education.StartDate)
                     </div>
-                    
+
                     <div class="form-group">
                         @Html.LabelFor(e => e.education.EndDate)
                         @Html.TextBoxFor(e => e.education.EndDate, new { @class = "form-control" })
                         @Html.ValidationMessageFor(e => e.education.EndDate)
                     </div>
 
-                    @Html.HiddenFor(e=>e.education.FK_LinkedInUserId)
+                    @Html.HiddenFor(e => e.education.FK_LinkedInUserId)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -286,7 +286,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_My_Layout.cshtml" />
     <Content Include="Views\Home\Wall.cshtml" />
-    <Content Include="Views\Home\ProfilePage.cshtml" />
     <Content Include="Views\Shared\_PartialAddExperience.cshtml" />
     <Content Include="Views\Shared\_PartialEditUserInformation.cshtml" />
     <Content Include="Views\Shared\_PartialAddSkill.cshtml" />
@@ -296,6 +295,8 @@
     <Content Include="Views\Home\SearchPageResults.cshtml" />
     <Content Include="Views\Shared\_PartialUserBasicInformation.cshtml" />
     <Content Include="Views\Shared\_PartialUserExperience.cshtml" />
+    <Content Include="Views\Account\ProfilePage.cshtml" />
+    <Content Include="Views\Shared\_PartialUserEducation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

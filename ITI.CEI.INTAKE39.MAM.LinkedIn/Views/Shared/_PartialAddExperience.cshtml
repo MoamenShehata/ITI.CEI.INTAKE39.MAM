@@ -1,12 +1,12 @@
-﻿    @model LinkedInUserProfileViewModel
+﻿@model LinkedInUserProfileViewModel
 
 @{
     AjaxOptions ajaxOptions = new AjaxOptions()
     {
-        Confirm = "Do You Want To Add These Data?",
         HttpMethod = "POST",
-        UpdateTargetId = "user_experience",
+        UpdateTargetId = "user_experiences",
         InsertionMode = InsertionMode.Replace,
+        OnSuccess = "$('#ModalAddExperience').modal('hide')"
 
     };
 }
@@ -47,14 +47,14 @@
                         @Html.TextBoxFor(e => e.experience.StartDate, new { @class = "form-control" })
                         @Html.ValidationMessageFor(e => e.experience.StartDate)
                     </div>
-                    
+
                     <div class="form-group">
                         @Html.LabelFor(e => e.experience.EndDate)
                         @Html.TextBoxFor(e => e.experience.EndDate, new { @class = "form-control" })
                         @Html.ValidationMessageFor(e => e.experience.EndDate)
                     </div>
 
-                    @Html.HiddenFor(e=>e.experience.FK_LinkedInUserId)
+                    @Html.HiddenFor(e => e.experience.FK_LinkedInUserId)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
