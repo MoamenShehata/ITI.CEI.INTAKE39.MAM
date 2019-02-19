@@ -4,157 +4,155 @@
     //Layout = "~/Views/Shared/_My_Layout.cshtml";
 }
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-    h2{
-        
-      text-align:center;
-           
-    }
+        h2 {
+            text-align: center;
+        }
 
-    body {
-        background-color: #DFDFDF;
-    }
+        body {
+            background-color: #DFDFDF;
+        }
 
-    .header {
-        height: 52px;
-        background-color: #283e4a;
-        background-image: none;
-        position: relative;
-    }
+        .header {
+            height: 52px;
+            background-color: #283e4a;
+            background-image: none;
+            position: relative;
+        }
 
-    .s1 {
-        position: absolute;
-        left: 2cm;
-        top: 10px;
-        color: white;
-        font-size: 130%;
-    }
+        .s1 {
+            position: absolute;
+            left: 2cm;
+            top: 10px;
+            color: white;
+            font-size: 130%;
+        }
 
-    /* .s1::after{
-    content: '\f08c';
-    font-family: 'Font Awesome\ 5 Free';
-     font-weight: 900;
-     
-} */
+        /* .s1::after{
+        content: '\f08c';
+        font-family: 'Font Awesome\ 5 Free';
+         font-weight: 900;
 
-    .s0 {
-        position: absolute;
-        left: 3.9cm;
-        top: 10px;
-        color: #0077B5;
-    }
+    } */
 
-    .s2 {
-        position: absolute;
-        right: 6cm;
-        top: 15px;
-    }
+        .s0 {
+            position: absolute;
+            left: 3.9cm;
+            top: 10px;
+            color: #0077B5;
+        }
 
-    .s3 {
-        position: absolute;
-        right: 3cm;
-        top: 15px;
-        border: 1px solid white;
-        padding-left: 3px;
-        padding-right: 3px;
-    }
+        .s2 {
+            position: absolute;
+            right: 6cm;
+            top: 15px;
+        }
 
-    .searchbar {
-        height: 100px;
-        width: 70%;
-        display: -webkit-box;
+        .s3 {
+            position: absolute;
+            right: 3cm;
+            top: 15px;
+            border: 1px solid white;
+            padding-left: 3px;
+            padding-right: 3px;
+        }
+
+        .searchbar {
+            height: 100px;
+            width: 70%;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            border: 2px solid white;
+            background-color: white;
+        }
+
+        .s4 {
+            position: absolute;
+            left: 10px;
+            font-size: 120%;
+            top: 30px;
+        }
+
+        .icons {
+            position: absolute;
+            right: 10px;
+            top: 30px;
+        }
+
+        .inputs {
+            position: absolute;
+            right: 150px;
+            top: 32px;
+        }
+
+        .big-title {
+            height: 300px;
+            width: 70%;
+            /* display: -webkit-box;
         -webkit-box-pack: center;
-        -webkit-box-align: center;
-        margin-top: 1cm;
-        margin-bottom: 0.5cm;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        border: 2px solid white;
-        background-color: white;
-    }
+        -webkit-box-align: center; */
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            border: 2px solid white;
+            background-color: white;
+            margin-bottom: 2px;
+        }
 
-    .s4 {
-        position: absolute;
-        left: 10px;
-        font-size: 120%;
-        top: 30px;
-    }
+        .btn button {
+            background-color: skyblue; /* Green */
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+        }
 
-    .icons {
-        position: absolute;
-        right: 10px;
-        top: 30px;
-    }
+        .add {
+            margin-top: 20px;
+        }
 
-    .inputs {
-        position: absolute;
-        right: 150px;
-        top: 32px;
-    }
-
-    .big-title {
-        height: 300px;
-        width: 70%;
-        /* display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center; */
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        border: 2px solid white;
-        background-color: white;
-        margin-bottom: 2px;
-    }
-
-    .btn button {
-        background-color: skyblue; /* Green */
-        border: none;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 15px;
-    }
-
-    .add {
-        margin-top: 20px;
-    }
-
-    .results-container {
-        height: 1000px;
-        width: 70%;
-        margin-left: auto;
-        margin-right: auto;
-        border: 2px solid white;
-        background-color: white;
-    }
+        .results-container {
+            height: 1000px;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid white;
+            background-color: white;
+        }
 </style>
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
-    
+
     <h2>Search for people on LinkedIN</h2>
 
 
     <div class="searchbar">
         <span class="s4">Type the Name</span>
         <div class="inputs">
-            @using (Html.BeginForm("SearchPage", "Home",FormMethod.Post))
+            @using (Html.BeginForm("SearchPage", "Home", FormMethod.Post))
             {
 
-               @Html.TextBoxFor(m => m.FName)
-               @*<input type="text" class="FName">*@
-               @Html.TextBoxFor(m => m.Lname)
-               @*<input type="text" class="LName">*@
-               @*@Html.ActionLink("Submit", "SearchPage", "Home")*@
-                <input type="submit" class="btn btn-primary" value="Search"/>
-               
+                @Html.TextBoxFor(m => m.FName)
+                @*<input type="text" class="FName">*@
+                @Html.TextBoxFor(m => m.Lname)
+                @*<input type="text" class="LName">*@
+                @*@Html.ActionLink("Submit", "SearchPage", "Home")*@
+                <input type="submit" class="btn btn-primary" value="Search" />
+
             }
         </div>
         <div class="icons">
