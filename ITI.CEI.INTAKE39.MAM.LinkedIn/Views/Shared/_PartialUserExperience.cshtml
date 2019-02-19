@@ -12,18 +12,18 @@
 
 <div id="user_experiences" class="exp">
     <div class="experience_education_heading">
-        <h3 class="experience_education_heading_header">Experiences</h3>
+        <h3 class="experience_education_heading_header">Experience</h3>
         <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
     </div>
     @{
-            if (Model.Experiences.Count != 0)
+            if (Model.Experiences != null)
             {
                 foreach (var item in Model.Experiences)
                 {
                     if (Model.experience == null || Model.experience != item)
                     {
                         var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
-                        using (Ajax.BeginForm("LoadExperience", "Account", new { id = item.Id }, ajaxOptions))
+                        using (Ajax.BeginForm("LoadExperience", "Home", new { id = item.Id }, ajaxOptions))
                         {
                             <div class="experience_education_section">
                                 <div class="experience_education_section_image"></div>
@@ -36,9 +36,7 @@
                                             <p>@item.StartDate - @interval months</p>
                                         </div>
                                         <div class="experience_education_section_edit">
-                                            <input type="submit" value="Edit" class="btn btn-link" />
-                                            @Html.ActionLink("Delete", "DeleteExperience",new {id=item.Id})
-                                            
+                                            <input type="submit" value="Edit"  class="btn btn-link"/>
                                             @*@Html.ActionLink("Edit", "LoadExperience", new { id = @item.Id })*@
                                         </div>
 
@@ -78,7 +76,12 @@
 
                                     <div class="form-group">
                                         <input type="submit" value="Save" class="btn btn-primary" />
-                                        <input type="submit" value="Cancel" class="btn btn-default" />
+                                        @using (Ajax.BeginForm("LoadExperience", new { id = "" }, ajaxOptions))
+                                        {
+                                            <input type="submit" value="Cancel" class="btn btn-default" />
+
+                                        }
+                                        @*@Html.ActionLink("Cancel", "LoadExperience", new { id = "" }, new { @class = "btn btn-default" })*@
                                     </div>
 
                                     @Html.HiddenFor(e => Model.experience.Id)
@@ -95,7 +98,7 @@
         }
         else
         {
-            <h3>You Have To Add New Experience</h3>
+            <p>You Have To Add New Experience</p>
         }
     }
 

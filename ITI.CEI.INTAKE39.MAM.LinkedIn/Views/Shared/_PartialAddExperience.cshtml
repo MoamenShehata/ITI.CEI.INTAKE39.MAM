@@ -1,12 +1,12 @@
-﻿@model LinkedInUserProfileViewModel
+﻿    @model LinkedInUserProfileViewModel
 
 @{
     AjaxOptions ajaxOptions = new AjaxOptions()
     {
+        Confirm = "Do You Want To Add These Data?",
         HttpMethod = "POST",
-        UpdateTargetId = "user_experiences",
+        UpdateTargetId = "user_experience",
         InsertionMode = InsertionMode.Replace,
-        OnSuccess = "$('#ModalAddExperience').modal('hide')"
 
     };
 }

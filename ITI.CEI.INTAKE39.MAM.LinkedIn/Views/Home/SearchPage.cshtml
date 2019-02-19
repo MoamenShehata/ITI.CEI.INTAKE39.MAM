@@ -145,7 +145,7 @@
         <div class="inputs">
             @using (Html.BeginForm("SearchPage", "Home", FormMethod.Post))
             {
-
+                @Html.TextBoxFor(m => m.FName)
                 @Html.TextBoxFor(m => m.FName)
                 @*<input type="text" class="FName">*@
                 @Html.TextBoxFor(m => m.Lname)

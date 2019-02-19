@@ -11,8 +11,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public Experience experience { get; set; }
         public Education education { get; set; }
         public Skill skill { get; set; }
-        public List<Experience> Experiences { get; set; }
-        public List<Skill> Skills { get; set; }
-        public List<Education> Educations { get; set; }
+        public IEnumerable<Experience> Experiences { get; set; }
+        public IEnumerable<Skill> Skills { get; set; }
+        public IEnumerable<Education> Educations { get; set; }
     }
 }

@@ -25,24 +25,56 @@
 <div class="profile_parent container">
 
     <div class="left_profile">
-
         <div class="profile_section">
             <div id="cover_image" class="background_image bordered_section">
                 <div id="profile_image" class="profile_picture">
 
                 </div>
                 <a href="" class="edit_section" data-toggle="modal" data-target="#ModalEditInformation"><i class="fas fa-edit"></i></a>
-            </div>
-            @Html.Partial("_PartialUserBasicInformation", Model)
-        </div>
 
+            </div>
+
+            @Html.Partial("_PartialUserBasicInformation", Model)
+
+        </div>
 
         <div class="experience_education">
 
             @Html.Partial("_PartialUserExperience", Model)
 
-            @Html.Partial("_PartialUserEducation", Model)
-            
+
+            <div class="exp">
+                <div class="experience_education_heading">
+                    <h3 class="experience_education_heading_header">Education</h3>
+                    <a href="" data-toggle="modal" data-target="#ModalAddEducation"><i class="fas fa-plus"></i></a>
+                </div>
+                @{
+                    if (Model.Educations != null)
+                    {
+                        foreach (var item in Model.Educations)
+                        {
+                            <div class="experience_education_section">
+                                <div class="experience_education_section_image"></div>
+                                <div class="experience_education_section_content">
+
+                                    <div class="experience_education_section_context">
+                                        <h3>@item.School</h3>
+                                        <p>@item.Degree</p>
+                                        <p>@item.StartDate.Year - @item.EndDate.Year</p>
+                                    </div>
+                                    <div class="experience_education_section_edit"> <i class="fas fa-edit"></i></div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>You Have To Add New Education</p>
+                    }
+                }
+
+            </div>
         </div>
 
 
