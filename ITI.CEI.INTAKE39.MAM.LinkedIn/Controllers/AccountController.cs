@@ -61,6 +61,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+
         [Authorize]
         public ActionResult ProfilePage()
         {
@@ -90,6 +91,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             if (ModelState.IsValid && oldUser != null)
             {
                 oldUser.FName = e.User.FName;
+                oldUser.LName = e.User.LName;
+                oldUser.Age = e.User.Age;
                 oldUser.Position = e.User.Position;
                 oldUser.Country = e.User.Country;
                 oldUser.Bio = e.User.Bio;
@@ -105,6 +108,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        #region Experience Operations
         [Authorize]
         [HttpPost]
         public ActionResult AddExperienceAjax(Experience experience)
@@ -128,12 +132,11 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult EditExperienceAjax(Experience experience)
         {
 
-            Experience oldExperience = _ctxt.Experiences.Where(e=>e.Id== experience.Id).FirstOrDefault();
+            Experience oldExperience = _ctxt.Experiences.Where(e => e.Id == experience.Id).FirstOrDefault();
 
             string UserId = User.Identity.GetUserId();
 
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
-            
 
             if (ModelState.IsValid && experience != null)
             {
@@ -168,45 +171,6 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             };
             return PartialView("_PartialUserExperience", VM);
         }
-
-        [Authorize]
-        public ActionResult LoadEducation(int? id)
-        {
-            string UserName = User.Identity.Name;
-            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            Education education = null;
-            if (id != null)
-            {
-                education = _ctxt.Educations.Where(e => e.Id == id).FirstOrDefault();
-            }
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                education = education,
-                User = user,
-                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return PartialView("_PartialUserEducation", VM);
-        }
-
-        [Authorize]
-        public ActionResult LoadSkill(int? id)
-        {
-            string UserName = User.Identity.Name;
-            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            Skill skill = null;
-            if (id != null)
-            {
-                skill = _ctxt.Skills.Where(e => e.Id == id).FirstOrDefault();
-            }
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                skill = skill,
-                User = user,
-                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return PartialView("_PartialUserSkill", VM);
-        }
-
         [Authorize]
         public ActionResult DeleteExperience(int id)
         {
@@ -226,25 +190,10 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return RedirectToAction("ProfilePage");
         }
 
+        #endregion
 
-        [Authorize]
-        public ActionResult DeleteSkill(int id)
-        {
-            string UserName = User.Identity.Name;
-            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
-            Skill skill = _ctxt.Skills.Find(id);
-            if (skill != null)
-            {
-                _ctxt.Skills.Remove(skill);
-                _ctxt.SaveChanges();
-            }
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                User = user,
-                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
-            };
-            return RedirectToAction("ProfilePage");
-        }
+
+        #region Education Operations
         [Authorize]
         [HttpPost]
         public ActionResult AddEducationAjax(Education education)
@@ -259,7 +208,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 VM.Educations = _ctxt.Educations.ToList();
                 return PartialView("_PartialUserEducation", VM);
             }
-            
+
             return View();
         }
 
@@ -287,23 +236,22 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public ActionResult EditSkillAjax(Skill skill)
+        public ActionResult LoadEducation(int? id)
         {
-
-            Skill oldSkill = _ctxt.Skills.Where(e => e.Id == skill.Id).FirstOrDefault();
-            string UserId = User.Identity.GetUserId();
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
-
-            if (ModelState.IsValid && skill != null)
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Education education = null;
+            if (id != null)
             {
-                oldSkill.Name = skill.Name;
-                _ctxt.SaveChanges();
-                VM.Skills = _ctxt.Skills.Where(ex => ex.FK_LinkedInUserId == UserId).ToList();
-                return PartialView("_PartialUserSkill", VM);
+                education = _ctxt.Educations.Where(e => e.Id == id).FirstOrDefault();
             }
-
-            return View();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                education = education,
+                User = user,
+                Educations = _ctxt.Educations.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return PartialView("_PartialUserEducation", VM);
         }
 
         [Authorize]
@@ -324,8 +272,9 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             };
             return RedirectToAction("ProfilePage");
         }
+        #endregion
 
-        
+        #region Skill Operation
         [Authorize]
         [HttpPost]
         public ActionResult AddSkillAjax(Skill skill)
@@ -342,6 +291,67 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 
             return View();
         }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditSkillAjax(Skill skill)
+        {
+
+            Skill oldSkill = _ctxt.Skills.Where(e => e.Id == skill.Id).FirstOrDefault();
+            string UserId = User.Identity.GetUserId();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+
+            if (ModelState.IsValid && skill != null)
+            {
+                oldSkill.Name = skill.Name;
+                _ctxt.SaveChanges();
+                VM.Skills = _ctxt.Skills.Where(ex => ex.FK_LinkedInUserId == UserId).ToList();
+                return PartialView("_PartialUserSkill", VM);
+            }
+
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult LoadSkill(int? id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Skill skill = null;
+            if (id != null)
+            {
+                skill = _ctxt.Skills.Where(e => e.Id == id).FirstOrDefault();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                skill = skill,
+                User = user,
+                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return PartialView("_PartialUserSkill", VM);
+        }
+
+        [Authorize]
+        public ActionResult DeleteSkill(int id)
+        {
+            string UserName = User.Identity.Name;
+            var user = _ctxt.Users.Where(u => u.UserName == UserName).FirstOrDefault();
+            Skill skill = _ctxt.Skills.Find(id);
+            if (skill != null)
+            {
+                _ctxt.Skills.Remove(skill);
+                _ctxt.SaveChanges();
+            }
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
+            {
+                User = user,
+                Skills = _ctxt.Skills.Where(e => e.FK_LinkedInUserId == user.Id).ToList(),
+            };
+            return RedirectToAction("ProfilePage");
+        }
+        #endregion
+
+
 
         //
         // POST: /Account/Login
@@ -487,8 +497,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 var user = new ApplicationUser {FName=model.Fname,
                     LName = model.Lname,Age=model.Age,
                     UserName = model.Email, Email = model.Email,
-                    CoverURL= "/Images/Default_cover_2.jpg",
-                    ImageURL= "/Images/Default_profile.png",
+                    CoverURL= "Default_cover_2.jpg",
+                    ImageURL= "Default_profile.png",
                     //"url(@Url.Content("~/ Images / Default_cover.jpg"))"
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);

@@ -31,8 +31,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn
                       ));
             bundles.Add(new StyleBundle("~/MyContent/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/mystyles.css",
-                      "~/Content/fontawesome-all.min.cs"
+                      "~/Content/mystyles.css"
+                      //"~/Content/fontawesome-all.min.cs"
 
                       ));
         }

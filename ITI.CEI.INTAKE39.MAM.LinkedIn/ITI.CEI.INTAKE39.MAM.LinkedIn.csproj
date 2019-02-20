@@ -211,6 +211,22 @@
     <Compile Include="Migrations\201902161322291_ModifyEducationEntity.Designer.cs">
       <DependentUpon>201902161322291_ModifyEducationEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902201127065_AddValidationToUser.cs" />
+    <Compile Include="Migrations\201902201127065_AddValidationToUser.Designer.cs">
+      <DependentUpon>201902201127065_AddValidationToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902201138004_AddValidationToExperience.cs" />
+    <Compile Include="Migrations\201902201138004_AddValidationToExperience.Designer.cs">
+      <DependentUpon>201902201138004_AddValidationToExperience.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902201200171_AddValidationToExperience-force.cs" />
+    <Compile Include="Migrations\201902201200171_AddValidationToExperience-force.Designer.cs">
+      <DependentUpon>201902201200171_AddValidationToExperience-force.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902201205293_AddValidationToSkillAndEducation.cs" />
+    <Compile Include="Migrations\201902201205293_AddValidationToSkillAndEducation.Designer.cs">
+      <DependentUpon>201902201205293_AddValidationToSkillAndEducation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -351,6 +367,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902161322291_ModifyEducationEntity.resx">
       <DependentUpon>201902161322291_ModifyEducationEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902201127065_AddValidationToUser.resx">
+      <DependentUpon>201902201127065_AddValidationToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902201138004_AddValidationToExperience.resx">
+      <DependentUpon>201902201138004_AddValidationToExperience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902201200171_AddValidationToExperience-force.resx">
+      <DependentUpon>201902201200171_AddValidationToExperience-force.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902201205293_AddValidationToSkillAndEducation.resx">
+      <DependentUpon>201902201205293_AddValidationToSkillAndEducation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

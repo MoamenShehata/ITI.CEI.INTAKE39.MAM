@@ -143,7 +143,7 @@ border-radius:50%;
     box-shadow: 1px 1px 3px rgba(161, 161, 161, 0.70);
 }
 
-.left_info{float: left;width: 70%;padding-top:100px;}
+.left_info{float: left;width: 60%;padding-top:100px;}
 
     .left_info h2 {
         color: rgb(41, 41, 41);
@@ -152,10 +152,19 @@ border-radius:50%;
     .left_info p {
         font-size:16px;
     }
-.right_info{float: right;width: 25%;box-sizing: border-box;
+.right_info{float: right;width: 35%;box-sizing: border-box;
     padding-top:100px;
 }
 
+    .right_info h3{
+        font-weight: 600;
+        color: rgb(50, 50, 50);
+    }
+
+        .right_info h3 a{
+            color: rgb(41, 41, 41);
+            text-decoration: none;
+        }
 .right_info h3{font-size:18px !important;
 }
 
@@ -238,7 +247,9 @@ margin-bottom:10px;
 .experience_education, .Skills_Endorsements, .Accomplishments, .Interests {
     margin: 20px 0px;
     padding: 20px 20px 20px 20px;
-    border: 2px solid rgb(168, 168, 168);
+    border: 1px solid rgb(168, 168, 168);
+    box-shadow: 1px 1px 3px rgba(161, 161, 161, 0.70);
+    /*border: 2px solid rgb(168, 168, 168);*/
 }
 
 .experience_education_heading{overflow: hidden;}
@@ -264,7 +275,14 @@ margin-right:15px;
 .experience_education_section_context{float: left;
 }
 
-
+    .experience_education_section_context h3 {
+        font-size: 18px;
+        margin-top: 0;
+        color: rgb(14, 14, 14)
+    }
+    .experience_education_section_context p{
+        color: rgb(14, 14, 14)
+    }
  .experience_education_section_edit{float: right;
     color: #006097;
 }
@@ -360,4 +378,45 @@ footer .quest{margin:20px 0px;}
     position: absolute;
     top: 90px;
     left: 165px;
+}
+
+
+
+
+.field-validation-error {
+    color: red;
+    animation: Validating 0.8s linear infinite alternate;
+}
+
+.input-validation-error {
+    animation: Validating-color 0.8s linear infinite alternate;
+}
+
+
+@keyframes Validating {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes Validating-color {
+    0% {
+        border: 1px solid red;
+    }
+
+    50% {
+        border: 1px solid #ff4040;
+    }
+
+    100% {
+        border: 1px solid #fafafa;
+    }
 }

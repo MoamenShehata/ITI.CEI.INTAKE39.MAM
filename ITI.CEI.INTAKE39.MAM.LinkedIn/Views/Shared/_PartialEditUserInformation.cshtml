@@ -28,11 +28,23 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                     <div class="form-group">
                         @Html.LabelFor(e => e.User.FName)
                         @Html.TextBoxFor(e => e.User.FName, new { @class = "form-control" })
                         @Html.ValidationMessageFor(e => e.User.FName)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.LName)
+                        @Html.TextBoxFor(e => e.User.LName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.LName)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(e => e.User.Age)
+                        @Html.TextBoxFor(e => e.User.Age, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(e => e.User.Age)
                     </div>
 
                     <div class="form-group">
