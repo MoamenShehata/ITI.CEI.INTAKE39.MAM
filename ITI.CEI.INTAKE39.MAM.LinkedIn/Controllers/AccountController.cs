@@ -78,28 +78,27 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult EditInformationAjax(ApplicationUser user)
+        //ApplicationUser user
+        public ActionResult EditInformationAjax(LinkedInUserProfileViewModel e)
         {
             string UserId = User.Identity.GetUserId();
             
             ApplicationUser oldUser = _ctxt.Users.Where(u=>u.Id== UserId).FirstOrDefault();
-            
-            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel()
-            {
-                User = user,
-            };
+
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
 
             if (ModelState.IsValid && oldUser != null)
             {
-                oldUser.FName = user.FName;
-                oldUser.Position = user.Position;
-                oldUser.Country = user.Country;
-                oldUser.Bio = user.Bio;
-                oldUser.School = user.School;
-                oldUser.University = user.University;
-                oldUser.ImageURL = user.ImageURL;
-                oldUser.CoverURL = user.CoverURL;
+                oldUser.FName = e.User.FName;
+                oldUser.Position = e.User.Position;
+                oldUser.Country = e.User.Country;
+                oldUser.Bio = e.User.Bio;
+                oldUser.School = e.User.School;
+                oldUser.University = e.User.University;
+                //oldUser.ImageURL = e.User.ImageURL;
+                //oldUser.CoverURL = e.User.CoverURL;
                 _ctxt.SaveChanges();
+                VM.User = oldUser;
                 return PartialView("_PartialUserBasicInformation", VM);
             }
 
@@ -427,7 +426,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 
         public ActionResult CoverUpload(HttpPostedFileBase file)
         {
-                LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
             if (file != null)
             {
                 var userId = User.Identity.GetUserId();
@@ -438,15 +437,13 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                                        Server.MapPath("~/Images"), pic);
                 // file is uploaded
                 file.SaveAs(path);
-                /// Images / Default_profile.png
-                // save the image path path to the database or you can send image 
-                // directly to database
-                // in-case if you want to store byte[] ie. for DB
                 
                 user.CoverURL = pic;
                 _ctxt.SaveChanges();
                 VM.User = user;
-
+                VM.Experiences = _ctxt.Experiences.ToList();
+                VM.Educations = _ctxt.Educations.ToList();
+                VM.Skills = _ctxt.Skills.ToList();
             }
             // after successfully uploading redirect the user
             return PartialView("_PartialUserBasicInformation", VM);

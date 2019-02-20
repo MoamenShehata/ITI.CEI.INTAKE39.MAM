@@ -306,6 +306,10 @@
     <Content Include="Views\Shared\_PartialUserEducation.cshtml" />
     <Content Include="Views\Account\ProfilePage.cshtml" />
     <Content Include="Views\Shared\_PartialUserSkill.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Files.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\file_cover.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\file_profile.cshtml" />
+    <Content Include="Views\Shared\_PartialUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

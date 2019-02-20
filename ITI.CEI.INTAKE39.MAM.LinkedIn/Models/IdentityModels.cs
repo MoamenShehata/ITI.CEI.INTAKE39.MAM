@@ -22,8 +22,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public string School { get; set; }
         public string University { get; set; }
         public string Bio { get; set; }
-        //public HttpPostedFileBase CoverFile { get; set; }
-        //public HttpPostedFileBase ProfileFile { get; set; }
+        
 
 
 

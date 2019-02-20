@@ -4,14 +4,6 @@
     ViewBag.Title = "Profile Page";
     Layout = "~/Views/Shared/_My_Layout.cshtml";
 
-    AjaxOptions ajaxOptions = new AjaxOptions()
-    {
-        Confirm = "Do You Want To Add These Data?",
-        HttpMethod = "POST",
-        UpdateTargetId = "user_experience",
-        InsertionMode = InsertionMode.Replace,
-
-    };
 }
 
 <!-- #region Modals Rendering Section -->
@@ -35,10 +27,10 @@
             @Html.Partial("_PartialUserExperience", Model)
 
             @Html.Partial("_PartialUserEducation", Model)
-            
+
         </div>
 
-        
+
         <div class="Skills_Endorsements">
             @Html.Partial("_PartialUserSkill", Model)
         </div>

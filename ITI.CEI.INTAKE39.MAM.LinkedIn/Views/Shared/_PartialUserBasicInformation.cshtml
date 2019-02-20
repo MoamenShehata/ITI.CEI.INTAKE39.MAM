@@ -10,7 +10,7 @@
     };
 }
 <div id="user_information" class="info bordered_section">
-    <div id="cover_image" class="background_image bordered_section" style="background-image:url(/Images/@Model.User.CoverURL)">
+    <div id="cover_image" class="background_image" style="background-image:url(/Images/@Model.User.CoverURL);border-bottom:2px solid rgb(168, 168, 168)">
         @using (Ajax.BeginForm("CoverUpload", "Account", ajaxOptions,
                             new { enctype = "multipart/form-data" }))
         {
@@ -50,7 +50,7 @@
         <h3>See connections</h3>
     </div>
     <div style="clear:both"></div>
-    <div class="padded_section seprator">
+    <div class=" bio">
         <p>
             @Model.User.Bio
         </p>
