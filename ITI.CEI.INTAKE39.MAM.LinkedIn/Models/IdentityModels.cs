@@ -28,19 +28,19 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         [Required(ErrorMessage = "Age Is Mandatory")]
         public int Age { get; set; }
 
-        [Required]
+        
         public string Position { get; set; }
 
-        [Required]
+        
         public string Country { get; set; }
 
-        [Required]
+        
         public string School { get; set; }
 
-        [Required]
+        
         public string University { get; set; }
 
-        [Required]
+        
         public string Bio { get; set; }
 
 

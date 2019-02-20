@@ -1,0 +1,100 @@
+﻿@using Microsoft.AspNet.Identity
+@model LoginViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/MyContent/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+
+        * {
+        }
+    </style>
+
+</head>
+<body>
+
+    <nav class="nav">
+
+        <div class="container">
+            <div class="navbar" style="margin-top:15px;min-height:40px!important">
+                <div class="left_nav">
+                    <ul>
+                        <li><img src="~/Images/LinkedInLogo.png" alt="Alternate Text" /></li>
+                    </ul>
+                </div>
+                <div class="right_nav">
+                    <ul style="border:none;margin:0;padding:0">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = "/home/wall" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+                            <li>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "Login_input" })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                            </li>
+                            
+                            <li>
+                                @Html.PasswordFor(m => m.Password, new { @class = "Login_input" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </li>
+
+                            <li>
+                                <a href="">Forgot Password</a>
+                            </li>
+
+                            <li>
+                                <input type="submit" value="Sign in" class="btn_signIn" />
+                            </li>
+
+
+
+                            @*<p>
+                            @Html.ActionLink("Register as a new user", "Register")
+                            </p>*@
+
+                            @* Enable this once you have account confirmation enabled for password reset functionality
+                            <p>
+                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                            </p>*@
+                        }
+                        
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+
+    @using Microsoft.AspNet.Identity
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+        }
+    }
+    else
+    {
+
+    }
+
+    <div>
+        @RenderBody()
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

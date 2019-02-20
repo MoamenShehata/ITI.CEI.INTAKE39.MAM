@@ -193,6 +193,66 @@ position: relative;
 top:115px;left:30px;
 }
 
+.btn_signIn {
+    padding: 3px 20px;
+    background: #283E4A;
+    border: 1px solid white;
+    color: white;
+    border-radius: 2px;
+    font-size: 16px;
+    transition: background 0.1s ease-in-out;
+}
+
+.search_section{
+    background-color: #434649;text-align:center;padding:40.5px 0;
+}
+
+.reister_section {
+    background-color: #F6F8FA;
+    width: 25%;
+    position: absolute;
+    top: 95px;
+    height: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.Login_input {
+    padding: 3px 30px 3px 7px;
+    border-radius: 3px;
+}
+
+.Login_field{display:inline-block;
+    width:120%;
+    margin:auto;
+}
+    .search_section label {
+        color: #deebf0;
+    }
+    .search_section input{padding:7px 40px 7px 6px;
+                          border-radius:3px;
+    }
+
+.user_logins {padding:10px 20px;
+    background-color: #e4e7e9;
+}
+.header {
+    text-align: center;
+}
+.search_section button {
+    padding: 4px 15px 5px 15px;
+    background-color: #434649;
+    cursor: not-allowed;
+    font-size: 18px;
+    color: #9f9f9f;
+    border: 1px solid white;
+    border-radius: 2px;
+}
+.btn_signIn:hover {
+    background: White;
+    color: #283E4A;
+    border-radius: 2px;
+}
 .left_info_buttons .btn1 {
     padding: 10px 20px;
     background: #006097;

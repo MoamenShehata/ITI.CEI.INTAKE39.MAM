@@ -61,6 +61,11 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult LaunchPage()
+        {
+            return View();
+        }
 
         [Authorize]
         public ActionResult ProfilePage()
@@ -501,7 +506,9 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                     ImageURL= "Default_profile.png",
                     //"url(@Url.Content("~/ Images / Default_cover.jpg"))"
                 };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -741,7 +748,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LaunchPage", "Account");
         }
 
         //

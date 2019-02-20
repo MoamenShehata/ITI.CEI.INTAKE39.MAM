@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201902201205293_AddValidationToSkillAndEducation.Designer.cs">
       <DependentUpon>201902201205293_AddValidationToSkillAndEducation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902201515440_updateValidationToUser.cs" />
+    <Compile Include="Migrations\201902201515440_updateValidationToUser.Designer.cs">
+      <DependentUpon>201902201515440_updateValidationToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -259,6 +263,8 @@
     <Content Include="Images\Default_cover_1.jpg" />
     <Content Include="Images\Default_cover_2.jpg" />
     <Content Include="Images\Default_profile.png" />
+    <Content Include="Images\LinkedInLogo.png" />
+    <Content Include="Images\LinkedInPeople.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -326,6 +332,8 @@
     <Content Include="Views\Shared\EditorTemplates\file_cover.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\file_profile.cshtml" />
     <Content Include="Views\Shared\_PartialUserProfile.cshtml" />
+    <Content Include="Views\Shared\_My_Layout_Launch.cshtml" />
+    <Content Include="Views\Account\LaunchPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -379,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902201205293_AddValidationToSkillAndEducation.resx">
       <DependentUpon>201902201205293_AddValidationToSkillAndEducation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902201515440_updateValidationToUser.resx">
+      <DependentUpon>201902201515440_updateValidationToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
