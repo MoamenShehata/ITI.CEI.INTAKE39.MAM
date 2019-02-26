@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ITI.CEI.INTAKE39.MAM.LinkedIn.Models;
 using ITI.CEI.INTAKE39.MAM.LinkedIn.ViewModels;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 
 namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 {
@@ -17,7 +18,75 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
-        
+        [Authorize]
+        [HttpGet]
+        public ActionResult Comment (int postid, string commentText)
+        {
+            var userId = User.Identity.GetUserId();
+            var commentAdded = new Comment
+            {
+                Text=commentText,
+                FK_LinkedInUserId=userId,
+                FK_PostId=postid 
+            };
+            _ctxt.Comments.Add(commentAdded);
+            _ctxt.SaveChanges();
+
+            var user = _ctxt.Users.SingleOrDefault(m => m.Id == userId);
+            string resultName = user.FName +" "+user.LName;
+            return Json(resultName, JsonRequestBehavior.AllowGet); ;
+
+        }
+
+
+
+        [Authorize]
+        [HttpGet]
+        public int Like (int postid)
+        {
+            var userId = User.Identity.GetUserId();
+            var test = _ctxt.Likes.SingleOrDefault(m => m.FK_PostId == postid && m.FK_LinkedInUserId == userId);
+           
+            if (test==null)
+            {
+                var likeAdded = new Like
+                {
+                    FK_LinkedInUserId = userId,
+                    FK_PostId = postid
+                };
+
+                _ctxt.Likes.Add(likeAdded);
+              _ctxt.SaveChanges();
+              var noOflikesOnPost = _ctxt.Likes.Where(m => m.FK_PostId == postid).ToList().Count();
+                
+                return noOflikesOnPost;
+            }
+            else
+            {
+                _ctxt.Likes.Remove(test);
+                _ctxt.SaveChanges();
+                var noOflikesOnPost = _ctxt.Likes.Where(m => m.FK_PostId == postid).ToList().Count();
+                return noOflikesOnPost;
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Submit (Post Addedpost)
+        {
+            var userId = User.Identity.GetUserId();
+            var AddedpostToDatabase = new Post
+            {
+               FK_LinkedInUserId = userId,
+               Content=Addedpost.Content
+
+            };
+            _ctxt.Posts.Add(AddedpostToDatabase);
+            _ctxt.SaveChanges();
+
+            return RedirectToAction("Wall");
+        }
+
         [Authorize]
         public ActionResult Wall()
         {
@@ -25,12 +94,20 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             var userId = User.Identity.GetUserId();
             var user = _ctxt.Users.SingleOrDefault(c => c.Id == userId);
             var userOfPosts = _ctxt.Users.ToList();
+            var Likes = _ctxt.Likes.ToList();
+            var comments = _ctxt.Comments.ToList();
+            var userofComments = _ctxt.Users.ToList();
+
 
             var userViewModel = new LinkedUserHomePageViewModel
             {
                 UserAtHome = user,
                 PostsAtHome = posts,
-                UsersOfPosts=userOfPosts
+                UsersOfPosts=userOfPosts,
+                LikesOnPosts=Likes,
+                CommentsOnPosts=comments,
+                UsersOfComments=userofComments,
+                
                 
             };
             return View("Wall",userViewModel);

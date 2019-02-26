@@ -31,11 +31,11 @@
     }
 
     /* .s1::after{
-    content: '\f08c';
-    font-family: 'Font Awesome\ 5 Free';
-     font-weight: 900;
-     
-} */
+        content: '\f08c';
+        font-family: 'Font Awesome\ 5 Free';
+         font-weight: 900;
+
+    } */
 
     .s0 {
         position: absolute;
@@ -81,8 +81,8 @@
         height: 250px;
         width: 25%;
         /* display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center; */
+        -webkit-box-pack: center;
+        -webkit-box-align: center; */
         margin-left: 5px;
         margin-right: auto;
         text-align: center;
@@ -96,8 +96,8 @@
         height: 250px;
         width: 25%;
         /* display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center; */
+        -webkit-box-pack: center;
+        -webkit-box-align: center; */
         margin-left: auto;
         margin-right: 20px;
         text-align: center;
@@ -108,11 +108,11 @@
     }
 
     .MidDiv {
-        height: 600px;
+        height: auto;
         width: 45%;
         /* display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center; */
+        -webkit-box-pack: center;
+        -webkit-box-align: center; */
         margin-left: auto;
         margin-right: auto;
         text-align: left;
@@ -137,26 +137,42 @@
         padding: 5px;
     }
 
+    .comments {
+        margin-top: 5px;
+        margin-bottom: 5px;
+       
+    }
 
+    .databasecomments{
+        display:block;
+    }
+    
+    .hidecomments{
+        display:none;
+    }
 
+    .activebtn{
+        background-color:blue;
+    }
 
+    
 
 </style>
 
 
 <body class="body">
     @*<div class="header">
-        <span class="s1">LINKED</span>
-        <span class="s0"><i class="fab fa-linkedin fa-2x"></i></span>
-        <span class="s2"><a href="">Sign In</a></span>
-        <span class="s3"><a href="">Join Now</a></span>
+            <span class="s1">LINKED</span>
+            <span class="s0"><i class="fab fa-linkedin fa-2x"></i></span>
+            <span class="s2"><a href="">Sign In</a></span>
+            <span class="s3"><a href="">Join Now</a></span>
 
-    </div>*@
+        </div>*@
     <div class="container">
 
 
         <div class="Leftdiv">
-            <img src="PP.JPG" alt="profile-photo" style="width:80px;height:80px;">
+            <img src="" alt="profile-photo" style="width:80px;height:80px;">
             <h4>@Model.UserAtHome.FName&nbsp;@Model.UserAtHome.LName</h4>
             <h6>@Model.UserAtHome.Position</h6>
             <h6>Who has viewed your profile</h6>
@@ -170,22 +186,55 @@
         <div class="MidDiv">
             <div class="writeapost">
                 <h4>Write a status</h4>
-                <textarea name="status-area" id="1" cols="78" rows="5"></textarea>
-                <h5><button>Submit</button>  <button>Cancel</button></h5>
+                @using (Html.BeginForm("Submit", "Home", FormMethod.Post))
+                {
+                    @Html.TextAreaFor(m => m.AddedPost.Content, new { @cols = "78", @rows = "5" })
+                    @*<textarea name="status-area" id="1" cols="78" rows="5"></textarea>*@
+                    <h5><button type="submit">Submit</button>  <button>Cancel</button></h5>
+                }
 
             </div>
             @foreach (var item in Model.PostsAtHome)
             {
-                
-                    var FNameofPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).FName;
-                    var LNameOfPost= Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).LName;
-                
+
+                var FNameofPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).FName;
+                var LNameOfPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).LName;
+
             <div class="posts">
-                <h6><img src="PP.JPG" alt="photo-of-user" style="width:70px;height:70px;"><span>@FNameofPost&nbsp;@LNameOfPost </span></h6>
+                <h6><img src="" alt="photo-of-user" style="width:70px;height:70px;"><span>@FNameofPost&nbsp;@LNameOfPost </span></h6>
                 <p>@item.Content</p>
-                <button>Like</button>
-                <button>comment</button>
-                <button>share</button>
+                <input type="hidden" id="postid" name="postId" value="@item.Id">
+
+                <h6 id="likes-@item.Id">@Model.LikesOnPosts.Where(m => m.FK_PostId == item.Id).Count()Likes</h6>
+                @if (Model.LikesOnPosts.SingleOrDefault(c => c.FK_LinkedInUserId == Model.UserAtHome.Id && c.FK_PostId == item.Id) == null)
+                {
+                    <button id="likebtn-@item.Id" onclick="makeLike(@item.Id)">Like</button>
+
+                }
+                else
+                {
+                    <button class="activebtn" id="likebtn-@item.Id" onclick="makeLike(@item.Id)">Like</button>
+                }
+
+                <button id="commentbtn-@item.Id" onclick="hidecomments(@item.Id)">Comment</button>
+                <button id="sharebtn">Share</button>
+
+                <div class="comments-@item.Id">
+
+                    @foreach (var comment in Model.CommentsOnPosts.Where(m => m.FK_PostId == item.Id).ToList())
+                    {
+                        var FNameofComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).FName;
+                        var LNameOfComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).LName;
+
+                        <p class="databasecomments">@FNameofComment&nbsp;@LNameOfComment : @comment.Text </p>
+
+                    }
+
+
+
+                </div>
+                <p><input id="acomment-@item.Id" type="text" name="comment" placeholder="add a comment" onkeydown="moamen(@item.Id)" /></p>
+                <button onclick="makeComment(@item.Id)">Submit</button>
 
             </div>
             }
@@ -197,6 +246,7 @@
 
         <div class="Rightdiv">
             <h4>Add to your feed</h4>
+
             <h5>option1 <button>+Follow</button></h5>
             <h5>option2 <button>+Follow</button></h5>
             <h5>option3 <button>+Follow</button></h5>
@@ -209,4 +259,188 @@
 
 
 </body>
+
+
+@section Scripts
+{
+    <script>
+      
+
+        function makeComment(postid) {
+
+
+          
+            var textofComment = $(`#acomment-${postid}`).val();
+            if (textofComment!="") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/Comment",
+                    contentType: "application/json; charset=utf-8",
+                    data: { 'postid': postid, 'commentText': textofComment },
+                    dataType: "json",
+                    success: function (result) {
+
+                        $(`.comments-${postid}`).prepend("<p>" + result + ":" + textofComment + "</p>");
+                        $(`#acomment-${postid}`).val("");
+                    },
+
+                });
+                
+            }
+
+
+        
+
+
+
+
+        }
+        function makeLike(postid) {
+
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/Like",
+                contentType: "application/json; charset=utf-8",
+                data: { 'postid': postid },
+                //dataType: "json",
+                success: function (result) {
+                    $(`#likes-${postid}`).html(result + "Likes");
+                    
+                        
+                    $(`#likebtn-${postid}`).toggleClass("activebtn");
+                    
+                    
+                },
+                
+            });
+
+
+
+
+        }
+
+
+
+        function hidecomments(postid) {
+
+            var commentsection = $(`.comments-${postid}`);
+            commentsection.toggleClass("hidecomments");
+        }
+
+        
+               
+        function moamen(postid) {
+            
+            var commentsection = document.getElementById(`acomment-${postid}`);
+            //var commentsection = $(`#acomment-${postid}`);
+            commentsection.addEventListener("keydown", function (e) {
+                var key = e.which || e.keyCode;
+                if (key === 13) {
+                    makeComment(postid);
+                }
+            });
+        }
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(document).ready(function () {
+
+            //$('.posts').each(function () {
+            //    $("#likebtn").click(function (e) {
+            //        var idofPost = $('#postid').val();
+
+            //        $.ajax({
+            //            type: "GET",
+            //            url: "/Home/Like",
+            //            contentType: "application/json; charset=utf-8",
+            //            data: { 'postid': idofPost },
+            //            dataType: "json",
+            //            success: function (result) {
+            //                $("#likes").html(result + "Likes");
+            //            },
+
+            //        });
+
+
+            //    });
+            //});
+
+
+            
+
+      
+       
+
+
+            //$('.posts').each(function () {
+          
+            //    var input = document.getElementById("acomment");
+            //    input.addEventListener("keyup",function (event) {
+            //        if (event.keyCode === 13) {
+            //            var idofPost = $('#postid').val();
+            //            var textofComment = $('#acomment').val();
+
+
+            //            $.ajax({
+            //                type: "GET",
+            //                url: "/Home/Comment",
+            //                contentType: "application/json; charset=utf-8",
+            //                data: { 'postid': idofPost, 'commentText': textofComment },
+            //                dataType: "json",
+            //                success: function (result) {
+                               
+            //                    $(".comments").prepend("<p>"+result+":"+textofComment+"</p>");
+            //                },
+
+            //            });
+
+            //        }
+
+            //    });
+            //});
+
+
+
+
+            $("#commentbtn").click(function (e) {
+
+                var commentsinposts = document.querySelector(".databasecomments");
+                if (commentsinposts.style.display=="none") {
+                    commentsinposts.style.display="block"
+                }
+                else {
+                    commentsinposts.style.display = "none"
+                }
+            });
+           
+
+
+        });
+
+
+
+
+
+    </script>
+}
+
+
 
