@@ -1,8 +1,491 @@
-﻿
+﻿@model LinkedUserHomePageViewModel
 @{
     ViewBag.Title = "Wall";
     Layout = "~/Views/Shared/_My_Layout.cshtml";
 }
 
-<h2>Wall</h2>
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .body {
+        background-color: #DFDFDF;
+    }
+
+    .header {
+        height: 52px;
+        background-color: #283e4a;
+        background-image: none;
+        position: relative;
+    }
+
+    .s1 {
+        position: absolute;
+        left: 2cm;
+        top: 10px;
+        color: white;
+        font-size: 130%;
+    }
+
+    /* .s1::after{
+        content: '\f08c';
+        font-family: 'Font Awesome\ 5 Free';
+         font-weight: 900;
+
+    } */
+
+    .s0 {
+        position: absolute;
+        left: 3.9cm;
+        top: 10px;
+        color: #0077B5;
+    }
+
+    .s2 {
+        position: absolute;
+        right: 6cm;
+        top: 15px;
+    }
+
+    .s3 {
+        position: absolute;
+        right: 3cm;
+        top: 15px;
+        border: 1px solid white;
+        padding-left: 3px;
+        padding-right: 3px;
+    }
+
+
+
+    .s4 {
+        position: absolute;
+        left: 10px;
+        font-size: 120%;
+        top: 30px;
+    }
+
+    .container {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+    }
+
+    .Leftdiv {
+        height: 250px;
+        width: 25%;
+        /* display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center; */
+        margin-left: 5px;
+        margin-right: auto;
+        text-align: center;
+        border: 2px solid white;
+        background-color: white;
+        margin-top: 20px;
+        margin-bottom: 2px;
+    }
+
+    .Rightdiv {
+        height: 250px;
+        width: 25%;
+        /* display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center; */
+        margin-left: auto;
+        margin-right: 20px;
+        text-align: center;
+        border: 2px solid white;
+        background-color: white;
+        margin-top: 20px;
+        margin-bottom: 2px;
+    }
+
+    .MidDiv {
+        height: auto;
+        width: 45%;
+        /* display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center; */
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        border: 2px solid white;
+        /* background-color: white; */
+        margin-top: 20px;
+        margin-bottom: 2px;
+        align-items: center;
+    }
+
+
+    .writeapost {
+        background-color: white;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+    .posts {
+        background-color: white;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+
+    .comments {
+        margin-top: 5px;
+        margin-bottom: 5px;
+       
+    }
+
+    .databasecomments{
+        display:block;
+    }
+    
+    .hidecomments{
+        display:none;
+    }
+
+    .activebtn{
+        background-color:blue;
+    }
+
+    
+
+</style>
+
+
+<body class="body">
+    @*<div class="header">
+            <span class="s1">LINKED</span>
+            <span class="s0"><i class="fab fa-linkedin fa-2x"></i></span>
+            <span class="s2"><a href="">Sign In</a></span>
+            <span class="s3"><a href="">Join Now</a></span>
+
+        </div>*@
+    <div class="container">
+
+
+        <div class="Leftdiv">
+            <img src="" alt="profile-photo" style="width:80px;height:80px;">
+            <h4>@Model.UserAtHome.FName&nbsp;@Model.UserAtHome.LName</h4>
+            <h6>@Model.UserAtHome.Position</h6>
+            <h6>Who has viewed your profile</h6>
+            <h6>Connections</h6>
+
+
+        </div>
+
+
+
+        <div class="MidDiv">
+            <div class="writeapost">
+                <h4>Write a status</h4>
+                @using (Html.BeginForm("Submit", "Home", FormMethod.Post))
+                {
+                    @Html.TextAreaFor(m => m.AddedPost.Content, new { @cols = "78", @rows = "5" })
+                    @*<textarea name="status-area" id="1" cols="78" rows="5"></textarea>*@
+                    <h5><button type="submit">Submit</button>  <button>Cancel</button></h5>
+                }
+
+            </div>
+            @foreach (var item in Model.PostsAtHome)
+            {
+
+                var FNameofPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).FName;
+                var LNameOfPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).LName;
+
+            <div class="posts">
+                <h6><img src="" alt="photo-of-user" style="width:70px;height:70px;"><span>@FNameofPost&nbsp;@LNameOfPost </span></h6>
+                <p>@item.Content</p>
+                <input type="hidden" id="postid" name="postId" value="@item.Id">
+
+                <h6 id="likes-@item.Id">@Model.LikesOnPosts.Where(m => m.FK_PostId == item.Id).Count()Likes</h6>
+                @if (Model.LikesOnPosts.SingleOrDefault(c => c.FK_LinkedInUserId == Model.UserAtHome.Id && c.FK_PostId == item.Id) == null)
+                {
+                    <button id="likebtn-@item.Id" onclick="makeLike(@item.Id)">Like</button>
+
+                }
+                else
+                {
+                    <button class="activebtn" id="likebtn-@item.Id" onclick="makeLike(@item.Id)">Like</button>
+                }
+
+                <button id="commentbtn-@item.Id" onclick="hidecomments(@item.Id)">Comment</button>
+                <button id="sharebtn">Share</button>
+
+                <div class="comments-@item.Id">
+
+                    @foreach (var comment in Model.CommentsOnPosts.Where(m => m.FK_PostId == item.Id).ToList())
+                    {
+                        var FNameofComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).FName;
+                        var LNameOfComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).LName;
+
+                    <p class="databasecomments" id="@comment.Id">
+                        @FNameofComment&nbsp;@LNameOfComment : @comment.Text
+                        @{
+                            if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
+                            {
+                                <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
+                                <span class="btn-link">Delete</span>
+                                @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
+
+                            }
+
+                        }
+                    </p> 
+
+
+                            }
+
+
+
+                        </div>
+                <p><input class="txbox"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
+                @*<button onclick="makeComment(@item.Id)">Submit</button>*@
+
+            </div>
+            }
+
+        </div>
+
+
+
+
+        <div class="Rightdiv">
+            <h4>Add to your feed</h4>
+
+            <h5>option1 <button>+Follow</button></h5>
+            <h5>option2 <button>+Follow</button></h5>
+            <h5>option3 <button>+Follow</button></h5>
+            <h5>option4 <button>+Follow</button></h5>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+
+@section Scripts
+{
+    <script>
+
+        var textboxes = document.querySelectorAll (".txbox");
+
+        textboxes.forEach(function (txtbox) {
+            let currentId = txtbox.getAttribute("id");
+            txtbox.addEventListener("keyup", function (e) {
+                if (e.keyCode==13) {
+                    makeComment(currentId);
+                }
+
+            })
+        });
+
+        function makeComment(postid) {
+            var textofComment = $(`#${postid}`).val();
+            if (textofComment!="") {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/Comment",
+                    contentType: "application/json; charset=utf-8",
+                    data: { 'postid': postid, 'commentText': textofComment },
+                    dataType: "json",
+                    success: function (result) {
+
+
+                        $(`.comments-${postid}`).prepend(`<p id=\"${result.commentId}\">` + result.Name + ":" + textofComment + "\n" + 
+                            `<span><button onclick=\"Editcomment(${postid},${result.commentId},'${textofComment}')\" class=\"btn-link\">Edit</button></span>` +"<span class=\"btn-link\">Delete</span>"+ "</p>");
+                        $(`#${postid}`).val("");
+                    },
+
+                });
+                
+            }
+        }
+
+        function submitEdittedcomment(postid, commentid, oldText) {
+            var currenCommentbox = $(`#editcomment-${commentid}`).val();
+            
+            if (currenCommentbox != null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/Editcomment",
+                    contentType: "application/json; charset=utf-8",
+                    data: { 'postid': postid, 'oldtext': oldText, 'newtext': currenCommentbox },
+                    dataType: "json",
+                    success: function (result) {
+                        $(`#editcomment-${commentid}`).replaceWith(`<p  id=\"${commentid}\" class=\"databasecomments\">${result} : ${currenCommentbox}` + "\n" +
+                            `<span><button onclick=\"Editcomment(${postid},${commentid},'${currenCommentbox}')\" class=\"btn-link\">Edit</button></span>` + "<span class=\"btn-link\">Delete</span>"
+                        + "</p>");
+                        $(`#editcommentbutton-${commentid}`).remove();
+                    },
+
+                });
+            }
+        }
+        function Editcomment(postid, commentid, oldText) {
+
+            debugger
+            $(`#${commentid}`).replaceWith(`<input type=\"text\" style=\"display:block\" id=\"editcomment-${commentid}\" value=\"${oldText}\"/> \n
+            <div><button id=\"editcommentbutton-${commentid}\" onclick=\"submitEdittedcomment(${postid},${commentid},'${oldText}')\">submit</button></div>`);
+            
+        }
+
+        function makeLike(postid) {
+
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/Like",
+                contentType: "application/json; charset=utf-8",
+                data: { 'postid': postid },
+                //dataType: "json",
+                success: function (result) {
+                    $(`#likes-${postid}`).html(result + "Likes");
+                    
+                        
+                    $(`#likebtn-${postid}`).toggleClass("activebtn");
+                    
+                    
+                },
+                
+            });
+
+
+
+
+        }
+
+
+
+        function hidecomments(postid) {
+
+            var commentsection = $(`.comments-${postid}`);
+            commentsection.toggleClass("hidecomments");
+        }
+
+        
+               
+        //function moamen(postid) {
+            
+        //    var commentsection = document.getElementById(`acomment-${postid}`);
+        //    //var commentsection = $(`#acomment-${postid}`);
+        //    commentsection.addEventListener("keydown", function (e) {
+        //        var key = e.which || e.keyCode;
+        //        if (key === 13) {
+        //            makeComment(postid);
+        //        }
+        //    });
+        //}
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(document).ready(function () {
+
+            //$('.posts').each(function () {
+            //    $("#likebtn").click(function (e) {
+            //        var idofPost = $('#postid').val();
+
+            //        $.ajax({
+            //            type: "GET",
+            //            url: "/Home/Like",
+            //            contentType: "application/json; charset=utf-8",
+            //            data: { 'postid': idofPost },
+            //            dataType: "json",
+            //            success: function (result) {
+            //                $("#likes").html(result + "Likes");
+            //            },
+
+            //        });
+
+
+            //    });
+            //});
+
+
+            
+
+      
+       
+
+
+            //$('.posts').each(function () {
+          
+            //    var input = document.getElementById("acomment");
+            //    input.addEventListener("keyup",function (event) {
+            //        if (event.keyCode === 13) {
+            //            var idofPost = $('#postid').val();
+            //            var textofComment = $('#acomment').val();
+
+
+            //            $.ajax({
+            //                type: "GET",
+            //                url: "/Home/Comment",
+            //                contentType: "application/json; charset=utf-8",
+            //                data: { 'postid': idofPost, 'commentText': textofComment },
+            //                dataType: "json",
+            //                success: function (result) {
+                               
+            //                    $(".comments").prepend("<p>"+result+":"+textofComment+"</p>");
+            //                },
+
+            //            });
+
+            //        }
+
+            //    });
+            //});
+
+
+
+
+            $("#commentbtn").click(function (e) {
+
+                var commentsinposts = document.querySelector(".databasecomments");
+                if (commentsinposts.style.display=="none") {
+                    commentsinposts.style.display="block"
+                }
+                else {
+                    commentsinposts.style.display = "none"
+                }
+            });
+           
+
+
+        });
+
+
+
+
+
+    </script>
+}
+
+
 

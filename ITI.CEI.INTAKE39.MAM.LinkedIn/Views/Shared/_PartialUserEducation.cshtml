@@ -16,32 +16,32 @@
         <a href="" data-toggle="modal" data-target="#ModalAddEducation"><i class="fas fa-plus"></i></a>
     </div>
     @{
-            if (Model.Educations.Count != 0)
+        if (Model.Educations.Count != 0)
+        {
+            foreach (var item in Model.Educations)
             {
-                foreach (var item in Model.Educations)
+                if (Model.education == null || Model.education != item)
                 {
-                    if (Model.education == null || Model.education != item)
+                    using (Ajax.BeginForm("LoadEducation", "Account", new { id = item.Id }, ajaxOptions))
                     {
-                        using (Ajax.BeginForm("LoadEducation", "Account", new { id = item.Id }, ajaxOptions))
-                        {
-                            <div class="experience_education_section">
-                                <div class="experience_education_section_image"></div>
-                                    <div class="experience_education_section_content">
+                        <div class="experience_education_section">
+                            <div class="experience_education_section_image"></div>
+                            <div class="experience_education_section_content">
 
-                                        <div class="experience_education_section_context">
-                                            <h3>@item.School</h3>
-                                            <p>@item.Degree</p>
-                                            <p>@item.StartDate.Year - @item.EndDate.Year</p>
-                                        </div>
-                                        <div class="experience_education_section_edit">
-                                            <input type="submit" value="Edit" class="btn btn-link" />
-                                            @Html.ActionLink("Delete", "DeleteEducation", new { id = item.Id })
-                                        </div>
+                                <div class="experience_education_section_context">
+                                    <h3>@item.School</h3>
+                                    <p>@item.Degree</p>
+                                    <p>@item.StartDate.Year - @item.EndDate.Year</p>
+                                </div>
+                                <div class="experience_education_section_edit">
+                                    <input type="submit" value="Edit" class="btn btn-link" />
+                                    @Html.ActionLink("Delete", "DeleteEducation", new { id = item.Id })
+                                </div>
 
-                                    </div>
-                    </div>
+                            </div>
+                        </div>
                     }
-                    
+
                 }
                 else
                 {
@@ -63,7 +63,7 @@
                                         @Html.TextBoxFor(e => Model.education.StartDate, new { @class = "form-control" })
 
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         @Html.TextBoxFor(e => Model.education.EndDate, new { @class = "form-control" })
 

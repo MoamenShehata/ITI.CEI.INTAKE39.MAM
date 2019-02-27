@@ -16,36 +16,36 @@
         <a href="" data-toggle="modal" data-target="#ModalAddExperience"><i class="fas fa-plus"></i></a>
     </div>
     @{
-            if (Model.Experiences.Count != 0)
+        if (Model.Experiences.Count != 0)
+        {
+            foreach (var item in Model.Experiences)
             {
-                foreach (var item in Model.Experiences)
+                if (Model.experience == null || Model.experience != item)
                 {
-                    if (Model.experience == null || Model.experience != item)
+                    var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
+                    using (Ajax.BeginForm("LoadExperience", "Account", new { id = item.Id }, ajaxOptions))
                     {
-                        var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
-                        using (Ajax.BeginForm("LoadExperience", "Account", new { id = item.Id }, ajaxOptions))
-                        {
-                            <div class="experience_education_section">
-                                <div class="experience_education_section_image"></div>
-                                    <div class="experience_education_section_content">
+                        <div class="experience_education_section">
+                            <div class="experience_education_section_image"></div>
+                            <div class="experience_education_section_content">
 
-                                        <div class="experience_education_section_context">
-                                            <h3>@item.Title</h3>
-                                            <p>@item.Company</p>
-                                            <p>@item.Location</p>
-                                            <p>@item.StartDate - @interval months</p>
-                                        </div>
-                                        <div class="experience_education_section_edit">
-                                            <input type="submit" value="Edit" class="btn btn-link" />
-                                            @Html.ActionLink("Delete", "DeleteExperience",new {id=item.Id})
-                                            
-                                            @*@Html.ActionLink("Edit", "LoadExperience", new { id = @item.Id })*@
-                                        </div>
+                                <div class="experience_education_section_context">
+                                    <h3>@item.Title</h3>
+                                    <p>@item.Company</p>
+                                    <p>@item.Location</p>
+                                    <p>@item.StartDate - @interval months</p>
+                                </div>
+                                <div class="experience_education_section_edit">
+                                    <input type="submit" value="Edit" class="btn btn-link" />
+                                    @Html.ActionLink("Delete", "DeleteExperience", new { id = item.Id })
 
-                                    </div>
-                    </div>
+                                    @*@Html.ActionLink("Edit", "LoadExperience", new { id = @item.Id })*@
+                                </div>
+
+                            </div>
+                        </div>
                     }
-                    
+
                 }
                 else
                 {
