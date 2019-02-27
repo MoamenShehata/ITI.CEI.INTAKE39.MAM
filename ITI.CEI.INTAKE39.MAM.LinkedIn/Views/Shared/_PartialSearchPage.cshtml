@@ -1,0 +1,11 @@
+﻿@model SearchUserViewModel
+
+<div class="search_section">
+    <label>Find a colleague</label>
+    @using (Html.BeginForm("SearchPage", "Home", FormMethod.Post,new {id="form_search" , onsubmit ="event.preventDefault()"}))
+    {
+        @Html.TextBoxFor(m => m.FName, new { placeholder = "First name", id = "txtbx_fname" ,style="margin-right:5px"})
+        @Html.TextBoxFor(m => m.Lname, new { placeholder = "Last name", id = "txtbx_lname" })
+        <button id="btn_search">Search</button>
+    }
+</div>

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@model LoginViewModel
+
 
 <!DOCTYPE html>
 <html>
@@ -11,9 +11,19 @@
     @Styles.Render("~/MyContent/css")
     @Scripts.Render("~/bundles/modernizr")
     <style>
-
-        * {
+        .right_nav ul li {
+            text-align: center;
+            float: left;
+            padding: 0px;
+            color: rgb(15, 15, 15);
+            padding: 0 15px;
+            cursor: pointer;
+            transition: color 0.1s ease-in;
         }
+
+            .right_nav ul li:hover {
+                color: rgb(15, 15, 15);
+            }
     </style>
 
 </head>
@@ -30,41 +40,7 @@
                 </div>
                 <div class="right_nav">
                     <ul style="border:none;margin:0;padding:0">
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = "/home/wall" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
-
-                            <li>
-                                @Html.TextBoxFor(m => m.LoginEmail, new { @class = "Login_input" })
-                                @Html.ValidationMessageFor(m => m.LoginEmail, "", new { @class = "text-danger" })
-                            </li>
-                            
-                            <li>
-                                @Html.PasswordFor(m => m.LoginPassword, new { @class = "Login_input" })
-                                @Html.ValidationMessageFor(m => m.LoginPassword, "", new { @class = "text-danger" })
-                            </li>
-
-                            <li>
-                                <a href="">Forgot Password</a>
-                            </li>
-
-                            <li>
-                                <input type="submit" value="Sign in" class="btn_signIn" />
-                            </li>
-
-
-
-                            @*<p>
-                            @Html.ActionLink("Register as a new user", "Register")
-                            </p>*@
-
-                            @* Enable this once you have account confirmation enabled for password reset functionality
-                            <p>
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                            </p>*@
-                        }
-                        
+                        @Html.Partial("_PartialUserLogin");
 
                     </ul>
                 </div>

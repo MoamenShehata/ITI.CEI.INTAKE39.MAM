@@ -211,7 +211,7 @@ top:115px;left:30px;
     background-color: #F6F8FA;
     width: 25%;
     position: absolute;
-    top: 70px;
+    top: 75px;
     height: 500px;
     left: 50%;
     transform: translateX(-50%);
@@ -242,7 +242,7 @@ top:115px;left:30px;
 .search_section button {
     padding: 4px 15px 5px 15px;
     background-color: #434649;
-    cursor: not-allowed;
+    /*cursor: not-allowed;*/
     font-size: 18px;
     color: #9f9f9f;
     border: 1px solid white;

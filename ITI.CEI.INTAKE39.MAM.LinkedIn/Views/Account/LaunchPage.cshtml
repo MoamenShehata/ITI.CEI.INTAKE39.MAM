@@ -73,13 +73,54 @@
         }
     </div>
 </div>
-<div class="search_section">
+@Html.Partial("_PartialSearchPage")
+
+@*<div class="search_section">
     <label>Find a colleague</label>
     <input type="text" name="name" value="" placeholder="First name" />
     <input type="text" name="name" value="" placeholder="Last name" />
     <button>Search</button>
-</div>
+</div>*@
 
 @section Scripts {
+<script>
+    var txtbx_fname = document.getElementById("txtbx_fname");
+    var txtbx_lname = document.getElementById("txtbx_lname");
+    var search_button = document.getElementById("btn_search");
+
+    if (txtbx_fname.value != "" || txtbx_lname.value != "") {
+        search_button.style.cursor = "pointer";
+    }
+    else {
+        search_button.style.cursor = "not-allowed";
+
+    }
+
+    search_button.onclick = function () {
+        if (search_button.style.cursor == "pointer") {
+            document.forms["form_search"].submit();
+        }
+    }
+    txtbx_fname.onkeyup = function () {
+        if (txtbx_fname.value != "" || txtbx_lname.value != "") {
+            search_button.style.cursor = "pointer";
+        }
+        else {
+            search_button.style.cursor = "not-allowed";
+
+        }
+    }
+    txtbx_lname.onkeyup = function () {
+        if (txtbx_fname.value != "" || txtbx_lname.value != "") {
+            search_button.style.cursor = "pointer";
+
+        }
+        else {
+            search_button.style.cursor = "not-allowed";
+
+        }
+    }
+
+</script>
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -439,6 +439,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult CoverUpload(HttpPostedFileBase file)
         {
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
@@ -464,6 +465,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return PartialView("_PartialUserBasicInformation", VM);
         }
 
+        [Authorize]
         public ActionResult ProfileUpload(HttpPostedFileBase file)
         {
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();

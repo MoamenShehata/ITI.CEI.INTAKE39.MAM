@@ -60,6 +60,8 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public IEnumerable<ApplicationUser> users { get; set; }
     }
 
     public class RegisterViewModel

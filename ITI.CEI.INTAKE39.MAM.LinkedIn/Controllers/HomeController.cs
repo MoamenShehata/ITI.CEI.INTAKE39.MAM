@@ -54,6 +54,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult SearchPage(SearchUserViewModel users)
         {
             var persons = _ctxt.Users.Where(c=>c.FName.Contains(users.FName)).ToList();
+            var VM = new LoginViewModel() { users = persons };
             if (persons.Count==0)
             {
                 return HttpNotFound();
@@ -63,7 +64,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 
             
             /*SearchResults = persons*/;
-            return View("SearchPageResults",persons);
+            return View("SearchPageResults",VM);
             }
         }
     }

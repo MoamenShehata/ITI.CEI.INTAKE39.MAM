@@ -334,6 +334,8 @@
     <Content Include="Views\Shared\_PartialUserProfile.cshtml" />
     <Content Include="Views\Shared\_My_Layout_Launch.cshtml" />
     <Content Include="Views\Account\LaunchPage.cshtml" />
+    <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
+    <Content Include="Views\Shared\_PartialUserLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
