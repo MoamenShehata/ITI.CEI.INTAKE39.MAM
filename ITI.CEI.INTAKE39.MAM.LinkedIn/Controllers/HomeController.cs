@@ -18,10 +18,41 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public ActionResult Editcomment (int postid,int commentid)
+        //{
+
+        //    return View();
+        //}
+
+
+        //public ActionResult Editcomment (string updatedcommentText)
+        //{
+
+        //}
+        [Authorize]
+        [HttpGet]
+        public ActionResult Editcomment(int postid,string oldtext,string newtext)
+        {
+            var userId = User.Identity.GetUserId();
+           var oldcomment= _ctxt.Comments.SingleOrDefault(c => c.FK_LinkedInUserId == userId && c.FK_PostId == postid && c.Text == oldtext);
+            if (oldcomment!=null)
+            {
+                oldcomment.Text = newtext;
+                _ctxt.SaveChanges();
+            }
+            var user = _ctxt.Users.SingleOrDefault(m => m.Id == userId);
+            string resultName = user.FName + " " + user.LName;
+            return Json(resultName, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         [Authorize]
         [HttpGet]
         public ActionResult Comment (int postid, string commentText)
         {
+
             var userId = User.Identity.GetUserId();
             var commentAdded = new Comment
             {
@@ -30,11 +61,16 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 FK_PostId=postid 
             };
             _ctxt.Comments.Add(commentAdded);
-            _ctxt.SaveChanges();
-
+             _ctxt.SaveChanges();
+            var comments = _ctxt.Comments.ToList();
+            int id = comments[comments.Count - 1].Id;
             var user = _ctxt.Users.SingleOrDefault(m => m.Id == userId);
-            string resultName = user.FName +" "+user.LName;
-            return Json(resultName, JsonRequestBehavior.AllowGet); ;
+            var result = new
+            {
+                Name = user.FName + " " + user.LName,
+                commentId=id,
+            }; 
+            return Json(result, JsonRequestBehavior.AllowGet); 
 
         }
 

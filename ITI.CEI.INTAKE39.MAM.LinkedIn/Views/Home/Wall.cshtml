@@ -226,15 +226,28 @@
                         var FNameofComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).FName;
                         var LNameOfComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).LName;
 
-                        <p class="databasecomments">@FNameofComment&nbsp;@LNameOfComment : @comment.Text </p>
+                    <p class="databasecomments" id="@comment.Id">
+                        @FNameofComment&nbsp;@LNameOfComment : @comment.Text
+                        @{
+                            if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
+                            {
+                                <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
+                                <span class="btn-link">Delete</span>
+                                @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
 
-                    }
+                            }
+
+                        }
+                    </p>
+
+
+                            }
 
 
 
-                </div>
-                <p><input id="acomment-@item.Id" type="text" name="comment" placeholder="add a comment" onkeydown="moamen(@item.Id)" /></p>
-                <button onclick="makeComment(@item.Id)">Submit</button>
+                        </div>
+                <p><input class="txbox"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
+                @*<button onclick="makeComment(@item.Id)">Submit</button>*@
 
             </div>
             }
@@ -264,13 +277,21 @@
 @section Scripts
 {
     <script>
-      
+
+        var textboxes = document.querySelectorAll (".txbox");
+
+        textboxes.forEach(function (txtbox) {
+            let currentId = txtbox.getAttribute("id");
+            txtbox.addEventListener("keyup", function (e) {
+                if (e.keyCode==13) {
+                    makeComment(currentId);
+                }
+
+            })
+        });
 
         function makeComment(postid) {
-
-
-          
-            var textofComment = $(`#acomment-${postid}`).val();
+            var textofComment = $(`#${postid}`).val();
             if (textofComment!="") {
                 $.ajax({
                     type: "GET",
@@ -280,21 +301,45 @@
                     dataType: "json",
                     success: function (result) {
 
-                        $(`.comments-${postid}`).prepend("<p>" + result + ":" + textofComment + "</p>");
-                        $(`#acomment-${postid}`).val("");
+
+                        $(`.comments-${postid}`).prepend(`<p id=\"${result.commentId}\">` + result.Name + ":" + textofComment + "\n" + 
+                            `<span><button onclick=\"Editcomment(${postid},${result.commentId},'${textofComment}')\" class=\"btn-link\">Edit</button></span>` +"<span class=\"btn-link\">Delete</span>"+ "</p>");
+                        $(`#${postid}`).val("");
                     },
 
                 });
                 
             }
-
-
-        
-
-
-
-
         }
+
+        function submitEdittedcomment(postid, commentid, oldText) {
+            var currenCommentbox = $(`#editcomment-${commentid}`).val();
+            
+            if (currenCommentbox != null) {
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/Editcomment",
+                    contentType: "application/json; charset=utf-8",
+                    data: { 'postid': postid, 'oldtext': oldText, 'newtext': currenCommentbox },
+                    dataType: "json",
+                    success: function (result) {
+                        $(`#editcomment-${commentid}`).replaceWith(`<p  id=\"${commentid}\" class=\"databasecomments\">${result} : ${currenCommentbox}` + "\n" +
+                            `<span><button onclick=\"Editcomment(${postid},${commentid},'${currenCommentbox}')\" class=\"btn-link\">Edit</button></span>` + "<span class=\"btn-link\">Delete</span>"
+                        + "</p>");
+                        $(`#editcommentbutton-${commentid}`).remove();
+                    },
+
+                });
+            }
+        }
+        function Editcomment(postid, commentid, oldText) {
+
+            debugger
+            $(`#${commentid}`).replaceWith(`<input type=\"text\" style=\"display:block\" id=\"editcomment-${commentid}\" value=\"${oldText}\"/> \n
+            <div><button id=\"editcommentbutton-${commentid}\" onclick=\"submitEdittedcomment(${postid},${commentid},'${oldText}')\">submit</button></div>`);
+            
+        }
+
         function makeLike(postid) {
 
 
@@ -332,17 +377,17 @@
 
         
                
-        function moamen(postid) {
+        //function moamen(postid) {
             
-            var commentsection = document.getElementById(`acomment-${postid}`);
-            //var commentsection = $(`#acomment-${postid}`);
-            commentsection.addEventListener("keydown", function (e) {
-                var key = e.which || e.keyCode;
-                if (key === 13) {
-                    makeComment(postid);
-                }
-            });
-        }
+        //    var commentsection = document.getElementById(`acomment-${postid}`);
+        //    //var commentsection = $(`#acomment-${postid}`);
+        //    commentsection.addEventListener("keydown", function (e) {
+        //        var key = e.which || e.keyCode;
+        //        if (key === 13) {
+        //            makeComment(postid);
+        //        }
+        //    });
+        //}
 
 
 
