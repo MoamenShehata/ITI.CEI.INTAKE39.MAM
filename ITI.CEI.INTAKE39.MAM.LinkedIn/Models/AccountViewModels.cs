@@ -51,12 +51,12 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string LoginEmail { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        public string Password { get; set; }
+        public string LoginPassword { get; set; }
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
@@ -64,29 +64,30 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "First Name Field Is Mandatory")]
         [Display(Name = "First Name")]
         public string Fname {get; set;}
 
-        [Required]
+        [Required(ErrorMessage = "Last Name Field Is Mandatory")]
         [Display(Name = "Last Name")]
         public string Lname {get; set;}
 
-        [Required]
+        [Required(ErrorMessage = "Age Field Is Mandatory")]
         [Display(Name = "Age")]
         public int Age {get; set;}
 
-        [Required]
+        [Required(ErrorMessage = "Email Field Is Mandatory")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password Field Is Mandatory")]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Please re-enter Your Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

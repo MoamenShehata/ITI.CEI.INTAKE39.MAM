@@ -211,7 +211,7 @@ top:115px;left:30px;
     background-color: #F6F8FA;
     width: 25%;
     position: absolute;
-    top: 95px;
+    top: 70px;
     height: 500px;
     left: 50%;
     transform: translateX(-50%);
@@ -444,6 +444,7 @@ footer .quest{margin:20px 0px;}
 
 
 .field-validation-error {
+    display:block;
     color: red;
     animation: Validating 0.8s linear infinite alternate;
 }
@@ -452,6 +453,7 @@ footer .quest{margin:20px 0px;}
     animation: Validating-color 0.8s linear infinite alternate;
 }
 
+.form_group_override{margin-bottom:5px;}
 
 @keyframes Validating {
     0% {

@@ -119,14 +119,14 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult AddExperienceAjax(Experience experience)
         {
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
-
+            var user_id = User.Identity.GetUserId();
 
             if (ModelState.IsValid && experience != null)
             {
                 experience.FK_LinkedInUserId = User.Identity.GetUserId();
                 _ctxt.Experiences.Add(experience);
                 _ctxt.SaveChanges();
-                VM.Experiences = _ctxt.Experiences.ToList();
+                VM.Experiences = _ctxt.Experiences.Where(ex=>ex.FK_LinkedInUserId== user_id).ToList();
                 return PartialView("_PartialUserExperience", VM);
             }
             return View();
@@ -204,13 +204,13 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult AddEducationAjax(Education education)
         {
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
-
+            var user_id = User.Identity.GetUserId();
             if (ModelState.IsValid && education != null)
             {
                 education.FK_LinkedInUserId = User.Identity.GetUserId();
                 _ctxt.Educations.Add(education);
                 _ctxt.SaveChanges();
-                VM.Educations = _ctxt.Educations.ToList();
+                VM.Educations = _ctxt.Educations.Where(ed=>ed.FK_LinkedInUserId== user_id).ToList();
                 return PartialView("_PartialUserEducation", VM);
             }
 
@@ -372,7 +372,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.LoginEmail, model.LoginPassword, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:

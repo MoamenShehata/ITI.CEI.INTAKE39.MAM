@@ -1,4 +1,4 @@
-﻿@model ITI.CEI.INTAKE39.MAM.LinkedIn.Models.RegisterViewModel
+﻿@model RegisterViewModel
 
 @{
     ViewBag.Title = "LinkedIn Log In Or Sign up";
@@ -20,46 +20,52 @@
             @Html.AntiForgeryToken()
             @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
             ///
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-10">
                     @Html.LabelFor(m => m.Fname)
                     @Html.TextBoxFor(m => m.Fname, new { @class = "form-control Login_field" })
+                    @Html.ValidationMessageFor(m => m.Fname, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-10">
                     @Html.LabelFor(m => m.Lname)
-                    @Html.TextBoxFor(m => m.Lname, new { @class = "form-control Login_field" })
+                    @Html.TextBoxFor(m => m.Lname, new { @class = "form-control Login_field form_group_override" })
+                    @Html.ValidationMessageFor(m => m.Lname, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            @*<div class="form-group">
+            @*<div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-10">
                     @Html.LabelFor(m => m.Age)
-                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control Login_field" })
+                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control Login_field form_group_override" })
+                    @Html.ValidationMessageFor(m => m.Age, "", new { @class = "text-danger" })
                 </div>
             </div>*@
 
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-10">
                     @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control Login_field" })
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control Login_field form_group_override" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-10">
                     @Html.LabelFor(m => m.Password)
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control Login_field" })
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control Login_field form_group_override" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-10">
                     @Html.LabelFor(m => m.ConfirmPassword)
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control Login_field" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control Login_field form_group_override" })
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom:5px">
                 <div class="col-md-offset-2 col-md-10" style="text-align:center">
                     <input type="submit" class="btn btn-primary " value="Join Now" style="width:120%;margin:auto;left:50%;transform:translateX(-18%)" />
                 </div>

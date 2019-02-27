@@ -22,7 +22,7 @@
     <nav class="nav">
 
         <div class="container">
-            <div class="navbar" style="margin-top:15px;min-height:40px!important">
+            <div class="navbar" style="margin-top:15px;min-height:50px!important">
                 <div class="left_nav">
                     <ul>
                         <li><img src="~/Images/LinkedInLogo.png" alt="Alternate Text" /></li>
@@ -36,13 +36,13 @@
                             @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
 
                             <li>
-                                @Html.TextBoxFor(m => m.Email, new { @class = "Login_input" })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                @Html.TextBoxFor(m => m.LoginEmail, new { @class = "Login_input" })
+                                @Html.ValidationMessageFor(m => m.LoginEmail, "", new { @class = "text-danger" })
                             </li>
                             
                             <li>
-                                @Html.PasswordFor(m => m.Password, new { @class = "Login_input" })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                @Html.PasswordFor(m => m.LoginPassword, new { @class = "Login_input" })
+                                @Html.ValidationMessageFor(m => m.LoginPassword, "", new { @class = "text-danger" })
                             </li>
 
                             <li>
