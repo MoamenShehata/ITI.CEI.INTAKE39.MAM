@@ -40,28 +40,14 @@
                 </div>
                 <div class="right_nav">
                     <ul style="border:none;margin:0;padding:0">
-                        @Html.Partial("_PartialUserLogin");
+                        @*@Html.Partial("_PartialUserLogin");*@
 
                     </ul>
                 </div>
             </div>
         </div>
-
     </nav>
 
-    @using Microsoft.AspNet.Identity
-    @if (Request.IsAuthenticated)
-    {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-            @Html.AntiForgeryToken()
-
-        }
-    }
-    else
-    {
-
-    }
 
     <div>
         @RenderBody()

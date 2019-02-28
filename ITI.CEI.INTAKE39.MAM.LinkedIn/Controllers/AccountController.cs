@@ -62,6 +62,27 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         }
 
         [AllowAnonymous]
+        public ActionResult GetUserById(string id)
+        {
+            var user = _ctxt.Users.Where(u => u.Id == id).FirstOrDefault();
+            var VM = new LinkedInUserProfileViewModel()
+            {
+                User = user
+                ,Educations=_ctxt.Educations
+                .Where(d=>d.FK_LinkedInUserId==user.Id)
+                .ToList(),
+                Experiences= _ctxt.Experiences
+                .Where(x => x.FK_LinkedInUserId == user.Id)
+                .ToList(),
+                Skills= _ctxt.Skills
+                .Where(s => s.FK_LinkedInUserId == user.Id)
+                .ToList(),
+            };
+
+            return View("SearchedUser",VM);
+        }
+
+        [AllowAnonymous]
         public ActionResult LaunchPage()
         {
             return View();
@@ -284,13 +305,14 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         [HttpPost]
         public ActionResult AddSkillAjax(Skill skill)
         {
+            var user_id = User.Identity.GetUserId();
             LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
             if (ModelState.IsValid && skill != null)
             {
                 skill.FK_LinkedInUserId = User.Identity.GetUserId();
                 _ctxt.Skills.Add(skill);
                 _ctxt.SaveChanges();
-                VM.Skills = _ctxt.Skills.ToList();
+                VM.Skills = _ctxt.Skills.Where(s => s.FK_LinkedInUserId == user_id).ToList();
                 return PartialView("_PartialUserSkill", VM);
             }
 
@@ -437,6 +459,35 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult EditCover(HttpPostedFileBase file)
+        {
+            
+            LinkedInUserProfileViewModel VM = new LinkedInUserProfileViewModel();
+            if (file != null)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _ctxt.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+                string pic = user.FName.Replace(" ", "") + "_cover_" + System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Images"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                user.CoverURL = pic;
+                _ctxt.SaveChanges();
+                VM.User = user;
+                VM.Experiences = _ctxt.Experiences.ToList();
+                VM.Educations = _ctxt.Educations.ToList();
+                VM.Skills = _ctxt.Skills.ToList();
+            }
+            // after successfully uploading redirect the user
+            return PartialView("_PartialUserBasicInformation", VM);
         }
 
         [Authorize]

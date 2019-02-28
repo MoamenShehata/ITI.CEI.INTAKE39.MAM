@@ -12,10 +12,6 @@
     var x = Model;
 }
 
-
-
-
-
 @using (Ajax.BeginForm("EditInformationAjax", "Account", ajaxOptions))
 {
     <div class="modal fade bs-example-modal-lg" id="ModalEditInformation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -87,6 +83,15 @@
         </div>
     </div>
 
+    <script>
+        var cover_file = document.getElementById("filec");
+        cover_file.onchange = function () {
+            if (cover_file.files[0] != undefined) {
+                document.forms["form_cover"].submit();
+
+            }
+        }
+    </script>
 
 
 }

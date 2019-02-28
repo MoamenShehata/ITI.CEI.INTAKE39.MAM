@@ -1,0 +1,144 @@
+﻿@model LinkedInUserProfileViewModel
+@{
+    ViewBag.Title = Model.User.FName + " Profile";
+    Layout = "~/Views/Shared/_My_Layout_Search.cshtml";
+}
+
+<style>
+    body {
+        background-color: #F3F6F8
+    }
+</style>
+<div id="user_profile" class="profile_parent container">
+
+    <div class="left_profile">
+
+        <div class="profile_section">
+            <div id="user_information" class="info bordered_section">
+                <div id="cover_image" class="background_image" style="background-image:url(/Images/@Model.User.CoverURL);border-bottom:2px solid rgb(168, 168, 168)">
+
+                    <div id="profile_image" class="profile_picture" style="background-size:cover;background-image:url(/Images/@Model.User.ImageURL)">
+
+                    </div>
+
+                </div>
+                <div class="left_info padded_section">
+
+                    <h2 id="account_name">@Model.User.FName</h2>
+                    <h3 id="account_position">@Model.User.Position</h3>
+                    <p id="account_country">@Model.User.Country</p>
+                    
+                </div>
+                <div class="right_info padded_section">
+                    <h3><i class="fas fa-graduation-cap" style="margin-right:10px;"></i>@Model.User.School</h3>
+                    <h3><i class="fas fa-university" style="margin-right:14px;"></i>@Model.User.University</h3>
+                    <h3><a href=""><i class="far fa-address-book" style="margin-right:15px;"></i>See Contact info</a></h3>
+                    <h3><a href=""><i class="fas fa-user" style="margin-right:15px;"></i>See connections(100)</a></h3>
+                </div>
+                <div style="clear:both"></div>
+                <div class=" bio">
+                    <p>
+                        @Model.User.Bio
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="experience_education">
+
+            <div id="user_experiences" class="exp">
+                <div class="experience_education_heading">
+                    <h3 class="experience_education_heading_header">Experiences</h3>
+                </div>
+                @{
+                    if (Model.Experiences.Count != 0)
+                    {
+                        foreach (var item in Model.Experiences)
+                        {
+                            var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
+
+                            <div class="experience_education_section">
+                                <div class="experience_education_section_image" style="background-size:cover;background-image:url(@Url.Content("~/Images/exper.png"))"></div>
+                                <div class="experience_education_section_content">
+
+                                    <div class="experience_education_section_context">
+                                        <h3>@item.Title</h3>
+                                        <p>@item.Company</p>
+                                        <p>@item.Location</p>
+                                        <p>@item.StartDate.Month/@item.StartDate.Year - @item.EndDate.Month/@item.EndDate.Year : @interval months</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <h3>You Have No Experiences</h3>
+                    }
+                }
+
+            </div>
+            <div id="user_educations" class="exp">
+                <div class="experience_education_heading">
+                    <h3 class="experience_education_heading_header">Educations</h3>
+                </div>
+                @{
+                    if (Model.Educations.Count != 0)
+                    {
+                        foreach (var item in Model.Educations)
+                        {
+                                    <div class="experience_education_section">
+                                        <div class="experience_education_section_image" style="background-size:cover;background-image:url(@Url.Content("~/Images/educ.png"))"></div>
+                                        <div class="experience_education_section_content">
+
+                                            <div class="experience_education_section_context">
+                                                <h3>@item.School</h3>
+                                                <p>@item.Degree</p>
+                                                <p>@item.StartDate.Year - @item.EndDate.Year</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                        }
+                    }
+                    else
+                    {
+                        <h3>You Have No Educations</h3>
+                    }
+                }
+
+            </div>
+
+        </div>
+        <div class="Skills_Endorsements">
+            <div id="user_skills" class="exp">
+                <div class="experience_education_heading">
+                    <h3 class="experience_education_heading_header"> Skills & Endorsements </h3>
+                </div>
+                @{
+                    if (Model.Skills.Count != 0)
+                    {
+                        foreach (var item in Model.Skills)
+                        {
+                                    <div class="skill_section">
+                                        <h3 class="skill_heading">
+                                            @item.Name
+                                        </h3>
+                                        <p>Endorsements</p>
+                                    </div>
+                        }
+                    }
+                    else
+                    {
+                        <h3>You Have No Skills</h3>
+                    }
+                }
+
+            </div>
+        </div>
+
+    </div>
+    <div class="right_profile">
+        right
+    </div>
+</div>

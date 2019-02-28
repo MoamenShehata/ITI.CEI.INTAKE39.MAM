@@ -258,6 +258,8 @@
     <Content Include="Images\Default_cover_1.jpg" />
     <Content Include="Images\Default_cover_2.jpg" />
     <Content Include="Images\Default_profile.png" />
+    <Content Include="Images\educ.png" />
+    <Content Include="Images\exper.png" />
     <Content Include="Images\LinkedInLogo.png" />
     <Content Include="Images\LinkedInPeople.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -332,6 +334,9 @@
     <Content Include="Views\Account\LaunchPage.cshtml" />
     <Content Include="Views\Shared\_PartialSearchPage.cshtml" />
     <Content Include="Views\Shared\_PartialUserLogin.cshtml" />
+    <Content Include="Views\Account\SearchedUser.cshtml" />
+    <Content Include="Views\Shared\_My_Layout_Search.cshtml" />
+    <Content Include="Views\Shared\_PartialSearchedUserBasicInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

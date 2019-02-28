@@ -23,17 +23,17 @@
                 if (Model.experience == null || Model.experience != item)
                 {
                     var interval = Math.Abs(item.EndDate.Month - item.StartDate.Month);
-                    using (Ajax.BeginForm("LoadExperience", "Account", new { id = item.Id }, ajaxOptions))
+                    using (Ajax.BeginForm("LoadExperience", "Account", new { id = item.Id }, ajaxOptions))  
                     {
                         <div class="experience_education_section">
-                            <div class="experience_education_section_image"></div>
+                            <div class="experience_education_section_image" style="background-size:cover;background-image:url(@Url.Content("~/Images/exper.png"))"></div>
                             <div class="experience_education_section_content">
 
                                 <div class="experience_education_section_context">
                                     <h3>@item.Title</h3>
                                     <p>@item.Company</p>
                                     <p>@item.Location</p>
-                                    <p>@item.StartDate - @interval months</p>
+                                    <p>@item.StartDate.Month/@item.StartDate.Year - @item.EndDate.Month/@item.EndDate.Year : @interval months</p>
                                 </div>
                                 <div class="experience_education_section_edit">
                                     <input type="submit" value="Edit" class="btn btn-link" />

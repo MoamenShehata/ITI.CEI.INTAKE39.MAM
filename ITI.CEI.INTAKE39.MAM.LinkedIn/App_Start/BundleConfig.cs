@@ -26,13 +26,13 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"
-                      //"~/Content/mystyles.css"
+                      "~/Content/site.css",
+                      "~/Content/fontawesome-all.min.css"
                       ));
             bundles.Add(new StyleBundle("~/MyContent/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/mystyles.css"
-                      //"~/Content/fontawesome-all.min.cs"
+                      "~/Content/mystyles.css",
+                      "~/Content/fontawesome-all.min.cs"
 
                       ));
         }

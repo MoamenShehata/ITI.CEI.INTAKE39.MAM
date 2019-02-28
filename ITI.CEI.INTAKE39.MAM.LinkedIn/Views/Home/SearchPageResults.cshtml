@@ -200,11 +200,15 @@
                     </div>
 
                     <div class="result_data">
-                        <h4>@item.FName&nbsp;@item.LName</h4>
-                        <h5>Position : @item.Position</h5>
-                        <p>Country : @item.Country</p>
-                        <p>Summary : @item.Bio</p>
-                        <button class="btn btn-primary">View Full Profile</button>
+                        @using (Html.BeginForm("GetUserById", "Account",new {id=item.Id},FormMethod.Post))
+                        {
+                            <h4>@item.FName&nbsp;@item.LName</h4>
+                            <h5>Position : @item.Position</h5>
+                            <p>Country : @item.Country</p>
+                            <p>Summary : @item.Bio</p>
+                            <input type="submit" value="View Profile" class="btn btn-primary"/>
+                        }
+
                     </div>
                     
 
