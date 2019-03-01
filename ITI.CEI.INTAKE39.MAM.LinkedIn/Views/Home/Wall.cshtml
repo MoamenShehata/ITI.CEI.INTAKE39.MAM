@@ -143,7 +143,7 @@
 
     .databasecomments{
         display:block;
-        border-left:3px solid #8098bb;
+        border-left:3px solid #3c88f8;
         padding-left:10px;
         margin-bottom:10px;
     }
@@ -223,6 +223,7 @@
         top: 3px;
         left: 10px;
         float: left;
+        width:94%;
     }
 </style>
 
@@ -307,21 +308,25 @@
                                 <div class="heading_comment">
                                     <p style="margin-bottom:3px"><button type="submit" class="btn-link">@FNameofComment</button></p>
                                     <p style="font-size:13px;color:#adadad">@current_commenter.Position</p>
-                                    <p style="font-size:13px;color:#000000">@comment.Text</p>
+                                    <div style="font-size:13px;color:#000000;width:98%;">
+                                        @comment.Text
+                                        <div style="float:right">
+                                            @{
+                                                if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
+                                                {
+                                                    <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
+                                                    <span class="btn-link">Delete</span>
+                                                    @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
+
+                                                }
+
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             }
                                 <div style="clear:both"></div>
-                                @*@FNameofComment&nbsp;@LNameOfComment : @comment.Text*@
-                                @{
-                                    if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
-                                    {
-                                        <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
-                                        <span class="btn-link">Delete</span>
-                                        @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
-
-                                    }
-
-                                }
+                                
                             </div>
 
                         }
@@ -360,7 +365,6 @@
     <script>
 
         var textboxes = document.querySelectorAll (".txbox");
-
         textboxes.forEach(function (txtbox) {
             let currentId = txtbox.getAttribute("id");
             txtbox.addEventListener("keyup", function (e) {
@@ -416,8 +420,8 @@
         function Editcomment(postid, commentid, oldText) {
 
             debugger
-            $(`#${commentid}`).replaceWith(`<input type=\"text\" style=\"display:block\" id=\"editcomment-${commentid}\" value=\"${oldText}\"/> \n
-            <div><button id=\"editcommentbutton-${commentid}\" onclick=\"submitEdittedcomment(${postid},${commentid},'${oldText}')\">submit</button></div>`);
+            $(`#${commentid}`).replaceWith(`<input class="form-control" type=\"text\" style=\"display:block\" id=\"editcomment-${commentid}\" value=\"${oldText}\"/> \n
+            <div><button class="btn btn-primary" id=\"editcommentbutton-${commentid}\" onclick=\"submitEdittedcomment(${postid},${commentid},'${oldText}')\">submit</button></div>`);
             
         }
 
