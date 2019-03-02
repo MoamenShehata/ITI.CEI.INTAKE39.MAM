@@ -15,6 +15,9 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.ViewModels
         public List<Like> LikesOnPosts { get; set; }
         public List<Comment> CommentsOnPosts { get; set; }
         public List<ApplicationUser> UsersOfComments { get; set; }
+        public List<ApplicationUser> Friends { get; set; }
+        public Dictionary<int,ApplicationUser> PeopleToFollow { get; set; }
+
 
 
 

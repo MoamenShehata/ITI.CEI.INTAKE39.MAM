@@ -63,6 +63,7 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Models
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<User_Friends> UserFriends { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

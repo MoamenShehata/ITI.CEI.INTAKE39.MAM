@@ -254,16 +254,30 @@
 
         </div>
 
-
+     
 
 
         <div class="Rightdiv">
-            <h4>Add to your feed</h4>
+            <h4>People you may know</h4>
 
-            <h5>option1 <button>+Follow</button></h5>
-            <h5>option2 <button>+Follow</button></h5>
-            <h5>option3 <button>+Follow</button></h5>
-            <h5>option4 <button>+Follow</button></h5>
+            @foreach (var friend in Model.PeopleToFollow)
+            {
+                if (friend.Key < 0)
+                {
+                    <h5 id="request-@friend.Value.Id">@friend.Value.FName @friend.Value.LName<button disabled class="btn-xs">Pending Request</button></h5>
+                }
+                else
+                {
+
+                <h5 id="request-@friend.Value.Id">@friend.Value.FName @friend.Value.LName<button onclick="makeFriendRequest('@Model.UserAtHome.Id','@friend.Value.Id')" class="btn-xs">+Follow</button></h5>
+                }
+            }
+
+            @*<h5><button class="btn-xs">+Follow</button></h5>
+        <h5><button class="btn-xs">+Follow</button></h5>
+        <h5><button class="btn-xs">+Follow</button></h5>
+        <h5><button class="btn-xs">+Follow</button></h5>*@
+
 
         </div>
 
@@ -277,6 +291,26 @@
 @section Scripts
 {
     <script>
+        
+        function makeFriendRequest(userId, friendId) {
+            
+            $.ajax({
+                type: "GET",
+                url: "/Home/FriendRequest",
+                contentType: "application/json; charset=utf-8",
+                data: { 'userId': userId, 'FriendId': friendId },
+                dataType: "json",
+                success: function (result) {
+
+                    //$(`#request-${friendId}`).remove();
+           
+                    $(`#request-${friendId}`).html(result);
+
+                },
+
+            });
+        }
+
 
         var textboxes = document.querySelectorAll (".txbox");
 
