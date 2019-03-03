@@ -332,7 +332,7 @@
                         }
 
                     </div>
-                    <p><input class="txbox form-control" id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
+                    <p><input class="txbox form-control" id="@item.Id-commentbx" type="text" name="comment" placeholder="add a comment" /></p>
                     @*<button onclick="makeComment(@item.Id)">Submit</button>*@
 
                 </div>
@@ -364,11 +364,12 @@
 {
     <script>
 
-        var textboxes = document.querySelectorAll (".txbox");
+        var textboxes = document.querySelectorAll(".txbox");
+
         textboxes.forEach(function (txtbox) {
-            let currentId = txtbox.getAttribute("id");
+            let currentId = parseInt(txtbox.getAttribute("id"));
             txtbox.addEventListener("keyup", function (e) {
-                if (e.keyCode==13) {
+                if (e.keyCode == 13) {
                     makeComment(currentId);
                 }
 
@@ -376,7 +377,7 @@
         });
 
         function makeComment(postid) {
-            var textofComment = $(`#${postid}`).val();
+            let textofComment = $(`#${postid}-commentbx`).val();
             if (textofComment!="") {
                 $.ajax({
                     type: "GET",
@@ -386,10 +387,9 @@
                     dataType: "json",
                     success: function (result) {
 
-
                         $(`.comments-${postid}`).prepend(`<p id=\"${result.commentId}\">` + result.Name + ":" + textofComment + "\n" + 
                             `<span><button onclick=\"Editcomment(${postid},${result.commentId},'${textofComment}')\" class=\"btn-link\">Edit</button></span>` +"<span class=\"btn-link\">Delete</span>"+ "</p>");
-                        $(`#${postid}`).val("");
+                        $(`#${postid}-commentbx`).val("");
                     },
 
                 });
