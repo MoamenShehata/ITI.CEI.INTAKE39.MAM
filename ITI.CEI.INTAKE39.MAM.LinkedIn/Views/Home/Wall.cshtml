@@ -79,62 +79,60 @@
 
     .Leftdiv {
         height: 250px;
-        width: 25%;
-        /* display: -webkit-box;
-        -webkit-box-pack: center;
-        -webkit-box-align: center; */
-        margin-left: 5px;
-        margin-right: auto;
+        width: 23%;
         text-align: center;
         border: 2px solid white;
+        border-radius: 1px;
         background-color: white;
         margin-top: 20px;
-        margin-bottom: 2px;
+        float: left;
+        padding: 0px;
+        box-shadow: 2px 2px 4px #b4b4b4;
+        /*padding:20px 0px;*/
     }
 
     .Rightdiv {
         height: 250px;
-        width: 25%;
-        /* display: -webkit-box;
-        -webkit-box-pack: center;
-        -webkit-box-align: center; */
-        margin-left: auto;
-        margin-right: 20px;
+        width: 25.5%;
         text-align: center;
         border: 2px solid white;
         background-color: white;
         margin-top: 20px;
         margin-bottom: 2px;
+        float: left;
+        box-shadow: 2px 2px 4px #b4b4b4;
     }
 
     .MidDiv {
         height: auto;
-        width: 45%;
-        /* display: -webkit-box;
-        -webkit-box-pack: center;
-        -webkit-box-align: center; */
-        margin-left: auto;
-        margin-right: auto;
+        width: 48%;
+        margin: 20px 20px 0px 20px;
         text-align: left;
-        border: 2px solid white;
+        /*border: 2px solid white;*/
         /* background-color: white; */
         margin-top: 20px;
         margin-bottom: 2px;
         align-items: center;
+        float: left;
     }
 
 
     .writeapost {
         background-color: white;
-        margin-bottom: 5px;
-        padding: 5px;
+        margin-bottom: 15px;
+        padding: 5px 15px;
+        box-shadow: 2px 2px 4px #b4b4b4;
     }
+
+    .post_text{max-height:140px;max-width:530px;width:530px;height:140px;min-height:140px;min-width:530px;}
 
     .posts {
         background-color: white;
         margin-top: 5px;
         margin-bottom: 5px;
         padding: 5px;
+        box-shadow: 2px 2px 4px #b4b4b4;
+        padding: 5px 20px;
     }
 
     .comments {
@@ -145,18 +143,88 @@
 
     .databasecomments{
         display:block;
+        border-left:3px solid #3c88f8;
+        padding-left:10px;
+        margin-bottom:10px;
     }
     
     .hidecomments{
         display:none;
     }
 
-    .activebtn{
-        background-color:blue;
+    .activebtn {
+        color: #1e56fb;
     }
 
-    
+    .btn_like {
+        background: none;
+        border: none;
+        padding-right: 5px;
+        border-right: 2px solid #929292;
+    }
 
+    .btn_like:hover{color:#1e56fb;
+        
+    }
+
+    .btn_comment {
+        background: none;
+        border: none;
+        padding-right:5px;
+        border-right:2px solid #929292;
+    }
+
+    .btn_comment:hover {
+        color: #1e56fb;
+    }
+    .btn_share{
+        background: none;
+        border: none;
+    }
+
+    .btn_share:hover{
+        color: #1e56fb;
+    }
+
+    .img_post {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-size: cover;
+        position: relative;
+        top: 5px;
+        left: 0px;
+        margin: 10px 0px;
+        border: 2px solid #CCC;
+        float:left;
+    }
+
+    .heading_post {
+        position: relative;
+        top: 20px;
+        left: 10px;
+        float: left;
+    }
+
+    .img_comment{
+        width: 30px;
+        height:30px;
+        border-radius: 50%;
+        background-size: cover;
+        position: relative;
+        top: 5px;
+        left: 0px;
+        border: 1px solid #CCC;
+        float: left;
+    }
+
+    .heading_comment{
+        position: relative;
+        top: 3px;
+        left: 10px;
+        float: left;
+        width:94%;
+    }
 </style>
 
 
@@ -169,16 +237,13 @@
 
         </div>*@
     <div class="container">
-
-
         <div class="Leftdiv">
-            <img src="" alt="profile-photo" style="width:80px;height:80px;">
+            <div style="width:100%;height:60px;;background-size:cover;background-image:url(/Images/@Model.UserAtHome.CoverURL)"></div>
+            <div style="width:80px;height:80px;;background-size:cover;background-image:url(/Images/@Model.UserAtHome.ImageURL);border-radius:50%;position:relative;top:-38px;left:90px;box-shadow:1px 1px 4px grey;border:1px solid #CCC"></div>
             <h4>@Model.UserAtHome.FName&nbsp;@Model.UserAtHome.LName</h4>
             <h6>@Model.UserAtHome.Position</h6>
             <h6>Who has viewed your profile</h6>
             <h6>Connections</h6>
-
-
         </div>
 
 
@@ -188,68 +253,91 @@
                 <h4>Write a status</h4>
                 @using (Html.BeginForm("Submit", "Home", FormMethod.Post))
                 {
-                    @Html.TextAreaFor(m => m.AddedPost.Content, new { @cols = "78", @rows = "5" })
+                    @Html.TextAreaFor(m => m.AddedPost.Content, new { @cols = "78", @rows = "5",@class="form-control post_text"})
                     @*<textarea name="status-area" id="1" cols="78" rows="5"></textarea>*@
-                    <h5><button type="submit">Submit</button>  <button>Cancel</button></h5>
+                    <h5><button type="submit" class="btn btn-primary">Submit</button>  <button class="btn btn-default">Cancel</button></h5>
                 }
 
             </div>
             @foreach (var item in Model.PostsAtHome)
             {
-
-                var FNameofPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).FName;
-                var LNameOfPost = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId).LName;
+                var current_user = Model.UsersOfPosts.SingleOrDefault(c => c.Id == item.FK_LinkedInUserId);
+                var FNameofPost = current_user.FName;
+                var LNameOfPost = current_user.LName;
 
             <div class="posts">
-                <h6><img src="" alt="photo-of-user" style="width:70px;height:70px;"><span>@FNameofPost&nbsp;@LNameOfPost </span></h6>
-                <p>@item.Content</p>
-                <input type="hidden" id="postid" name="postId" value="@item.Id">
-
-                <h6 id="likes-@item.Id">@Model.LikesOnPosts.Where(m => m.FK_PostId == item.Id).Count()Likes</h6>
-                @if (Model.LikesOnPosts.SingleOrDefault(c => c.FK_LinkedInUserId == Model.UserAtHome.Id && c.FK_PostId == item.Id) == null)
+                <div class="img_post" style="background-image:url(/Images/@current_user.ImageURL)"></div>
+                @using (Html.BeginForm("GetUserById", "Account", new { id = current_user.Id }, FormMethod.Post))
                 {
-                    <button id="likebtn-@item.Id" onclick="makeLike(@item.Id)">Like</button>
-
+                    <div class="heading_post">
+                        <p style="margin-bottom:3px"><button type="submit" class="btn-link">@FNameofPost</button></p>
+                        <p style="font-size:13px;color:#adadad">@current_user.Position</p>
+                    </div>
                 }
-                else
-                {
-                    <button class="activebtn" id="likebtn-@item.Id" onclick="makeLike(@item.Id)">Like</button>
-                }
+                    <div style="clear:both"></div>
+                    <p style="margin-top:15px">@item.Content</p>
+                    <input type="hidden" id="postid" name="postId" value="@item.Id">
 
-                <button id="commentbtn-@item.Id" onclick="hidecomments(@item.Id)">Comment</button>
-                <button id="sharebtn">Share</button>
-
-                <div class="comments-@item.Id">
-
-                    @foreach (var comment in Model.CommentsOnPosts.Where(m => m.FK_PostId == item.Id).ToList())
-                    {
-                        var FNameofComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).FName;
-                        var LNameOfComment = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId).LName;
-
-                    <p class="databasecomments" id="@comment.Id">
-                        @FNameofComment&nbsp;@LNameOfComment : @comment.Text
-                        @{
-                            if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
-                            {
-                                <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
-                                <span class="btn-link">Delete</span>
-                                @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
-
-                            }
+                    <h6 id="likes-@item.Id">@Model.LikesOnPosts.Where(m => m.FK_PostId == item.Id).Count() Likes</h6>
+                    <p style="border-bottom:1px solid #CCC;border-top:1px solid #CCC;padding:10px 0px;">
+                        @if (Model.LikesOnPosts.SingleOrDefault(c => c.FK_LinkedInUserId == Model.UserAtHome.Id && c.FK_PostId == item.Id) == null)
+                        {
+                            <button id="likebtn-@item.Id" onclick="makeLike(@item.Id)" class="btn_like"><i class="fas fa-thumbs-up"></i> Like</button>
 
                         }
-                    </p> 
+                        else
+                        {
+                            <button class="btn_like activebtn" id="likebtn-@item.Id" onclick="makeLike(@item.Id)"><i class="fas fa-thumbs-up"></i> Like</button>
+                        }
 
+                        <button id="commentbtn-@item.Id" onclick="hidecomments(@item.Id)" class="btn_comment">Hide Comments</button>
+                        <button id="sharebtn" class="btn_share">Share</button>
+                    </p>
 
+                    <div class="comments-@item.Id">
+
+                        @foreach (var comment in Model.CommentsOnPosts.Where(m => m.FK_PostId == item.Id).ToList())
+                        {
+                            var current_commenter = Model.UsersOfComments.SingleOrDefault(c => c.Id == comment.FK_LinkedInUserId);
+                            var FNameofComment = current_commenter.FName;
+
+                        <div class="databasecomments" id="@comment.Id">
+                            <div class="img_comment" style="background-image:url(/Images/@current_commenter.ImageURL)"></div>
+                            @using (Html.BeginForm("GetUserById", "Account", new { id = current_commenter.Id }, FormMethod.Post))
+                            {
+                                <div class="heading_comment">
+                                    <p style="margin-bottom:3px"><button type="submit" class="btn-link">@FNameofComment</button></p>
+                                    <p style="font-size:13px;color:#adadad">@current_commenter.Position</p>
+                                    <div style="font-size:13px;color:#000000;width:98%;">
+                                        @comment.Text
+                                        <div style="float:right">
+                                            @{
+                                                if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
+                                                {
+                                                    <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
+                                                    <span class="btn-link">Delete</span>
+                                                    @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
+
+                                                }
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             }
+                                <div style="clear:both"></div>
+                                
+                            </div>
+
+                        }
 
 
 
                         </div>
-                <p><input class="txbox"  id="@item.Id-c" type="text" name="comment" placeholder="add a comment" /></p>
+                <p><input class="txbox"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
                 @*<button onclick="makeComment(@item.Id)">Submit</button>*@
 
-            </div>
+                </div>
             }
 
         </div>
@@ -291,33 +379,13 @@
 @section Scripts
 {
     <script>
-        
-        function makeFriendRequest(userId, friendId) {
-            
-            $.ajax({
-                type: "GET",
-                url: "/Home/FriendRequest",
-                contentType: "application/json; charset=utf-8",
-                data: { 'userId': userId, 'FriendId': friendId },
-                dataType: "json",
-                success: function (result) {
-
-                    //$(`#request-${friendId}`).remove();
-           
-                    $(`#request-${friendId}`).html(result);
-
-                },
-
-            });
-        }
-
 
         var textboxes = document.querySelectorAll (".txbox");
 
         textboxes.forEach(function (txtbox) {
-            let currentId =parseInt(txtbox.getAttribute("id"));
+            let currentId = txtbox.getAttribute("id");
             txtbox.addEventListener("keyup", function (e) {
-                if (e.keyCode==13) {
+                if (e.keyCode == 13) {
                     makeComment(currentId);
                 }
 
@@ -325,7 +393,7 @@
         });
 
         function makeComment(postid) {
-            var textofComment = $(`#${postid}-c`).val();
+            var textofComment = $(`#${postid}`).val();
             if (textofComment!="") {
                 $.ajax({
                     type: "GET",
@@ -335,10 +403,9 @@
                     dataType: "json",
                     success: function (result) {
 
-
                         $(`.comments-${postid}`).prepend(`<p id=\"${result.commentId}\">` + result.Name + ":" + textofComment + "\n" + 
                             `<span><button onclick=\"Editcomment(${postid},${result.commentId},'${textofComment}')\" class=\"btn-link\">Edit</button></span>` +"<span class=\"btn-link\">Delete</span>"+ "</p>");
-                        $(`#${postid}-c`).val("");
+                        $(`#${postid}`).val("");
                     },
 
                 });
@@ -369,8 +436,8 @@
         function Editcomment(postid, commentid, oldText) {
 
             debugger
-            $(`#${commentid}`).replaceWith(`<input type=\"text\" style=\"display:block\" id=\"editcomment-${commentid}\" value=\"${oldText}\"/> \n
-            <div><button id=\"editcommentbutton-${commentid}\" onclick=\"submitEdittedcomment(${postid},${commentid},'${oldText}')\">submit</button></div>`);
+            $(`#${commentid}`).replaceWith(`<input class="form-control" type=\"text\" style=\"display:block\" id=\"editcomment-${commentid}\" value=\"${oldText}\"/> \n
+            <div><button class="btn btn-primary" id=\"editcommentbutton-${commentid}\" onclick=\"submitEdittedcomment(${postid},${commentid},'${oldText}')\">submit</button></div>`);
             
         }
 
@@ -406,6 +473,13 @@
         function hidecomments(postid) {
 
             var commentsection = $(`.comments-${postid}`);
+            var btn_comment = document.getElementById(`commentbtn-${postid}`);
+            if (btn_comment.innerText =="Hide Comments") {
+                btn_comment.innerText = "Show Comments"
+            }
+            else {
+                btn_comment.innerText = "Hide Comments"
+            }
             commentsection.toggleClass("hidecomments");
         }
 
