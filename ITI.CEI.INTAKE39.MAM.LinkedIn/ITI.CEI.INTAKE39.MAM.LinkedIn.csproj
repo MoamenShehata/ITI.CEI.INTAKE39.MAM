@@ -225,6 +225,18 @@
     <Compile Include="Migrations\201902201515440_updateValidationToUser.Designer.cs">
       <DependentUpon>201902201515440_updateValidationToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902271648365_Friendrequests.cs" />
+    <Compile Include="Migrations\201902271648365_Friendrequests.Designer.cs">
+      <DependentUpon>201902271648365_Friendrequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902271652208_Friendrequests-force.cs" />
+    <Compile Include="Migrations\201902271652208_Friendrequests-force.Designer.cs">
+      <DependentUpon>201902271652208_Friendrequests-force.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280959233_FriendRequestbool.cs" />
+    <Compile Include="Migrations\201902280959233_FriendRequestbool.Designer.cs">
+      <DependentUpon>201902280959233_FriendRequestbool.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -238,9 +250,11 @@
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\User_Friends.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LinkedUserHomePageViewModel.cs" />
+    <Compile Include="ViewModels\MyNetworkViewModel.cs" />
     <Compile Include="ViewModels\SearchUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +351,7 @@
     <Content Include="Views\Account\SearchedUser.cshtml" />
     <Content Include="Views\Shared\_My_Layout_Search.cshtml" />
     <Content Include="Views\Shared\_PartialSearchedUserBasicInformation.cshtml" />
+    <Content Include="Views\Home\Network.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -393,6 +408,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902201515440_updateValidationToUser.resx">
       <DependentUpon>201902201515440_updateValidationToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271648365_Friendrequests.resx">
+      <DependentUpon>201902271648365_Friendrequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271652208_Friendrequests-force.resx">
+      <DependentUpon>201902271652208_Friendrequests-force.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280959233_FriendRequestbool.resx">
+      <DependentUpon>201902280959233_FriendRequestbool.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

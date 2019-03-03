@@ -246,7 +246,7 @@
 
 
                         </div>
-                <p><input class="txbox"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
+                <p><input class="txbox"  id="@item.Id-c" type="text" name="comment" placeholder="add a comment" /></p>
                 @*<button onclick="makeComment(@item.Id)">Submit</button>*@
 
             </div>
@@ -254,16 +254,30 @@
 
         </div>
 
-
+     
 
 
         <div class="Rightdiv">
-            <h4>Add to your feed</h4>
+            <h4>People you may know</h4>
 
-            <h5>option1 <button>+Follow</button></h5>
-            <h5>option2 <button>+Follow</button></h5>
-            <h5>option3 <button>+Follow</button></h5>
-            <h5>option4 <button>+Follow</button></h5>
+            @foreach (var friend in Model.PeopleToFollow)
+            {
+                if (friend.Key < 0)
+                {
+                    <h5 id="request-@friend.Value.Id">@friend.Value.FName @friend.Value.LName<button disabled class="btn-xs">Pending Request</button></h5>
+                }
+                else
+                {
+
+                <h5 id="request-@friend.Value.Id">@friend.Value.FName @friend.Value.LName<button onclick="makeFriendRequest('@Model.UserAtHome.Id','@friend.Value.Id')" class="btn-xs">+Follow</button></h5>
+                }
+            }
+
+            @*<h5><button class="btn-xs">+Follow</button></h5>
+        <h5><button class="btn-xs">+Follow</button></h5>
+        <h5><button class="btn-xs">+Follow</button></h5>
+        <h5><button class="btn-xs">+Follow</button></h5>*@
+
 
         </div>
 
@@ -277,11 +291,31 @@
 @section Scripts
 {
     <script>
+        
+        function makeFriendRequest(userId, friendId) {
+            
+            $.ajax({
+                type: "GET",
+                url: "/Home/FriendRequest",
+                contentType: "application/json; charset=utf-8",
+                data: { 'userId': userId, 'FriendId': friendId },
+                dataType: "json",
+                success: function (result) {
+
+                    //$(`#request-${friendId}`).remove();
+           
+                    $(`#request-${friendId}`).html(result);
+
+                },
+
+            });
+        }
+
 
         var textboxes = document.querySelectorAll (".txbox");
 
         textboxes.forEach(function (txtbox) {
-            let currentId = txtbox.getAttribute("id");
+            let currentId =parseInt(txtbox.getAttribute("id"));
             txtbox.addEventListener("keyup", function (e) {
                 if (e.keyCode==13) {
                     makeComment(currentId);
@@ -291,7 +325,7 @@
         });
 
         function makeComment(postid) {
-            var textofComment = $(`#${postid}`).val();
+            var textofComment = $(`#${postid}-c`).val();
             if (textofComment!="") {
                 $.ajax({
                     type: "GET",
@@ -304,14 +338,14 @@
 
                         $(`.comments-${postid}`).prepend(`<p id=\"${result.commentId}\">` + result.Name + ":" + textofComment + "\n" + 
                             `<span><button onclick=\"Editcomment(${postid},${result.commentId},'${textofComment}')\" class=\"btn-link\">Edit</button></span>` +"<span class=\"btn-link\">Delete</span>"+ "</p>");
-                        $(`#${postid}`).val("");
+                        $(`#${postid}-c`).val("");
                     },
 
                 });
                 
             }
         }
-
+         
         function submitEdittedcomment(postid, commentid, oldText) {
             var currenCommentbox = $(`#editcomment-${commentid}`).val();
             
