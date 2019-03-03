@@ -92,7 +92,7 @@
     }
 
     .Rightdiv {
-        height: 250px;
+        /*height: 250px;*/
         width: 25.5%;
         text-align: center;
         border: 2px solid white;
@@ -379,6 +379,25 @@
 @section Scripts
 {
     <script>
+
+        function makeFriendRequest(userId, friendId) {
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/FriendRequest",
+                contentType: "application/json; charset=utf-8",
+                data: { 'userId': userId, 'FriendId': friendId },
+                dataType: "json",
+                success: function (result) {
+
+                    //$(`#request-${friendId}`).remove();
+
+                    $(`#request-${friendId}`).html(result);
+
+                },
+
+            });
+        }
 
         var textboxes = document.querySelectorAll (".txbox");
 
