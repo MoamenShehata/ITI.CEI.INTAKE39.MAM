@@ -246,7 +246,7 @@
 
 
                         </div>
-                <p><input class="txbox"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
+                <p><input class="txbox"  id="@item.Id-c" type="text" name="comment" placeholder="add a comment" /></p>
                 @*<button onclick="makeComment(@item.Id)">Submit</button>*@
 
             </div>
@@ -315,7 +315,7 @@
         var textboxes = document.querySelectorAll (".txbox");
 
         textboxes.forEach(function (txtbox) {
-            let currentId = txtbox.getAttribute("id");
+            let currentId =parseInt(txtbox.getAttribute("id"));
             txtbox.addEventListener("keyup", function (e) {
                 if (e.keyCode==13) {
                     makeComment(currentId);
@@ -325,7 +325,7 @@
         });
 
         function makeComment(postid) {
-            var textofComment = $(`#${postid}`).val();
+            var textofComment = $(`#${postid}-c`).val();
             if (textofComment!="") {
                 $.ajax({
                     type: "GET",
@@ -338,14 +338,14 @@
 
                         $(`.comments-${postid}`).prepend(`<p id=\"${result.commentId}\">` + result.Name + ":" + textofComment + "\n" + 
                             `<span><button onclick=\"Editcomment(${postid},${result.commentId},'${textofComment}')\" class=\"btn-link\">Edit</button></span>` +"<span class=\"btn-link\">Delete</span>"+ "</p>");
-                        $(`#${postid}`).val("");
+                        $(`#${postid}-c`).val("");
                     },
 
                 });
                 
             }
         }
-
+         
         function submitEdittedcomment(postid, commentid, oldText) {
             var currenCommentbox = $(`#editcomment-${commentid}`).val();
             
