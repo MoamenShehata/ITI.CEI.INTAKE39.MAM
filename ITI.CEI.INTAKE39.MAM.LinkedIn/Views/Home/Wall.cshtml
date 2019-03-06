@@ -94,11 +94,12 @@
     .Rightdiv {
         /*height: 250px;*/
         width: 25.5%;
-        text-align: center;
+        /*text-align: center;*/
         border: 2px solid white;
         background-color: white;
         margin-top: 20px;
         margin-bottom: 2px;
+        padding-left:10px;
         float: left;
         box-shadow: 2px 2px 4px #b4b4b4;
     }
@@ -225,6 +226,12 @@
         float: left;
         width:94%;
     }
+
+    .follow{margin-bottom:10px;overflow:hidden;
+    }
+
+    .follow_left{float:left}
+    .follow_right{float:right;margin-right:10px;}
 </style>
 
 
@@ -315,7 +322,7 @@
                                                 if (comment.FK_LinkedInUserId == Model.UserAtHome.Id)
                                                 {
                                                     <span><button onclick="Editcomment(@item.Id,@comment.Id,'@comment.Text')" class="btn-link">Edit</button></span>
-                                                    <span class="btn-link">Delete</span>
+                                                    @*<span class="btn-link">Delete</span>*@
                                                     @*<div><button onclick="makeComment(@item.Id)">submit</button></div>*@
 
                                                 }
@@ -334,7 +341,7 @@
 
 
                         </div>
-                <p><input class="txbox"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
+                <p><input class="txbox form-control"  id="@item.Id" type="text" name="comment" placeholder="add a comment" /></p>
                 @*<button onclick="makeComment(@item.Id)">Submit</button>*@
 
                 </div>
@@ -357,7 +364,17 @@
                 else
                 {
 
-                <h5 id="request-@friend.Value.Id">@friend.Value.FName @friend.Value.LName<button onclick="makeFriendRequest('@Model.UserAtHome.Id','@friend.Value.Id')" class="btn-xs">+Follow</button></h5>
+                <div class="follow" id="request-@friend.Value.Id">@friend.Value.FName @friend.Value.LName
+                    <div class="follow_left">
+
+                    </div>
+            
+                    <div class="follow_right">
+                    <button  onclick="makeFriendRequest('@Model.UserAtHome.Id','@friend.Value.Id')" class="btn-xs btn btn-primary">+Follow</button>
+
+                    </div>
+            
+                </div>
                 }
             }
 
@@ -399,7 +416,7 @@
             });
         }
 
-        var textboxes = document.querySelectorAll (".txbox");
+        var textboxes = document.querySelectorAll(".txbox");
 
         textboxes.forEach(function (txtbox) {
             let currentId = txtbox.getAttribute("id");
