@@ -124,8 +124,16 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
                 oldUser.Bio = e.User.Bio;
                 oldUser.School = e.User.School;
                 oldUser.University = e.User.University;
-                //oldUser.ImageURL = e.User.ImageURL;
-                //oldUser.CoverURL = e.User.CoverURL;
+
+                if (e.CoverFile!=null)
+                {
+                    UploadCover(e.CoverFile);
+                }
+
+                if (e.ProfileFile != null)
+                {
+                    UploadProfile(e.ProfileFile);
+                }
                 _ctxt.SaveChanges();
                 VM.User = oldUser;
                 return PartialView("_PartialUserBasicInformation", VM);
@@ -488,6 +496,42 @@ namespace ITI.CEI.INTAKE39.MAM.LinkedIn.Controllers
             }
             // after successfully uploading redirect the user
             return PartialView("_PartialUserBasicInformation", VM);
+        }
+
+        public void UploadCover(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _ctxt.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+                string pic = user.FName.Replace(" ", "") + "_cover_" + System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Images"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                user.CoverURL = pic;
+                _ctxt.SaveChanges();
+            }
+        }
+
+        public void UploadProfile(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _ctxt.Users.Where(u => u.Id == userId).FirstOrDefault();
+
+                string pic = user.FName.Replace(" ", "") + "_profile_" + System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Images"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                user.ImageURL = pic;
+                _ctxt.SaveChanges();
+            }
         }
 
         [Authorize]

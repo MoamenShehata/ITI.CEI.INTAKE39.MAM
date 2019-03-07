@@ -9,13 +9,13 @@
         OnSuccess = "$('#ModalEditInformation').modal('hide')"
 
     };
-    var x = Model;
+    //var x = Model;
 }
 
-@using (Ajax.BeginForm("EditInformationAjax", "Account", ajaxOptions))
+@using (Ajax.BeginForm("EditInformationAjax", "Account", ajaxOptions, new { enctype = "multipart/form-data" }))
 {
     <div class="modal fade bs-example-modal-lg" id="ModalEditInformation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Edit My Information</h5>
@@ -24,53 +24,68 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div id="cover_image" class="background_image">
+                        <img id="cover_photo" src="/Images/@Model.User.CoverURL" alt="@Model.User.FName" style="height:200px;width:100%"/>
+                        <label for="CoverFile" class="btn btn-link cover_upload" style="position:absolute;top:10px;right:0px;"><i class="fas fa-cloud-upload-alt"></i></label>
+                        @Html.EditorFor(e => e.CoverFile)
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.FName)
-                        @Html.TextBoxFor(e => e.User.FName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.FName)
+                        <div id="profile_image" >
+                            <img id="profile_photo" src="/Images/@Model.User.ImageURL" alt="@Model.User.FName" style="width: 150px;height: 150px;border-radius: 50%;background: #ffffff;border: 5px solid rgb(212, 212, 212);box-shadow: 1px 1px 7px grey;position: relative;top: -75px;left: 30px;"/>
+                            <label for="ProfileFile" class="btn btn-link profile_upload"><i class="fas fa-cloud-upload-alt" style="position:absolute;top:150px;left:40px;"></i></label>
+                            @Html.EditorFor(e => e.ProfileFile)
+
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.LName)
-                        @Html.TextBoxFor(e => e.User.LName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.LName)
-                    </div>
+                    <div style="margin-top:90px;">
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.Age)
-                        @Html.TextBoxFor(e => e.User.Age, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.Age)
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.FName)
+                            @Html.TextBoxFor(e => e.User.FName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.FName)
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.Position)
-                        @Html.TextBoxFor(e => e.User.Position, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.Position)
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.LName)
+                            @Html.TextBoxFor(e => e.User.LName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.LName)
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.Country)
-                        @Html.TextBoxFor(e => e.User.Country, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.Country)
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.Age)
+                            @Html.TextBoxFor(e => e.User.Age, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.Age)
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.School)
-                        @Html.TextBoxFor(e => e.User.School, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.School)
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.Position)
+                            @Html.TextBoxFor(e => e.User.Position, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.Position)
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.University)
-                        @Html.TextBoxFor(e => e.User.University, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.University)
-                    </div>
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.Country)
+                            @Html.TextBoxFor(e => e.User.Country, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.Country)
+                        </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(e => e.User.Bio)
-                        @Html.TextBoxFor(e => e.User.Bio, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(e => e.User.Bio)
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.School)
+                            @Html.TextBoxFor(e => e.User.School, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.School)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.University)
+                            @Html.TextBoxFor(e => e.User.University, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.University)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(e => e.User.Bio)
+                            @Html.TextBoxFor(e => e.User.Bio, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(e => e.User.Bio)
+                        </div>
                     </div>
                     @*@Html.HiddenFor(e => Model.User.ImageURL)*@
                     @*@Html.HiddenFor(e => Model.User.CoverURL)*@
@@ -83,15 +98,28 @@
         </div>
     </div>
 
-    <script>
-        //var cover_file = document.getElementById("filec");
-        //cover_file.onchange = function () {
-        //    if (cover_file.files[0] != undefined) {
-        //        document.forms["form_cover"].submit();
+    @section Styles
+{
+        @Styles.Render("~/MyContent/css")
+        }
 
-        //    }
-        //}
-    </script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"> </script>
+        <script>
+            var cover_file_upload = $("#CoverFile");
+
+            $("#CoverFile").change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $("#cover_photo").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+            })
+
+            var profile_file_upload = $("#ProfileFile");
+
+            $("#ProfileFile").change(function (event) {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $("#profile_photo").fadeIn("fast").attr('src', URL.createObjectURL(event.target.files[0]));
+            })
+
+        </script>
 
 
-}
+    }

@@ -189,12 +189,25 @@ text-align: center;}
 
 .edit_section:hover{background:rgba(66, 115, 248, 0.192);
 }
+
 .profile_picture{width: 150px;height: 150px;
 border-radius:50%;background:#ffffff;
 border:5px solid rgb(212, 212, 212);
 box-shadow:1px 1px 7px grey;
 position: relative;
 top:115px;left:30px;
+}
+
+.profile_picture_edit{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 5px solid rgb(212, 212, 212);
+    box-shadow: 1px 1px 7px grey;
+    position: relative;
+    top: 50px;
+    left: 30px;
 }
 
 .btn_signIn {
@@ -431,7 +444,7 @@ footer .quest{margin:20px 0px;}
 .copyrights{color: rgb(125, 132, 150);}
 
 
-.cover_upload{position:absolute;top:10px;right:30px;}
+.cover_upload{position:absolute;top:10px;right:0px;}
 .cover_save{position:absolute;top:10px;right:10px;}
 
 

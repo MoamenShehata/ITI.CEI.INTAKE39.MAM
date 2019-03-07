@@ -11,25 +11,9 @@
 }
 <div id="user_information" class="info bordered_section">
     <div id="cover_image" class="background_image" style="background-image:url(/Images/@Model.User.CoverURL);border-bottom:2px solid rgb(168, 168, 168)">
-        @using (Ajax.BeginForm("CoverUpload", "Account", ajaxOptions,
-                            new { enctype = "multipart/form-data" }))
-        {
-            <label for="file" class="btn btn-link cover_upload"><i class="fas fa-cloud-upload-alt"></i></label>
-            <input type="file" name="file" id="file" style="width: 100%;display:none" accept=".jpg,.png,.jpeg, .gif"/>
-            <label for="submit_cover" class="btn btn-link cover_save"><i class="fas fa-save"></i></label>
-
-            <input type="submit" value="" class="submit" style="display:none" id="submit_cover" />
-        }
+        
             <div id="profile_image" class="profile_picture" style="background-size:cover;background-image:url(/Images/@Model.User.ImageURL)">
-                @using (Ajax.BeginForm("ProfileUpload", "Account", ajaxOptions,
-                                new { enctype = "multipart/form-data" }))
-                {
-                    <label for="file_2" class="btn btn-link profile_upload"><i class="fas fa-cloud-upload-alt"></i></label>
-                    <input type="file" name="file" id="file_2" style="width: 100%;display:none" accept=".jpg,.png,.jpeg, .gif"/>
-                    <label for="submit_profile" class="btn btn-link profile_save"><i class="fas fa-save"></i></label>
-
-                    <input type="submit" value="" class="submit" style="display:none" id="submit_profile" />
-                }
+                
             </div>
         <a href="" class="edit_section" data-toggle="modal" data-target="#ModalEditInformation"><i class="fas fa-edit"></i></a>
     </div>
@@ -47,7 +31,7 @@
         <h3><i class="fas fa-graduation-cap" style="margin-right:10px;"></i>@Model.User.School</h3>
         <h3><i class="fas fa-university" style="margin-right:14px;"></i>@Model.User.University</h3>
         <h3><a href=""><i class="far fa-address-book" style="margin-right:15px;"></i>See Contact info</a></h3>
-        <h3><a href=""><i class="fas fa-user" style="margin-right:15px;"></i>See connections(100)</a></h3>
+        <h3><a href="/home/network"><i class="fas fa-user" style="margin-right:15px;"></i>See connections(100)</a></h3>
     </div>
     <div style="clear:both"></div>
     <div class=" bio">
