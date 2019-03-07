@@ -29,12 +29,9 @@
                         <label for="CoverFile" class="btn btn-link cover_upload" style="position:absolute;top:10px;right:0px;"><i class="fas fa-cloud-upload-alt"></i></label>
                         @Html.EditorFor(e => e.CoverFile)
 
-                        <div id="profile_image" >
                             <img id="profile_photo" src="/Images/@Model.User.ImageURL" alt="@Model.User.FName" style="width: 150px;height: 150px;border-radius: 50%;background: #ffffff;border: 5px solid rgb(212, 212, 212);box-shadow: 1px 1px 7px grey;position: relative;top: -75px;left: 30px;"/>
                             <label for="ProfileFile" class="btn btn-link profile_upload"><i class="fas fa-cloud-upload-alt" style="position:absolute;top:150px;left:40px;"></i></label>
                             @Html.EditorFor(e => e.ProfileFile)
-
-                        </div>
                     </div>
 
                     <div style="margin-top:90px;">
